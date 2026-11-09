@@ -1,4 +1,4 @@
-# Proyecto final — Construye tu startup (Q-Lab PUCP, Diplomatura 2026)
+# Primera Lectura — proyecto final "Construye tu startup" (Q-Lab PUCP, Diplomatura 2026)
 
 Founder única: Ximena Alejandra Pinillos Zegarra. Enunciado: issue #204 de d2cml-ai/Data-Science-Python
 (material del curso clonado en ~/Docs/Data-Science-Python/sessions).

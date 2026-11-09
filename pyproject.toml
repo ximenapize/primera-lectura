@@ -1,5 +1,5 @@
 [project]
-name = "proyecto-startup"
+name = "primera-lectura"
 version = "0.1.0"
 description = "Monitoreo de proyectos de ley del Congreso del Perú con IA local"
 requires-python = ">=3.11"

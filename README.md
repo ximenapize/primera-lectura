@@ -1,4 +1,4 @@
-# [Nombre de la startup]
+# Primera Lectura
 
 > **One-liner:** Hacemos X para Y mediante Z.
 
