@@ -1,0 +1,21 @@
+# secretos
+.env
+.env.*
+!.env.example
+# python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+.pytest_cache/
+# datos pesados / personales
+data/raw/
+*.parquet
+*.zip
+# modelos y medios pesados
+*.mp4
+*.wav
+models/
+# sistema
+.DS_Store
+.streamlit/secrets.toml
