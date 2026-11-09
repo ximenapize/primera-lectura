@@ -19,3 +19,6 @@ models/
 # sistema
 .DS_Store
 .streamlit/secrets.toml
+
+# textos completos de los PDFs (caché local)
+data/textos/
