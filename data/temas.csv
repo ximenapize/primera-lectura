@@ -1,0 +1,821 @@
+camara,pl_id,tema,temas_secundarios,modelo
+senado,00022-2026-2031-S,Estado y reforma política,,qwen2.5:7b
+diputados,00798-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00797-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00796-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00795-2026-2031-CD,Declaraciones y homenajes,,qwen2.5:7b
+diputados,00794-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00793-2026-2031-CD,Consumidor y servicios públicos,,qwen2.5:7b
+diputados,00792-2026-2031-CD,Trabajo y pensiones,"Economía y finanzas; Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00791-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00790-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00789-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00788-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00787-2026-2031-CD,Trabajo y pensiones,Economía y finanzas,qwen2.5:7b
+diputados,00786-2026-2031-CD,Minería y energía,Justicia y derechos humanos,qwen2.5:7b
+diputados,00785-2026-2031-CD,Justicia y derechos humanos,Seguridad y defensa,qwen2.5:7b
+diputados,00784-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00783-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00782-2026-2031-CD,Seguridad y defensa,Estado y reforma política,qwen2.5:7b
+diputados,00781-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",,qwen2.5:7b
+diputados,00780-2026-2031-CD,Salud,Justicia y derechos humanos,qwen2.5:7b
+diputados,00779-2026-2031-CD,Consumidor y servicios públicos,,qwen2.5:7b
+diputados,00778-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00777-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00776-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00775-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00774-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00773-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00772-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00771-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00770-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00769-2026-2031-CD,Seguridad y defensa,Estado y reforma política,qwen2.5:7b
+diputados,00768-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00767-2026-2031-CD,Estado y reforma política,Trabajo y pensiones,qwen2.5:7b
+diputados,00766-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00765-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",,qwen2.5:7b
+diputados,00764-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00763-2026-2031-CD,Trabajo y pensiones,Justicia y derechos humanos,qwen2.5:7b
+diputados,00762-2026-2031-CD,Salud,"Inclusión social, mujer y pueblos indígenas; Educación y cultura",qwen2.5:7b
+diputados,00761-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00760-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00759-2026-2031-CD,Economía y finanzas,Estado y reforma política,qwen2.5:7b
+diputados,00758-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00757-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00756-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00755-2026-2031-CD,Infraestructura y transporte,Seguridad y defensa,qwen2.5:7b
+diputados,00754-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00753-2026-2031-CD,Medio ambiente,,qwen2.5:7b
+diputados,00752-2026-2031-CD,Seguridad y defensa,Estado y reforma política,qwen2.5:7b
+diputados,00751-2026-2031-CD,"Producción, comercio y turismo",Economía y finanzas,qwen2.5:7b
+diputados,00750-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00749-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00748-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00747-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00746-2026-2031-CD,Estado y reforma política,Infraestructura y transporte,qwen2.5:7b
+diputados,00745-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00744-2026-2031-CD,Minería y energía,Estado y reforma política,qwen2.5:7b
+senado,00021-2026-2031-S,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00743-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00742-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00741-2026-2031-CD,Economía y finanzas,Estado y reforma política,qwen2.5:7b
+diputados,00740-2026-2031-CD,Trabajo y pensiones,Economía y finanzas,qwen2.5:7b
+diputados,00739-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00738-2026-2031-CD,Seguridad y defensa,Justicia y derechos humanos,qwen2.5:7b
+diputados,00737-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00736-2026-2031-CD,Salud,Trabajo y pensiones,qwen2.5:7b
+diputados,00735-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00734-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00733-2026-2031-CD,Salud,Trabajo y pensiones,qwen2.5:7b
+diputados,00732-2026-2031-CD,Consumidor y servicios públicos,Justicia y derechos humanos,qwen2.5:7b
+diputados,00731-2026-2031-CD,Trabajo y pensiones,Educación y cultura,qwen2.5:7b
+diputados,00730-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00729-2026-2031-CD,Seguridad y defensa,Estado y reforma política,qwen2.5:7b
+diputados,00728-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00726-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00725-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00724-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00723-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00722-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00721-2026-2031-CD,Trabajo y pensiones,Economía y finanzas,qwen2.5:7b
+diputados,00720-2026-2031-CD,Trabajo y pensiones,Economía y finanzas,qwen2.5:7b
+diputados,00719-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00718-2026-2031-CD,Seguridad y defensa,Justicia y derechos humanos,qwen2.5:7b
+diputados,00717-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00716-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Educación y cultura,qwen2.5:7b
+diputados,00715-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+senado,00020-2026-2031-S,Estado y reforma política,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00727-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00714-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00713-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00712-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00711-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00710-2026-2031-CD,Agro y pesca,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00709-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00708-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00707-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00706-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00705-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00704-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00703-2026-2031-CD,"Producción, comercio y turismo",Estado y reforma política,qwen2.5:7b
+diputados,00702-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00701-2026-2031-CD,Salud,Justicia y derechos humanos,qwen2.5:7b
+diputados,00700-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00699-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00698-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00697-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00696-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00695-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00694-2026-2031-CD,Infraestructura y transporte,Salud,qwen2.5:7b
+diputados,00693-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00692-2026-2031-CD,Minería y energía,Estado y reforma política,qwen2.5:7b
+diputados,00691-2026-2031-CD,Economía y finanzas,Salud; Estado y reforma política,qwen2.5:7b
+senado,00019-2026-2031-S,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+senado,00018-2026-2031-S,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00690-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00689-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00688-2026-2031-CD,Estado y reforma política,Trabajo y pensiones,qwen2.5:7b
+diputados,00687-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00686-2026-2031-CD,Medio ambiente,Estado y reforma política,qwen2.5:7b
+diputados,00685-2026-2031-CD,Medio ambiente,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00684-2026-2031-CD,Agro y pesca,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00683-2026-2031-CD,Medio ambiente,Seguridad y defensa,qwen2.5:7b
+diputados,00682-2026-2031-CD,Medio ambiente,Estado y reforma política,qwen2.5:7b
+diputados,00681-2026-2031-CD,Economía y finanzas,Estado y reforma política,qwen2.5:7b
+diputados,00680-2026-2031-CD,Estado y reforma política,Justicia y derechos humanos,qwen2.5:7b
+diputados,00679-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00678-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00677-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+senado,00017-2026-2031-S,Seguridad y defensa,Estado y reforma política,qwen2.5:7b
+diputados,00676-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00675-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00674-2026-2031-CD,Consumidor y servicios públicos,Justicia y derechos humanos,qwen2.5:7b
+diputados,00673-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00672-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00671-2026-2031-CD,Consumidor y servicios públicos,Justicia y derechos humanos,qwen2.5:7b
+diputados,00670-2026-2031-CD,Consumidor y servicios públicos,Salud,qwen2.5:7b
+diputados,00669-2026-2031-CD,Seguridad y defensa,,qwen2.5:7b
+diputados,00668-2026-2031-CD,Salud,Trabajo y pensiones,qwen2.5:7b
+diputados,00667-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00666-2026-2031-CD,Medio ambiente,Estado y reforma política,qwen2.5:7b
+diputados,00665-2026-2031-CD,Educación y cultura,Trabajo y pensiones,qwen2.5:7b
+diputados,00664-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00663-2026-2031-CD,Estado y reforma política,Educación y cultura,qwen2.5:7b
+diputados,00662-2026-2031-CD,Salud,Estado y reforma política,qwen2.5:7b
+diputados,00661-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00660-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00659-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00658-2026-2031-CD,Economía y finanzas,Estado y reforma política,qwen2.5:7b
+diputados,00657-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas","Producción, comercio y turismo",qwen2.5:7b
+diputados,00656-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+senado,00016-2026-2031-S,Estado y reforma política,,qwen2.5:7b
+diputados,00655-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00654-2026-2031-CD,Salud,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00653-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00652-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00651-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00650-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00649-2026-2031-CD,Seguridad y defensa,Estado y reforma política,qwen2.5:7b
+diputados,00648-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00647-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00646-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00645-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00644-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00643-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00642-2026-2031-CD,Medio ambiente,Estado y reforma política,qwen2.5:7b
+senado,00015-2026-2031-S,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00641-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00640-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00639-2026-2031-CD,Medio ambiente,Estado y reforma política,qwen2.5:7b
+diputados,00638-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00637-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00636-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00635-2026-2031-CD,Medio ambiente,,qwen2.5:7b
+diputados,00634-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00633-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00632-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00631-2026-2031-CD,Salud,Estado y reforma política,qwen2.5:7b
+diputados,00630-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00629-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00628-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00627-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00626-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00625-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00624-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00623-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+senado,00014-2026-2031-S,Seguridad y defensa,,qwen2.5:7b
+diputados,00622-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00621-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00620-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00619-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00618-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00617-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00616-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00615-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00614-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00613-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00612-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00611-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00610-2026-2031-CD,Minería y energía,"Producción, comercio y turismo",qwen2.5:7b
+diputados,00609-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00608-2026-2031-CD,Minería y energía,,qwen2.5:7b
+diputados,00607-2026-2031-CD,"Producción, comercio y turismo",Estado y reforma política,qwen2.5:7b
+diputados,00606-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00605-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00604-2026-2031-CD,Trabajo y pensiones,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00603-2026-2031-CD,Economía y finanzas,Estado y reforma política,qwen2.5:7b
+diputados,00602-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00601-2026-2031-CD,Medio ambiente,Estado y reforma política,qwen2.5:7b
+diputados,00600-2026-2031-CD,Economía y finanzas,Estado y reforma política,qwen2.5:7b
+diputados,00599-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas","Tecnología y digital; Producción, comercio y turismo",qwen2.5:7b
+diputados,00598-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00597-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00596-2026-2031-CD,Estado y reforma política,Justicia y derechos humanos,qwen2.5:7b
+diputados,00595-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",,qwen2.5:7b
+diputados,00594-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",,qwen2.5:7b
+diputados,00593-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00592-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00591-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00590-2026-2031-CD,Educación y cultura,Economía y finanzas,qwen2.5:7b
+diputados,00589-2026-2031-CD,Justicia y derechos humanos,Seguridad y defensa,qwen2.5:7b
+diputados,00588-2026-2031-CD,Justicia y derechos humanos,Seguridad y defensa,qwen2.5:7b
+diputados,00587-2026-2031-CD,Estado y reforma política,Gobiernos regionales y locales,qwen2.5:7b
+diputados,00586-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00585-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00584-2026-2031-CD,Medio ambiente,Infraestructura y transporte,qwen2.5:7b
+diputados,00583-2026-2031-CD,Estado y reforma política,"Producción, comercio y turismo",qwen2.5:7b
+diputados,00582-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00581-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00580-2026-2031-CD,Infraestructura y transporte,Justicia y derechos humanos,qwen2.5:7b
+diputados,00579-2026-2031-CD,Agro y pesca,Estado y reforma política,qwen2.5:7b
+diputados,00578-2026-2031-CD,Salud,Economía y finanzas,qwen2.5:7b
+diputados,00577-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00576-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00575-2026-2031-CD,Justicia y derechos humanos,Consumidor y servicios públicos,qwen2.5:7b
+diputados,00574-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00573-2026-2031-CD,"Producción, comercio y turismo",Estado y reforma política,qwen2.5:7b
+diputados,00572-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00571-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00570-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00569-2026-2031-CD,Educación y cultura,Tecnología y digital,qwen2.5:7b
+diputados,00568-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00567-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00566-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00565-2026-2031-CD,Estado y reforma política,"Producción, comercio y turismo",qwen2.5:7b
+diputados,00564-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Justicia y derechos humanos,qwen2.5:7b
+diputados,00563-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00562-2026-2031-CD,Economía y finanzas,"Estado y reforma política; Producción, comercio y turismo",qwen2.5:7b
+diputados,00561-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00560-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00559-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00558-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00557-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00556-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00555-2026-2031-CD,Educación y cultura,Salud,qwen2.5:7b
+diputados,00554-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+senado,00013-2026-2031-S,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00553-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00552-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00551-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00550-2026-2031-CD,Salud,Justicia y derechos humanos,qwen2.5:7b
+diputados,00549-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Economía y finanzas,qwen2.5:7b
+diputados,00548-2026-2031-CD,Infraestructura y transporte,Economía y finanzas,qwen2.5:7b
+diputados,00547-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00546-2026-2031-CD,Economía y finanzas,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00545-2026-2031-CD,Infraestructura y transporte,Medio ambiente; Agro y pesca,qwen2.5:7b
+diputados,00544-2026-2031-CD,Declaraciones y homenajes,,qwen2.5:7b
+diputados,00543-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00542-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00541-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00540-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00539-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00538-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00537-2026-2031-CD,Salud,Justicia y derechos humanos,qwen2.5:7b
+diputados,00536-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00535-2026-2031-CD,Estado y reforma política,Seguridad y defensa,qwen2.5:7b
+diputados,00534-2026-2031-CD,Justicia y derechos humanos,Seguridad y defensa,qwen2.5:7b
+diputados,00533-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00532-2026-2031-CD,Estado y reforma política,Trabajo y pensiones,qwen2.5:7b
+diputados,00531-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00530-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00529-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00528-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00527-2026-2031-CD,Estado y reforma política,Gobiernos regionales y locales,qwen2.5:7b
+diputados,00526-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Educación y cultura; Salud,qwen2.5:7b
+diputados,00525-2026-2031-CD,Salud,Educación y cultura,qwen2.5:7b
+diputados,00524-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00523-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00522-2026-2031-CD,Educación y cultura,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00521-2026-2031-CD,Seguridad y defensa,Justicia y derechos humanos,qwen2.5:7b
+diputados,00520-2026-2031-CD,Minería y energía,Economía y finanzas,qwen2.5:7b
+diputados,00519-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00518-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00517-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00516-2026-2031-CD,Consumidor y servicios públicos,Trabajo y pensiones,qwen2.5:7b
+diputados,00515-2026-2031-CD,Consumidor y servicios públicos,Trabajo y pensiones,qwen2.5:7b
+diputados,00514-2026-2031-CD,Minería y energía,Justicia y derechos humanos,qwen2.5:7b
+diputados,00513-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00512-2026-2031-CD,Salud,Estado y reforma política,qwen2.5:7b
+senado,00012-2026-2031-S,Estado y reforma política,,qwen2.5:7b
+diputados,00511-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00510-2026-2031-CD,Infraestructura y transporte,Economía y finanzas,qwen2.5:7b
+diputados,00509-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00508-2026-2031-CD,Economía y finanzas,Educación y cultura,qwen2.5:7b
+diputados,00507-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00506-2026-2031-CD,Salud,Justicia y derechos humanos,qwen2.5:7b
+diputados,00505-2026-2031-CD,Estado y reforma política,Trabajo y pensiones,qwen2.5:7b
+diputados,00504-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+senado,00011-2026-2031-S,Estado y reforma política,,qwen2.5:7b
+diputados,00503-2026-2031-CD,Agro y pesca,Estado y reforma política,qwen2.5:7b
+diputados,00502-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00501-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00500-2026-2031-CD,Medio ambiente,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00499-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00498-2026-2031-CD,Consumidor y servicios públicos,Estado y reforma política,qwen2.5:7b
+diputados,00497-2026-2031-CD,Educación y cultura,Tecnología y digital,qwen2.5:7b
+diputados,00496-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00495-2026-2031-CD,Trabajo y pensiones,Economía y finanzas,qwen2.5:7b
+diputados,00494-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00493-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00492-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00491-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00490-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00489-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00488-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00487-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00486-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00485-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00484-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00483-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00482-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00481-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00480-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00479-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00478-2026-2031-CD,Justicia y derechos humanos,Trabajo y pensiones,qwen2.5:7b
+diputados,00477-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00476-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00475-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00474-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00473-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00472-2026-2031-CD,Salud,Tecnología y digital,qwen2.5:7b
+diputados,00471-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00470-2026-2031-CD,Salud,Estado y reforma política,qwen2.5:7b
+diputados,00469-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00468-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00467-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00466-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00465-2026-2031-CD,Salud,Trabajo y pensiones,qwen2.5:7b
+diputados,00464-2026-2031-CD,Medio ambiente,Estado y reforma política,qwen2.5:7b
+senado,00010-2026-2031-S,Estado y reforma política,,qwen2.5:7b
+diputados,00463-2026-2031-CD,Economía y finanzas,Infraestructura y transporte,qwen2.5:7b
+diputados,00462-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00461-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00460-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00459-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00458-2026-2031-CD,Economía y finanzas,Estado y reforma política,qwen2.5:7b
+diputados,00457-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",,qwen2.5:7b
+diputados,00456-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00455-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00454-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00453-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00452-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00451-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00450-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00449-2026-2031-CD,Minería y energía,Economía y finanzas,qwen2.5:7b
+diputados,00448-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00447-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00446-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00445-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00444-2026-2031-CD,Infraestructura y transporte,Economía y finanzas,qwen2.5:7b
+diputados,00443-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00442-2026-2031-CD,Educación y cultura,Salud,qwen2.5:7b
+diputados,00441-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00440-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00439-2026-2031-CD,Economía y finanzas,Trabajo y pensiones,qwen2.5:7b
+diputados,00438-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00437-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00436-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00435-2026-2031-CD,Medio ambiente,,qwen2.5:7b
+diputados,00434-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00433-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00432-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00431-2026-2031-CD,Medio ambiente,,qwen2.5:7b
+diputados,00430-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00429-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00428-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00427-2026-2031-CD,Educación y cultura,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00426-2026-2031-CD,Declaraciones y homenajes,,qwen2.5:7b
+diputados,00425-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00424-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00423-2026-2031-CD,Estado y reforma política,Gobiernos regionales y locales,qwen2.5:7b
+diputados,00422-2026-2031-CD,Economía y finanzas,Trabajo y pensiones,qwen2.5:7b
+diputados,00421-2026-2031-CD,Seguridad y defensa,Estado y reforma política,qwen2.5:7b
+diputados,00420-2026-2031-CD,Estado y reforma política,Justicia y derechos humanos,qwen2.5:7b
+diputados,00419-2026-2031-CD,Economía y finanzas,Trabajo y pensiones,qwen2.5:7b
+diputados,00418-2026-2031-CD,"Producción, comercio y turismo",,qwen2.5:7b
+diputados,00417-2026-2031-CD,Justicia y derechos humanos,Consumidor y servicios públicos,qwen2.5:7b
+diputados,00416-2026-2031-CD,Seguridad y defensa,Justicia y derechos humanos,qwen2.5:7b
+diputados,00415-2026-2031-CD,Infraestructura y transporte,Economía y finanzas,qwen2.5:7b
+diputados,00414-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00413-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00412-2026-2031-CD,Salud,Trabajo y pensiones,qwen2.5:7b
+diputados,00411-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00410-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00409-2026-2031-CD,Justicia y derechos humanos,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00408-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00407-2026-2031-CD,Justicia y derechos humanos,Economía y finanzas,qwen2.5:7b
+diputados,00406-2026-2031-CD,Minería y energía,Estado y reforma política,qwen2.5:7b
+diputados,00405-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00404-2026-2031-CD,Educación y cultura,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00403-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00402-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00401-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00400-2026-2031-CD,Salud,Estado y reforma política,qwen2.5:7b
+diputados,00399-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00398-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00397-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00396-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00395-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00394-2026-2031-CD,Minería y energía,Estado y reforma política,qwen2.5:7b
+diputados,00393-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00392-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00391-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00390-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00389-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00388-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00387-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00386-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00385-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00384-2026-2031-CD,Minería y energía,Estado y reforma política,qwen2.5:7b
+diputados,00383-2026-2031-CD,Trabajo y pensiones,Salud,qwen2.5:7b
+diputados,00382-2026-2031-CD,Salud,Estado y reforma política,qwen2.5:7b
+diputados,00381-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00380-2026-2031-CD,Estado y reforma política,Infraestructura y transporte,qwen2.5:7b
+diputados,00379-2026-2031-CD,Economía y finanzas,Justicia y derechos humanos,qwen2.5:7b
+diputados,00378-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00377-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00376-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00375-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Declaraciones y homenajes,qwen2.5:7b
+diputados,00374-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00373-2026-2031-CD,Economía y finanzas,Trabajo y pensiones,qwen2.5:7b
+diputados,00372-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00371-2026-2031-CD,"Producción, comercio y turismo",Estado y reforma política,qwen2.5:7b
+diputados,00370-2026-2031-CD,Salud,Estado y reforma política,qwen2.5:7b
+diputados,00369-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00368-2026-2031-CD,Economía y finanzas,Estado y reforma política,qwen2.5:7b
+diputados,00367-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00366-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00365-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00364-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00363-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00362-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00361-2026-2031-CD,"Producción, comercio y turismo",Estado y reforma política,qwen2.5:7b
+diputados,00360-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00359-2026-2031-CD,Educación y cultura,Declaraciones y homenajes,qwen2.5:7b
+diputados,00358-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas","Producción, comercio y turismo",qwen2.5:7b
+diputados,00357-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00356-2026-2031-CD,Economía y finanzas,"Producción, comercio y turismo; Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00355-2026-2031-CD,Estado y reforma política,Trabajo y pensiones,qwen2.5:7b
+diputados,00354-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00353-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00352-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00351-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00350-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00349-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00348-2026-2031-CD,Infraestructura y transporte,Minería y energía,qwen2.5:7b
+diputados,00347-2026-2031-CD,Estado y reforma política,Justicia y derechos humanos,qwen2.5:7b
+diputados,00346-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00345-2026-2031-CD,Economía y finanzas,Trabajo y pensiones,qwen2.5:7b
+diputados,00344-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00343-2026-2031-CD,Trabajo y pensiones,Salud,qwen2.5:7b
+diputados,00342-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00341-2026-2031-CD,Minería y energía,Estado y reforma política,qwen2.5:7b
+diputados,00340-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00339-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00338-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00337-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00336-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00335-2026-2031-CD,Trabajo y pensiones,Justicia y derechos humanos,qwen2.5:7b
+diputados,00334-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00333-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00332-2026-2031-CD,Salud,Estado y reforma política,qwen2.5:7b
+diputados,00331-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00330-2026-2031-CD,Estado y reforma política,Educación y cultura,qwen2.5:7b
+diputados,00329-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00328-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00327-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00326-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00325-2026-2031-CD,Medio ambiente,Justicia y derechos humanos,qwen2.5:7b
+diputados,00324-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00323-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00322-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00321-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00320-2026-2031-CD,Salud,Estado y reforma política,qwen2.5:7b
+diputados,00319-2026-2031-CD,Estado y reforma política,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00318-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00317-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00316-2026-2031-CD,Justicia y derechos humanos,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00315-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00314-2026-2031-CD,Minería y energía,Estado y reforma política,qwen2.5:7b
+diputados,00313-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00312-2026-2031-CD,Economía y finanzas,"Producción, comercio y turismo; Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00311-2026-2031-CD,Estado y reforma política,Trabajo y pensiones,qwen2.5:7b
+diputados,00310-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00309-2026-2031-CD,Estado y reforma política,Infraestructura y transporte,qwen2.5:7b
+diputados,00308-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00307-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00306-2026-2031-CD,Economía y finanzas,Educación y cultura,qwen2.5:7b
+diputados,00305-2026-2031-CD,"Producción, comercio y turismo",Trabajo y pensiones,qwen2.5:7b
+diputados,00304-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",,qwen2.5:7b
+diputados,00303-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00302-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00301-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00300-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00299-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Trabajo y pensiones,qwen2.5:7b
+diputados,00298-2026-2031-CD,"Producción, comercio y turismo",Justicia y derechos humanos,qwen2.5:7b
+diputados,00297-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00296-2026-2031-CD,Trabajo y pensiones,Infraestructura y transporte,qwen2.5:7b
+diputados,00295-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00294-2026-2031-CD,"Producción, comercio y turismo",Estado y reforma política,qwen2.5:7b
+diputados,00293-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00292-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00291-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00290-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00289-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00288-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00287-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00286-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00285-2026-2031-CD,Minería y energía,,qwen2.5:7b
+diputados,00284-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00283-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+senado,00009-2026-2031-S,Estado y reforma política,,qwen2.5:7b
+diputados,00282-2026-2031-CD,"Producción, comercio y turismo",Estado y reforma política,qwen2.5:7b
+diputados,00281-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00280-2026-2031-CD,Infraestructura y transporte,Estado y reforma política; Justicia y derechos humanos,qwen2.5:7b
+diputados,00279-2026-2031-CD,Salud,Consumidor y servicios públicos,qwen2.5:7b
+diputados,00278-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",,qwen2.5:7b
+diputados,00277-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00276-2026-2031-CD,Minería y energía,Economía y finanzas,qwen2.5:7b
+diputados,00275-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00274-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00273-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00272-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00271-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00270-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00269-2026-2031-CD,"Producción, comercio y turismo",Estado y reforma política,qwen2.5:7b
+diputados,00268-2026-2031-CD,Educación y cultura,Economía y finanzas,qwen2.5:7b
+diputados,00267-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00266-2026-2031-CD,Infraestructura y transporte,Tecnología y digital,qwen2.5:7b
+diputados,00265-2026-2031-CD,Medio ambiente,Justicia y derechos humanos,qwen2.5:7b
+diputados,00264-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00263-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00262-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00261-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00260-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00259-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00258-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00257-2026-2031-CD,Economía y finanzas,"Producción, comercio y turismo",qwen2.5:7b
+diputados,00256-2026-2031-CD,Economía y finanzas,Estado y reforma política,qwen2.5:7b
+diputados,00255-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00254-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00253-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00252-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00251-2026-2031-CD,"Producción, comercio y turismo",Estado y reforma política,qwen2.5:7b
+diputados,00250-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00249-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00248-2026-2031-CD,Estado y reforma política,Economía y finanzas; Educación y cultura,qwen2.5:7b
+diputados,00247-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00246-2026-2031-CD,Medio ambiente,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00245-2026-2031-CD,Salud,Trabajo y pensiones,qwen2.5:7b
+diputados,00244-2026-2031-CD,Infraestructura y transporte,Medio ambiente; Economía y finanzas,qwen2.5:7b
+diputados,00243-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00242-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00241-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00240-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00239-2026-2031-CD,"Producción, comercio y turismo",Estado y reforma política,qwen2.5:7b
+diputados,00238-2026-2031-CD,Salud,Trabajo y pensiones,qwen2.5:7b
+diputados,00237-2026-2031-CD,Minería y energía,,qwen2.5:7b
+diputados,00236-2026-2031-CD,Economía y finanzas,Estado y reforma política,qwen2.5:7b
+diputados,00235-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00234-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00233-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00232-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00231-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00230-2026-2031-CD,Salud,Justicia y derechos humanos,qwen2.5:7b
+diputados,00229-2026-2031-CD,Justicia y derechos humanos,Medio ambiente,qwen2.5:7b
+diputados,00228-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00227-2026-2031-CD,Salud,Justicia y derechos humanos,qwen2.5:7b
+diputados,00226-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00225-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00224-2026-2031-CD,Economía y finanzas,Trabajo y pensiones,qwen2.5:7b
+diputados,00223-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00222-2026-2031-CD,Minería y energía,Justicia y derechos humanos,qwen2.5:7b
+diputados,00221-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00220-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00219-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00218-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00217-2026-2031-CD,Salud,Estado y reforma política,qwen2.5:7b
+diputados,00216-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00215-2026-2031-CD,Trabajo y pensiones,Salud,qwen2.5:7b
+diputados,00214-2026-2031-CD,Seguridad y defensa,Estado y reforma política,qwen2.5:7b
+diputados,00213-2026-2031-CD,"Producción, comercio y turismo",Estado y reforma política,qwen2.5:7b
+diputados,00212-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00211-2026-2031-CD,Justicia y derechos humanos,Seguridad y defensa,qwen2.5:7b
+senado,00008-2026-2031-S,Estado y reforma política,,qwen2.5:7b
+diputados,00210-2026-2031-CD,Economía y finanzas,"Producción, comercio y turismo",qwen2.5:7b
+diputados,00209-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00208-2026-2031-CD,Estado y reforma política,Seguridad y defensa,qwen2.5:7b
+diputados,00207-2026-2031-CD,Trabajo y pensiones,Justicia y derechos humanos,qwen2.5:7b
+diputados,00206-2026-2031-CD,Minería y energía,Justicia y derechos humanos,qwen2.5:7b
+diputados,00205-2026-2031-CD,Justicia y derechos humanos,Medio ambiente; Minería y energía,qwen2.5:7b
+diputados,00204-2026-2031-CD,"Producción, comercio y turismo",Economía y finanzas,qwen2.5:7b
+diputados,00203-2026-2031-CD,Salud,Tecnología y digital,qwen2.5:7b
+diputados,00202-2026-2031-CD,Seguridad y defensa,Justicia y derechos humanos,qwen2.5:7b
+diputados,00201-2026-2031-CD,Salud,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00200-2026-2031-CD,Economía y finanzas,Estado y reforma política,qwen2.5:7b
+diputados,00199-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00198-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00197-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00196-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00195-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00194-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00193-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00192-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00191-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00190-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00189-2026-2031-CD,Justicia y derechos humanos,Seguridad y defensa,qwen2.5:7b
+diputados,00188-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00187-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00186-2026-2031-CD,Educación y cultura,Seguridad y defensa,qwen2.5:7b
+diputados,00185-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00184-2026-2031-CD,Salud,Consumidor y servicios públicos,qwen2.5:7b
+diputados,00183-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00182-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00181-2026-2031-CD,Justicia y derechos humanos,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00180-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00179-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00178-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",,qwen2.5:7b
+diputados,00177-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00176-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00175-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00174-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00173-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00172-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00171-2026-2031-CD,Educación y cultura,Estado y reforma política,qwen2.5:7b
+diputados,00170-2026-2031-CD,Justicia y derechos humanos,Seguridad y defensa,qwen2.5:7b
+diputados,00169-2026-2031-CD,Seguridad y defensa,Estado y reforma política,qwen2.5:7b
+diputados,00168-2026-2031-CD,Estado y reforma política,Educación y cultura,qwen2.5:7b
+diputados,00167-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00166-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00165-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00164-2026-2031-CD,Salud,Educación y cultura; Justicia y derechos humanos,qwen2.5:7b
+diputados,00163-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00162-2026-2031-CD,Salud,Estado y reforma política,qwen2.5:7b
+diputados,00161-2026-2031-CD,Justicia y derechos humanos,Seguridad y defensa,qwen2.5:7b
+diputados,00160-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00159-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00158-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00157-2026-2031-CD,Trabajo y pensiones,Justicia y derechos humanos,qwen2.5:7b
+diputados,00156-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00155-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+senado,00007-2026-2031-S,Seguridad y defensa,Estado y reforma política,qwen2.5:7b
+diputados,00154-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00153-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00152-2026-2031-CD,Economía y finanzas,Educación y cultura,qwen2.5:7b
+diputados,00151-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00150-2026-2031-CD,Salud,Trabajo y pensiones,qwen2.5:7b
+diputados,00149-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00148-2026-2031-CD,Economía y finanzas,Educación y cultura,qwen2.5:7b
+diputados,00147-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00146-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00145-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00144-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00143-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00142-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00141-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00140-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00139-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00138-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00137-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00136-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00135-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00134-2026-2031-CD,Seguridad y defensa,Estado y reforma política,qwen2.5:7b
+diputados,00133-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00132-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00131-2026-2031-CD,Estado y reforma política,Gobiernos regionales y locales,qwen2.5:7b
+diputados,00130-2026-2031-CD,"Producción, comercio y turismo",Economía y finanzas,qwen2.5:7b
+diputados,00129-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00128-2026-2031-CD,"Producción, comercio y turismo",Estado y reforma política,qwen2.5:7b
+diputados,00127-2026-2031-CD,Economía y finanzas,Estado y reforma política,qwen2.5:7b
+diputados,00126-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00125-2026-2031-CD,Consumidor y servicios públicos,Economía y finanzas,qwen2.5:7b
+diputados,00124-2026-2031-CD,Seguridad y defensa,Estado y reforma política,qwen2.5:7b
+diputados,00123-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00122-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00121-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00120-2026-2031-CD,Estado y reforma política,Gobiernos regionales y locales,qwen2.5:7b
+diputados,00119-2026-2031-CD,Estado y reforma política,Gobiernos regionales y locales,qwen2.5:7b
+diputados,00118-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00117-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00116-2026-2031-CD,Consumidor y servicios públicos,,qwen2.5:7b
+diputados,00115-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00114-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00113-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00112-2026-2031-CD,Infraestructura y transporte,Tecnología y digital,qwen2.5:7b
+diputados,00111-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00110-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00109-2026-2031-CD,Economía y finanzas,Estado y reforma política,qwen2.5:7b
+diputados,00108-2026-2031-CD,Minería y energía,,qwen2.5:7b
+diputados,00107-2026-2031-CD,Salud,Justicia y derechos humanos,qwen2.5:7b
+diputados,00106-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00105-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00104-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00103-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00102-2026-2031-CD,Infraestructura y transporte,Economía y finanzas,qwen2.5:7b
+diputados,00101-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00100-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00099-2026-2031-CD,Seguridad y defensa,Justicia y derechos humanos,qwen2.5:7b
+diputados,00098-2026-2031-CD,Estado y reforma política,Trabajo y pensiones; Economía y finanzas,qwen2.5:7b
+diputados,00097-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00096-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00095-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00094-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00093-2026-2031-CD,Economía y finanzas,Estado y reforma política,qwen2.5:7b
+diputados,00092-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00091-2026-2031-CD,Trabajo y pensiones,,qwen2.5:7b
+diputados,00090-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00089-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00088-2026-2031-CD,Agro y pesca,"Medio ambiente; Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00087-2026-2031-CD,Medio ambiente,Salud,qwen2.5:7b
+diputados,00086-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00085-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00084-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00083-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00082-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00081-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00080-2026-2031-CD,Economía y finanzas,"Producción, comercio y turismo",qwen2.5:7b
+diputados,00079-2026-2031-CD,Educación y cultura,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00078-2026-2031-CD,Economía y finanzas,Trabajo y pensiones,qwen2.5:7b
+diputados,00077-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00076-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00075-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00074-2026-2031-CD,Justicia y derechos humanos,Educación y cultura,qwen2.5:7b
+diputados,00073-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00072-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00071-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00070-2026-2031-CD,Seguridad y defensa,Estado y reforma política,qwen2.5:7b
+diputados,00069-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00068-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00067-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00066-2026-2031-CD,Trabajo y pensiones,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00065-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00064-2026-2031-CD,Infraestructura y transporte,Economía y finanzas,qwen2.5:7b
+senado,00006-2026-2031-S,Estado y reforma política,Justicia y derechos humanos,qwen2.5:7b
+senado,00005-2026-2031-S,Estado y reforma política,,qwen2.5:7b
+diputados,00063-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00062-2026-2031-CD,Infraestructura y transporte,,qwen2.5:7b
+diputados,00061-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00060-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00059-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00058-2026-2031-CD,Trabajo y pensiones,Estado y reforma política,qwen2.5:7b
+diputados,00057-2026-2031-CD,Economía y finanzas,,qwen2.5:7b
+diputados,00056-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00055-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00054-2026-2031-CD,Medio ambiente,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00053-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00052-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00051-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00050-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00049-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00048-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00047-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",,qwen2.5:7b
+diputados,00046-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00045-2026-2031-CD,Salud,Trabajo y pensiones,qwen2.5:7b
+diputados,00044-2026-2031-CD,Infraestructura y transporte,Economía y finanzas,qwen2.5:7b
+diputados,00043-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00042-2026-2031-CD,"Inclusión social, mujer y pueblos indígenas",Estado y reforma política,qwen2.5:7b
+diputados,00041-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+senado,00004-2026-2031-S,Estado y reforma política,,qwen2.5:7b
+diputados,00040-2026-2031-CD,Estado y reforma política,Justicia y derechos humanos,qwen2.5:7b
+diputados,00039-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00038-2026-2031-CD,Economía y finanzas,Tecnología y digital; Trabajo y pensiones,qwen2.5:7b
+diputados,00037-2026-2031-CD,Infraestructura y transporte,Seguridad y defensa,qwen2.5:7b
+senado,00003-2026-2031-S,Estado y reforma política,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00036-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00035-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00034-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00033-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00032-2026-2031-CD,Economía y finanzas,Trabajo y pensiones,qwen2.5:7b
+diputados,00031-2026-2031-CD,Trabajo y pensiones,Salud,qwen2.5:7b
+diputados,00030-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00029-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+senado,00002-2026-2031-S,Estado y reforma política,,qwen2.5:7b
+diputados,00028-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00027-2026-2031-CD,Economía y finanzas,"Trabajo y pensiones; Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00026-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00025-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00024-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00023-2026-2031-CD,Justicia y derechos humanos,Seguridad y defensa,qwen2.5:7b
+diputados,00022-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00021-2026-2031-CD,Estado y reforma política,Trabajo y pensiones,qwen2.5:7b
+senado,00001-2026-2031-S,Estado y reforma política,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00020-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00019-2026-2031-CD,Estado y reforma política,Gobiernos regionales y locales,qwen2.5:7b
+diputados,00018-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00017-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00016-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00015-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00014-2026-2031-CD,Justicia y derechos humanos,Infraestructura y transporte,qwen2.5:7b
+diputados,00013-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00012-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00011-2026-2031-CD,Consumidor y servicios públicos,Salud,qwen2.5:7b
+diputados,00010-2026-2031-CD,Infraestructura y transporte,Justicia y derechos humanos,qwen2.5:7b
+diputados,00009-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00008-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00007-2026-2031-CD,Justicia y derechos humanos,Seguridad y defensa,qwen2.5:7b
+diputados,00006-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00005-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
+diputados,00004-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00003-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00002-2026-2031-CD,Justicia y derechos humanos,Seguridad y defensa,qwen2.5:7b
+diputados,00001-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
