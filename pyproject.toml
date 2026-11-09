@@ -1,0 +1,11 @@
+[project]
+name = "proyecto-startup"
+version = "0.1.0"
+description = "Monitoreo de proyectos de ley del Congreso del Perú con IA local"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.32",
+    "pycryptodome>=3.20",
+    "pandas>=2.2",
+    "openpyxl>=3.1",
+]

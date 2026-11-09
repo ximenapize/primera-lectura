@@ -1,0 +1,25 @@
+name: Scraper diario de proposiciones
+
+on:
+  schedule:
+    - cron: "0 11 * * *"   # 6:00 a. m. hora de Lima
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrapear:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Descargar proposiciones de Diputados y Senado
+        run: uv run scripts/scraper.py
+      - name: Guardar cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/proposiciones.csv data/movimientos.csv
+          git diff --cached --quiet || git commit -m "datos: actualización diaria $(date -u +%F)"
+          git push
