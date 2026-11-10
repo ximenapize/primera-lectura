@@ -74,7 +74,10 @@ Reglas:
 def analizar(fila) -> dict:
     texto = texto_pdf(fila.pdf_proyecto, f"{fila.camara}_{fila.pl_id}")
     p = partes(texto)
-    usuario = (f"Proyecto {fila.pl_id} ({fila.camara}). Título: {fila.titulo}\n"
+    if p["chars"] < 500 or p["legible"] < 0.3:
+        # PDF escaneado sin capa de texto: no se le pide opinión al modelo a ciegas; queda pendiente de OCR
+        raise ValueError(f"PDF sin texto legible ({p['chars']} caracteres): pendiente de OCR")
+    usuario =(f"Proyecto {fila.pl_id} ({fila.camara}). Título: {fila.titulo}\n"
                f"Sumilla: {fila.sumilla}\n\nFÓRMULA LEGAL:\n{p['formula']}\n\n"
                f"INICIO DE LA EXPOSICIÓN DE MOTIVOS:\n{p['motivos']}")
     r = preguntar(SISTEMA, usuario, ESQUEMA, contexto=8192)

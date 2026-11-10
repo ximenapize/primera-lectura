@@ -22,3 +22,10 @@ models/
 
 # textos completos de los PDFs (caché local)
 data/textos/
+
+# configuración local de Claude Code
+.claude/settings.local.json
+
+# PDFs de sesiones del Pleno y caché de lectura (se regeneran)
+data/pdf_votaciones/
+data/cache_votaciones/
