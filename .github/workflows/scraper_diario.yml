@@ -16,10 +16,14 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - name: Descargar proposiciones de Diputados y Senado
         run: uv run scripts/scraper.py
+      - name: Actualizar el maestro de congresistas
+        run: uv run scripts/maestro.py
+      - name: Leer las votaciones adjuntas a los expedientes (texto u OCR)
+        run: uv run scripts/votaciones.py
       - name: Guardar cambios
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/proposiciones.csv data/movimientos.csv
+          git add data/proposiciones.csv data/movimientos.csv data/maestro_congresistas.csv data/votaciones.csv data/votos.csv
           git diff --cached --quiet || git commit -m "datos: actualización diaria $(date -u +%F)"
           git push

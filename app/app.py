@@ -27,13 +27,19 @@ def cargar():
     temas = pd.read_csv(DATA / "temas.csv", dtype=str).fillna("")
     df = props.merge(temas[["camara", "pl_id", "tema", "temas_secundarios"]], on=["camara", "pl_id"], how="left")
 
-    riesgo = pd.DataFrame()
-    if (DATA / "riesgo.jsonl").exists():
-        riesgo = pd.DataFrame([json.loads(l) for l in (DATA / "riesgo.jsonl").read_text().splitlines() if l])
-    if len(riesgo):
-        riesgo = riesgo.drop_duplicates(["camara", "pl_id"], keep="last").drop(columns=["modelo"], errors="ignore")
-        df = df.merge(riesgo, on=["camara", "pl_id"], how="left")
-    for col in ["semaforo", "resumen", "explicacion", "cita_textual"]:
+    # primera lectura (modelo local) y, encima, la segunda lectura del agente revisor cuando existe
+    lecturas = []
+    for archivo, quien in [("riesgo.jsonl", "IA local (qwen2.5 7B)"), ("revision.jsonl", None)]:
+        ruta = DATA / archivo
+        if ruta.exists():
+            filas = [json.loads(l) for l in ruta.read_text(encoding="utf-8").splitlines() if l]
+            for j in filas:
+                j.setdefault("revisado_por", quien)
+            lecturas += filas
+    if lecturas:
+        lect = pd.DataFrame(lecturas).drop_duplicates(["camara", "pl_id"], keep="last")
+        df = df.merge(lect.drop(columns=["modelo"], errors="ignore"), on=["camara", "pl_id"], how="left")
+    for col in ["semaforo", "resumen", "explicacion", "cita_textual", "revisado_por"]:
         if col not in df:
             df[col] = None
     df["semaforo"] = df["semaforo"].fillna("sin leer")
@@ -42,7 +48,16 @@ def cargar():
     df["estado"] = df["ultimo_estado"].map(simplificar_estado)
 
     movs = pd.read_csv(DATA / "movimientos.csv", dtype=str).fillna("")
-    return df, movs
+
+    # votaciones del Pleno adjuntas a los expedientes (scripts/votaciones.py)
+    vot = pd.read_csv(DATA / "votaciones.csv", dtype=str).fillna("")
+    vot = vot[vot.tipo != "Asistencia"]
+    # el acta («Nota») solo se muestra si esa votación no tiene la tabla nominal
+    con_tabla = set(vot[vot.tipo == "Votación"].movimiento + vot[vot.tipo == "Votación"].proposiciones)
+    vot = vot[(vot.tipo == "Votación") | ~(vot.movimiento + vot.proposiciones).isin(con_tabla)]
+    vot = vot.drop_duplicates(["proposiciones", "movimiento", "a_favor", "en_contra"])
+    votos = pd.read_csv(DATA / "votos.csv", dtype=str).fillna("")
+    return df, movs, vot, votos
 
 
 def simplificar_estado(e: str) -> str:
@@ -60,7 +75,33 @@ def simplificar_estado(e: str) -> str:
     return "1. Presentado"
 
 
-df, movs = cargar()
+df, movs, vot, votos = cargar()
+
+SIGLA = {"FP": "Fuerza Popular", "JP": "Juntos por el Perú", "PBG": "Partido del Buen Gobierno",
+         "RP": "Renovación Popular", "AN": "Ahora Nación", "OBRAS": "Partido Cívico Obras"}
+COLOR_VOTO = {"Sí": "#2E7D32", "No": "#C62828", "Abstención": "#F9A825", "Sin respuesta": "#9E9E9E"}
+
+
+def votos_por_bancada(v) -> pd.DataFrame:
+    """Votos por bancada de una votación: el cuadro oficial impreso en el PDF o, si no se pudo leer, la suma
+    de los votos individuales leídos."""
+    if v.votos_por_bancada:
+        filas = [{"bancada": SIGLA.get(b, b), "voto": voto, "n": n}
+                 for b, nums in json.loads(v.votos_por_bancada).items()
+                 for voto, n in zip(["Sí", "No", "Abstención", "Sin respuesta"], nums)]
+        return pd.DataFrame(filas)
+    x = votos[(votos.pdf == v.pdf) & (votos.pagina == str(v.pagina)) & votos.codigo.isin(["SI", "NO", "Abst.", "SinRes"])]
+    return x.assign(bancada=x.bancada.map(SIGLA), voto=x.resultado).groupby(["bancada", "voto"]).size().reset_index(name="n")
+
+
+def grafico_votacion(v, alto=260):
+    d = votos_por_bancada(v)
+    if d.empty:
+        return None
+    return px.bar(d, y="bancada", x="n", color="voto", orientation="h", color_discrete_map=COLOR_VOTO, height=alto,
+                  labels={"bancada": "", "n": "votos", "voto": ""}).update_layout(
+        margin=dict(l=0, r=0, t=10, b=0), yaxis={"categoryorder": "total ascending"}, legend_orientation="h")
+
 
 # ===================== Encabezado =====================
 st.title("📜 Primera Lectura")
@@ -97,7 +138,7 @@ c[2].metric("🔴 Alerta roja", int((f.semaforo == "rojo").sum()))
 c[3].metric("🟡 Atención", int((f.semaforo == "amarillo").sum()))
 c[4].metric("Con dictamen o en Pleno", int(f.estado.str.startswith(("3", "4")).sum()))
 
-tab_lista, tab_panorama = st.tabs(["📋 Proyectos", "📊 Panorama"])
+tab_lista, tab_votos, tab_panorama = st.tabs(["📋 Proyectos", "🗳️ Votaciones", "📊 Panorama"])
 
 # ===================== Lista y ficha =====================
 with tab_lista:
@@ -137,8 +178,11 @@ with tab_lista:
                 if p.cita_textual:
                     marca = "✅ cita verificada en el PDF" if p.get("cita_verificada") else "⚠️ cita no encontrada en el PDF"
                     st.markdown(f"> {p.cita_textual}\n\n<small>{marca}</small>", unsafe_allow_html=True)
-                if p.get("revisar") is True:
-                    st.warning("Este análisis está marcado para revisión: el sustento está incompleto.")
+                if str(p.revisado_por).startswith("agente"):
+                    st.success("✔ Segunda lectura: revisado por el agente revisor")
+                elif p.get("revisar") is True:
+                    st.warning("Primera lectura con sustento incompleto: en cola para la segunda lectura.")
+                st.caption(f"Leído por: {p.revisado_por}")
             else:
                 st.info("Este proyecto todavía no tiene primera lectura de la IA (no pasó el filtro de temas sensibles "
                         "o está en cola).")
@@ -156,6 +200,73 @@ with tab_lista:
             st.markdown("**Recorrido**")
             st.dataframe(m.rename(columns={"seg_fecha": "Fecha", "seg_estado": "Estado", "seg_detalle": "Detalle"}),
                          hide_index=True, width="stretch")
+
+        mis_votos = vot[(vot.camara == p.camara) & vot.proposiciones.str.contains(p.pl_id, regex=False)]
+        if len(mis_votos):
+            st.markdown(f"#### 🗳️ Votaciones en el Pleno ({len(mis_votos)})")
+            for v in mis_votos.itertuples():
+                icono = "✅" if v.resultado == "Aprobado" else "❌"
+                st.markdown(f"**{icono} {v.resultado}** · {v.fecha} · {v.movimiento.capitalize()[:160]}  \n"
+                            f"A favor **{v.a_favor or '—'}** · En contra **{v.en_contra or '—'}** · "
+                            f"Abstenciones **{v.abstencion or '—'}**")
+                g = grafico_votacion(v)
+                if g is not None:
+                    st.plotly_chart(g, width="stretch", key=f"g_{v.pdf}_{v.pagina}")
+                else:
+                    st.caption("Acta sin votación nominal: solo el resultado.")
+
+# ===================== Votaciones =====================
+with tab_votos:
+    nominales = vot[vot.tipo == "Votación"].copy()
+    st.markdown(f"**{len(nominales)} votaciones nominales del Pleno** vinculadas a "
+                f"{nominales.proposiciones.str.split('; ').explode().nunique()} proyectos de ley. "
+                "Fuente: los PDF de «Asistencia y votación» que el Congreso adjunta a cada expediente, leídos con "
+                "texto nativo u OCR y contrastados con los totales impresos.")
+    camara_v = st.radio("Cámara", ["diputados", "senado"], horizontal=True, format_func=str.title)
+    vv = nominales[nominales.camara == camara_v]
+    vt = votos[(votos.camara == camara_v) & votos.codigo.isin(["SI", "NO", "Abst."])]
+    vt = vt[vt.pdf.isin(vv.pdf)]
+
+    # posición mayoritaria de cada bancada en cada votación
+    vt = vt.assign(votacion=vt.pdf + "-" + vt.pagina)
+    pos = vt.groupby(["votacion", "bancada"]).codigo.agg(lambda x: x.value_counts().index[0]).unstack()
+    cohesion = vt.groupby(["votacion", "bancada"]).codigo.agg(lambda x: x.value_counts().iloc[0] / len(x)) \
+                 .groupby("bancada").mean().sort_values(ascending=False)
+
+    c1, c2 = st.columns(2)
+    c1.plotly_chart(px.bar(x=cohesion.values * 100, y=[SIGLA.get(b, b) for b in cohesion.index], orientation="h",
+                           title="Cohesión: % de la bancada que vota como su mayoría",
+                           labels={"x": "%", "y": ""}, range_x=[0, 100], text=[f"{v:.0%}" for v in cohesion.values])
+                    .update_layout(yaxis={"categoryorder": "total ascending"}), width="stretch")
+    bancadas = [b for b in pos.columns]
+    coincide = pd.DataFrame([[((pos[a] == pos[b]) & pos[a].notna() & pos[b].notna()).sum() /
+                               max((pos[a].notna() & pos[b].notna()).sum(), 1) * 100 for b in bancadas] for a in bancadas],
+                            index=[SIGLA.get(b, b) for b in bancadas], columns=[SIGLA.get(b, b) for b in bancadas])
+    c2.plotly_chart(px.imshow(coincide.round(0), text_auto=True, color_continuous_scale="Purples", zmin=0, zmax=100,
+                              title="¿Quién vota con quién? (% de votaciones con la misma posición)",
+                              labels={"color": "%"}), width="stretch")
+
+    st.markdown("#### Cada votación")
+    for v in vv.sort_values("fecha", ascending=False).itertuples():
+        with st.expander(f"{'✅' if v.resultado == 'Aprobado' else '❌'} {v.fecha} · PL {v.proposiciones} · "
+                         f"{v.movimiento.capitalize()[:110]}"):
+            st.markdown(f"**Asunto:** {v.asunto}")
+            st.markdown(f"A favor **{v.a_favor}** · En contra **{v.en_contra}** · Abstenciones **{v.abstencion}** · "
+                        f"Lectura: {v.fuente} · Control: {v.control}")
+            g = grafico_votacion(v)
+            if g is not None:
+                st.plotly_chart(g, width="stretch", key=f"t_{v.pdf}_{v.pagina}")
+            st.markdown(f"[📄 PDF de la votación]({v.url})")
+
+    st.markdown("#### ¿Cómo votó un congresista?")
+    nombre = st.selectbox("Congresista", sorted(votos[votos.camara == camara_v].congresista.unique()), index=None,
+                          placeholder="Escribe un apellido…")
+    if nombre:
+        h = votos[(votos.congresista == nombre) & votos.pdf.isin(vv.pdf)].merge(
+            vv[["pdf", "pagina", "movimiento", "proposiciones"]].astype(str), on=["pdf", "pagina"])
+        st.dataframe(h[["fecha", "proposiciones", "movimiento", "resultado", "voto_oral"]].rename(columns={
+            "fecha": "Fecha", "proposiciones": "Proyecto", "movimiento": "Votación", "resultado": "Voto",
+            "voto_oral": "Voto oral"}), hide_index=True, width="stretch")
 
 # ===================== Panorama =====================
 with tab_panorama:
