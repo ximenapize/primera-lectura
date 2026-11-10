@@ -29,3 +29,6 @@ data/textos/
 # PDFs de sesiones del Pleno y caché de lectura (se regeneran)
 data/pdf_votaciones/
 data/cache_votaciones/
+
+# JSON del sitio: los genera scripts/exportar_web.py (en local y en el Action de Pages)
+site/data/
