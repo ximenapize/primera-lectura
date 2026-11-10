@@ -28,19 +28,45 @@ Es el estándar que usan el Tribunal Constitucional y la Corte Interamericana:
 3. **Necesidad:** ¿hay una medida menos restrictiva igual de eficaz?
 4. **Proporcionalidad en sentido estricto:** ¿el beneficio compensa la afectación del derecho?
 
-- Falla en finalidad o es claramente desproporcionada → **rojo**.
-- Pasa la finalidad, pero la necesidad o la proporción dependen de cómo se implemente → **amarillo**.
-- Pasa los cuatro pasos → **verde**.
+- Falla en finalidad o es claramente desproporcionada → la pregunta "¿falla el test?" es **sí**.
+- Pasa la finalidad, pero la necesidad o la proporción dependen de cómo se implemente → **depende**.
+- Pasa los cuatro pasos → **no**.
 
-## Paso 4. Semáforo
+## Paso 4. Checklist: las preguntas guía
 
-| Color | Cuándo |
+Cada pregunta se responde **sí**, **no**, **depende** (el efecto depende de la implementación o de un
+reglamento) o **no aplica**. Las marcadas como **crítica** vuelven rojo el proyecto si la respuesta es sí.
+La lista vive en [`ai/preguntas.py`](preguntas.py), que también aplica la regla del semáforo.
+
+| Dimensión | Pregunta | ¿Crítica? |
+|---|---|---|
+| Personas afectadas | ¿Afecta a grupos en situación de vulnerabilidad (niñez, mujeres, pueblos indígenas y afroperuanos, personas con discapacidad, adultos mayores, personas LGTBI, migrantes, personas privadas de libertad, defensores de DDHH)? | No |
+| Personas afectadas | ¿Quiénes ganan y quiénes pierden con la norma? (respuesta abierta) | — |
+| Contenido del derecho | ¿Restringe, suspende o elimina un derecho reconocido? | No (activa el test) |
+| Contenido del derecho | Si restringe un derecho, ¿falla el test de proporcionalidad? | **Sí** |
+| Contenido del derecho | ¿Es regresiva: reduce un nivel de protección ya alcanzado? | **Sí** |
+| Estándares | ¿Contradice la Constitución o la jurisprudencia del Tribunal Constitucional? | **Sí** |
+| Estándares | ¿Contradice un tratado ratificado o la jurisprudencia de la Corte IDH, incluidas las sentencias contra el Perú? | **Sí** |
+| Institucionalidad democrática | ¿Altera el equilibrio de poderes: concentra facultades, limita el control político o judicial, o permite que un poder elija o remueva a los integrantes de otro? | **Sí** |
+| Institucionalidad democrática | ¿Cambia reglas electorales o de representación cerca de una elección, o a favor de quienes la aprueban? | **Sí** |
+| Institucionalidad democrática | ¿Debilita la rendición de cuentas, la transparencia o la lucha contra la corrupción? | No |
+| Espacio cívico y participación | ¿Restringe a la sociedad civil, las ONG, la cooperación internacional, la prensa o la protesta? | **Sí** |
+| Espacio cívico y participación | ¿Requería consulta previa o participación ciudadana, y no la prevé? | **Sí** |
+| Calidad de la norma | ¿Tiene efectos retroactivos desfavorables? | **Sí** |
+| Implementación e impacto | ¿Crea gasto sin financiamiento o choca con la regla fiscal? | No |
+| Implementación e impacto | ¿Tiene impacto ambiental sin evaluación (bosques, minería informal, áreas protegidas)? | No |
+
+## Paso 5. Semáforo (regla fija, no la elige el modelo)
+
+| Color | Regla |
 |---|---|
-| **Rojo** | Retrocede claramente un derecho o un estándar de gobernanza, o falla el test de proporcionalidad |
-| **Amarillo** | Toca un derecho o estándar y su efecto depende de la implementación; o tiene impacto fiscal sin financiamiento |
-| **Verde** | No afecta derechos ni estándares de forma relevante, o los amplía |
+| **Rojo** | Al menos una pregunta **crítica** respondida "sí" |
+| **Amarillo** | Ninguna crítica en "sí", pero alguna pregunta de contexto en "sí" o alguna respuesta "depende" |
+| **Verde** | Todo "no" o "no aplica" (incluye los proyectos que **amplían** derechos) |
 
-Ante la duda entre rojo y amarillo: **amarillo**, explicando de qué depende.
+"Falla el test de proporcionalidad" solo cuenta si el proyecto además restringe un derecho. Ante la duda entre
+"sí" y "no" en una pregunta crítica, responder **"depende"** y explicar de qué depende: así el proyecto queda
+amarillo y no rojo.
 
 ## Instrumentos de referencia por derecho
 

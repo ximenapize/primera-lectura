@@ -68,10 +68,11 @@ Primera Lectura hace el **seguimiento completo** del Congreso, todos los días y
    estándares en juego y **la cita textual que lo sustenta**. Python verifica que la cita exista en el PDF.
 4. **Segunda lectura:** un agente revisor (Claude Sonnet) relee solo las alertas rojas y amarillas y corrige la
    dirección del efecto o los estándares citados.
-5. **Criterio explícito:** ambas lecturas siguen una **rúbrica pública**, [`ai/rubrica.md`](ai/rubrica.md): qué
-   cambia el proyecto, en qué dirección, el **test de proporcionalidad** (finalidad legítima, idoneidad, necesidad,
-   proporcionalidad estricta), los instrumentos de referencia por derecho (Constitución, CADH, PIDCP, PIDESC,
-   CDN, CEDAW, Convenio 169, Escazú…) y ejemplos de cada color. El semáforo deja de depender de quién lo lea.
+5. **Criterio explícito:** la segunda lectura responde el **checklist de una rúbrica pública**
+   ([`ai/rubrica.md`](ai/rubrica.md)): 14 preguntas en seis dimensiones (personas afectadas, contenido del
+   derecho, estándares nacionales e internacionales, institucionalidad democrática, espacio cívico, calidad e
+   impacto de la norma), más quiénes ganan y quiénes pierden. Nueve preguntas son críticas. **El color no lo
+   decide la IA:** sale de las respuestas con una regla fija. Cualquiera puede ver qué pregunta se activó y por qué.
 6. **Votaciones:** lee las votaciones nominales del Pleno (texto u OCR), las contrasta con los totales impresos y
    muestra cómo votó cada bancada, su cohesión y quién vota con quién.
 
@@ -218,14 +219,21 @@ con usuarios, sin subir los audios a ningún servicio.
   unos 30 segundos por PDF.
 - **Citas:** el 57 % de las citas del modelo local se verifican en el PDF. Las demás se marcan, y esa es la razón
   de la segunda lectura.
-- **Segunda lectura (Claude Sonnet, con la rúbrica):** revisó las 83 alertas del modelo local.
-  - De 13 rojos, **confirmó 5 y bajó 8 a verde**: el modelo pequeño leía al revés derogaciones que *amplían*
-    derechos (por ejemplo, derogar una ley de amnistía) y marcaba como rojo regulaciones legítimas.
-  - De 70 amarillos, **36 pasaron a verde, 29 se confirmaron y 5 subieron a rojo** (ampliaciones de la detención
-    policial a 15 días y presunción de peligro procesal).
-  - Resultado final: **10 rojos, 29 amarillos y 367 verdes** entre los 406 proyectos leídos.
-  - **Las 51 citas que dio el agente están verificadas en el PDF.** En 32 casos no citó porque el texto extraído
+- **Segunda lectura (Claude Sonnet, checklist de la rúbrica):** tres agentes respondieron las 14 preguntas para
+  las 83 alertas del modelo local, y el color se calculó con la regla fija de [`ai/preguntas.py`](ai/preguntas.py).
+  - De 13 rojos del modelo local, **se confirmaron 4, 4 bajaron a amarillo y 5 a verde**: el modelo pequeño leía
+    al revés derogaciones que *amplían* derechos (por ejemplo, derogar una ley de amnistía) y marcaba como rojo
+    regulaciones legítimas.
+  - De 70 amarillos, **22 pasaron a verde, 44 se confirmaron y 4 subieron a rojo**.
+  - Resultado final: **8 rojos, 48 amarillos y 350 verdes** entre los 406 proyectos leídos. Los rojos son la
+    ampliación de la detención policial a 15 días (4 proyectos), las penas de adulto para adolescentes (2), el
+    aislamiento carcelario extremo y el retiro de la Convención Americana.
+  - Las preguntas críticas más activadas: falla del test de proporcionalidad, regresividad y contradicción con un
+    tratado. La respuesta "depende" (24 veces en el test de proporcionalidad) explica la mayoría de amarillos.
+  - **Las 48 citas que dio el agente están verificadas en el PDF.** En 35 casos no citó porque el texto extraído
     no era el articulado (PDF escaneados u oficios anexos) y lo dejó dicho en la explicación.
+- **Por qué dos niveles:** probamos el checklist en el modelo local de 7B y no alcanzó (unos 160 segundos por
+  proyecto y errores de dirección en derogaciones). El modelo local filtra; Sonnet aplica la rúbrica.
 - **Lo que hay que mejorar:** la extracción de la fórmula legal en los PDF del Ejecutivo, y OCR para los escaneados.
 - **Votaciones:** 22 votaciones nominales de 16 proyectos. En Diputados todas cuadran con los totales impresos;
   en el Senado (PDF escaneados) el OCR lee entre 54 y 59 de 60 votos por página, y los gráficos por bancada usan el

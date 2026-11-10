@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="estilo.css?v=4">
+  <link rel="stylesheet" href="estilo.css?v=5">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='none' stroke='%234A3C8C' stroke-width='3'/%3E%3Cpath d='M10 17h12' stroke='%23B97800' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -171,7 +171,7 @@
         <li><h3>Reglas</h3><p>La temática sale de la comisión y de un modelo local. Un filtro de palabras y temas sensibles decide qué PDF leer.</p></li>
         <li><h3>Primera lectura</h3><p>Un modelo abierto (qwen2.5, 7B) corre en la laptop, lee la fórmula legal y devuelve semáforo, derechos, estándares y una cita textual.</p></li>
         <li><h3>Verificación</h3><p>Python busca la cita en el PDF. Si no aparece, la lectura se marca. El modelo no puede inventar el artículo.</p></li>
-        <li><h3>Segunda lectura</h3><p>Un agente revisor relee solo los rojos y amarillos, corrige la dirección del efecto y cita estándares reales.</p></li>
+        <li><h3>Segunda lectura con rúbrica</h3><p>Un agente (Claude Sonnet) relee las alertas y responde 14 preguntas de una rúbrica pública de derechos humanos. El color sale de las respuestas, con una regla fija.</p></li>
       </ol>
       <p class="aviso">La primera lectura es una alerta temprana para priorizar, no una opinión legal.</p>
     </section>
@@ -186,6 +186,6 @@
     <p>Código abierto en <a href="https://github.com/ximenapize/primera-lectura">GitHub</a>. Proyecto final de la Diplomatura en Ciencia de Datos, Q-Lab PUCP.</p>
   </footer>
 
-  <script src="app.js?v=4" defer></script>
+  <script src="app.js?v=5" defer></script>
 </body>
 </html>

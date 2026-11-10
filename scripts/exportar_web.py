@@ -3,9 +3,13 @@
 # Junta cada proposición con su temática, su lectura de riesgo (la revisión del agente reemplaza a la del modelo
 # local), su recorrido y sus votaciones. Uso: uv run scripts/exportar_web.py
 import json
+import sys
 from pathlib import Path
 
 import pandas as pd
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "ai"))
+from preguntas import PREGUNTAS  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parents[1]
 DATA = RAIZ / "data"
@@ -41,8 +45,10 @@ def main():
     lecturas = {}
     for j in leer_jsonl(DATA / "riesgo.jsonl"):
         lecturas[(j["camara"], j["pl_id"])] = {**j, "revisado_por": "modelo"}
-    for j in leer_jsonl(DATA / "revision.jsonl"):
-        lecturas[(j["camara"], j["pl_id"])] = {**j, "revisado_por": "agente"}
+    for j in leer_jsonl(DATA / "revision.jsonl"):  # la última revisión gana; las de checklist reemplazan a las viejas
+        k = (j["camara"], j["pl_id"])
+        if "preguntas" in j or lecturas.get(k, {}).get("revisado_por") != "agente" or "preguntas" not in lecturas[k]:
+            lecturas[k] = {**j, "revisado_por": "agente"}
 
     movs = pd.read_csv(DATA / "movimientos.csv", dtype=str).fillna("")
     recorrido = {k: g[["seg_fecha", "seg_estado", "seg_detalle"]].values.tolist()
@@ -64,6 +70,7 @@ def main():
                 "derechos": lec.get("derechos", []), "estandares": lec.get("estandares", []),
                 "cita": lec.get("cita_textual", ""), "cita_ok": bool(lec.get("cita_verificada")),
                 "por": lec["revisado_por"], "revisar": bool(lec.get("revisar")) and lec["revisado_por"] == "modelo",
+                "preguntas": lec.get("preguntas"), "ganan": lec.get("ganan", ""), "pierden": lec.get("pierden", ""),
             },
         })
 
@@ -88,7 +95,8 @@ def main():
     maestro = pd.read_csv(DATA / "maestro_congresistas.csv", dtype=str)
     meta = {"actualizado": max(df.fecha_presentacion), "n_proyectos": len(df), "n_lecturas": len(lecturas),
             "n_votaciones": len(votaciones),
-            "bancadas": dict(zip(maestro.bancada, maestro.bancada_nombre))}
+            "bancadas": dict(zip(maestro.bancada, maestro.bancada_nombre)),
+            "preguntas": [{"id": i, "dimension": d, "texto": t, "critica": c} for i, d, t, c in PREGUNTAS]}
 
     for nombre, obj in (("proyectos.json", proyectos), ("votaciones.json", votaciones), ("meta.json", meta)):
         (SALIDA / nombre).write_text(json.dumps(obj, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")

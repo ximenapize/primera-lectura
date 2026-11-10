@@ -270,3 +270,17 @@ main { max-width: var(--ancho); margin: 0 auto; padding: 0 1.25rem 4rem; outline
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* ---------- checklist de la rúbrica ---------- */
+.ganan { display: grid; grid-template-columns: 5.5rem 1fr; gap: .25rem .75rem; margin: 0; font-size: .95rem; }
+.ganan dt { color: var(--tinta-2); }
+.ganan dd { margin: 0; }
+.checklist { border-top: 1px solid var(--regla); padding-top: .8rem; display: grid; gap: .5rem; }
+.checklist h4 { margin: 0; font-size: var(--paso-1); }
+.checklist ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .35rem; }
+.checklist summary { cursor: pointer; color: var(--sello); font-size: var(--paso-1); padding: .35rem 0; }
+.preg { display: grid; grid-template-columns: 5.2rem 1fr; gap: .6rem; font-size: .9rem; align-items: start; }
+.preg .resp { font-weight: 700; font-size: .8rem; text-align: center; border-radius: 4px; padding: .1rem .3rem; background: var(--papel); color: var(--tinta-2); }
+.preg.si .resp { background: #F6DEDC; color: var(--rojo); }
+.preg.depende .resp { background: #F8EBCB; color: #7A5000; }
+.critica { font-weight: 700; font-size: .72rem; color: var(--rojo); border: 1px solid currentColor; border-radius: 3px; padding: 0 .25rem; margin-left: .25rem; }

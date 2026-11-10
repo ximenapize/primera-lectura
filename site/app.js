@@ -193,6 +193,22 @@ function descargarCSV() {
   URL.revokeObjectURL(a.href);
 }
 
+// ---------------- checklist de la rúbrica ----------------
+const RESP = { si: "Sí", no: "No", depende: "Depende", no_aplica: "No aplica" };
+function checklistHTML(l) {
+  if (!l.preguntas || !META.preguntas) return "";
+  const fila = (q) => {
+    const r = l.preguntas[q.id] || "no_aplica";
+    return `<li class="preg ${r}"><span class="resp">${RESP[r]}</span><span>${esc(q.texto)}${q.critica ? ' <b class="critica">crítica</b>' : ""}</span></li>`;
+  };
+  const activas = META.preguntas.filter((q) => ["si", "depende"].includes(l.preguntas[q.id]));
+  return `<div class="checklist">
+    <h4>Preguntas de la rúbrica que se activaron</h4>
+    ${activas.length ? `<ul>${activas.map(fila).join("")}</ul>` : `<p class="totales">Ninguna: todas las respuestas son "no" o "no aplica".</p>`}
+    <details><summary>Ver las ${META.preguntas.length} preguntas</summary><ul>${META.preguntas.map(fila).join("")}</ul></details>
+  </div>`;
+}
+
 // ---------------- ficha ----------------
 function abrirFicha(id) {
   const p = P.find((x) => x.id === id);
@@ -202,11 +218,13 @@ function abrirFicha(id) {
     <section class="lectura ${esc(l.semaforo)}" aria-label="Primera lectura de la IA">
       <div class="lectura-cabeza">
         <span class="semaforo ${esc(l.semaforo)}"><i class="punto ${esc(l.semaforo)}"></i>${SEMAFORO[l.semaforo]}</span>
-        <span class="lectura-por">${l.por === "agente" ? "Segunda lectura: revisada por el agente" : "Primera lectura: modelo local qwen2.5"}</span>
+        <span class="lectura-por">${l.por === "agente" ? (l.preguntas ? "Segunda lectura con la rúbrica (Claude Sonnet)" : "Segunda lectura: revisada por el agente") : "Primera lectura: modelo local qwen2.5"}</span>
       </div>
       <p class="resumen">${esc(l.resumen)}</p>
       ${citaHTML(l)}
       <p>${esc(l.explicacion)}</p>
+      ${l.ganan || l.pierden ? `<dl class="ganan"><dt>Ganan</dt><dd>${esc(l.ganan || "—")}</dd><dt>Pierden</dt><dd>${esc(l.pierden || "—")}</dd></dl>` : ""}
+      ${checklistHTML(l)}
       ${l.derechos.length ? `<div class="etiquetas">${l.derechos.map((d) => `<span>${esc(d)}</span>`).join("")}</div>` : ""}
       ${l.estandares.length ? `<ul class="estandares">${l.estandares.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>` : ""}
       ${l.revisar ? `<p class="aviso-revisar">El sustento de esta lectura está incompleto; está en cola para la segunda lectura.</p>` : ""}

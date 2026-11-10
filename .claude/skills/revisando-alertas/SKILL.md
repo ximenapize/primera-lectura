@@ -1,49 +1,55 @@
 ---
 name: revisando-alertas
-description: Revisa las alertas rojas y amarillas que el modelo local (qwen2.5) puso a los proyectos de ley de Primera Lectura, aplicando la rúbrica pública de ai/rubrica.md. Confirma o corrige el semáforo, los derechos, los estándares y la cita. Úsala cuando pidan "revisa las alertas", "segunda lectura" o "revisa los rojos".
+description: Hace la segunda lectura de los proyectos de ley que el modelo local (qwen2.5) marcó como alerta en Primera Lectura, respondiendo el checklist de la rúbrica pública (ai/rubrica.md, ai/preguntas.py). El semáforo sale de las respuestas. Úsala cuando pidan "revisa las alertas", "segunda lectura" o "aplica la rúbrica".
 ---
 
-# Revisando alertas (segunda lectura)
+# Revisando alertas (segunda lectura con checklist)
 
-El modelo local hace la **primera lectura** de cada proyecto de ley y se equivoca a menudo: etiqueta derechos que
-no corresponden, cita artículos inexistentes, copia títulos de sección como "cita" o lee al revés la dirección de
-una derogación. Tú haces la **segunda lectura** solo sobre las alertas rojas y amarillas, **aplicando la rúbrica**.
+El modelo local hace una primera lectura barata y se equivoca a menudo (lee al revés derogaciones, marca
+regulaciones legítimas, copia títulos de sección como "cita"). Tú haces la **segunda lectura respondiendo el
+checklist de la rúbrica**. **No eliges el color**: `ai/revision.py` lo calcula con la regla fija a partir de tus
+respuestas.
 
 ## Antes de empezar
 
-Lee completa la rúbrica: [`ai/rubrica.md`](../../../ai/rubrica.md). Ahí están los pasos (qué cambia, dirección,
-test de proporcionalidad, semáforo), los instrumentos de referencia por derecho y ejemplos de cada color.
+Lee completa la rúbrica: [`ai/rubrica.md`](../../../ai/rubrica.md) (dirección del efecto, test de
+proporcionalidad, checklist, regla del semáforo, instrumentos por derecho y ejemplos).
 
 ## Pasos
 
-1. `uv run ai/revision.py estado [--semaforo rojo] [--parte 1/2]` para ver cuántas faltan en tu lote.
-2. `uv run ai/revision.py pendientes --n 5 [--semaforo rojo] [--parte 1/2]` trae un lote en JSON: título,
-   sumilla, `formula_legal` (lo que cambiaría la ley) y la `lectura_modelo_local`.
-3. Por cada proyecto aplica la rúbrica:
-   - **Qué cambia:** léelo en `formula_legal`, no en la sumilla.
-   - **Dirección:** ¿restringe o amplía? Una derogación de una norma restrictiva amplía derechos (verde).
-   - **Test de proporcionalidad** si restringe: finalidad legítima, idoneidad, necesidad, proporcionalidad.
-   - **Semáforo:** rojo solo si retrocede claramente o falla el test; ante la duda, amarillo.
-   - **Derechos:** hasta 3, solo de la lista `DERECHOS` de `ai/riesgo.py`. Vacío si es verde.
-   - **Estándares:** del cuadro de instrumentos de la rúbrica, con artículo solo si estás seguro. Vacío si es verde.
-   - **Cita textual:** una frase copiada EXACTA de `formula_legal` (10 a 40 palabras). Nunca un título de sección.
-   - **Explicación:** máximo 3 frases sobrias para una consultora; menciona el paso del test que falla, si aplica.
-   - **Resumen:** qué cambia el proyecto, en una frase que entienda cualquier persona.
-   - Si `formula_legal` viene vacía o ilegible (PDF escaneado), basa la revisión en título y sumilla, deja la cita
-     vacía y dilo en la explicación.
-4. Guarda cada revisión pasando el JSON por la entrada estándar (así los apóstrofes no rompen el comando):
+1. `uv run ai/revision.py estado [--semaforo rojo|amarillo|verde] [--parte 1/3]` para ver cuántas faltan en tu lote.
+2. `uv run ai/revision.py pendientes --n 4 [--semaforo ...] [--parte ...]` trae un JSON con
+   `preguntas_a_responder` (id → texto, las críticas marcadas), `respuestas_validas` y `proyectos` (título,
+   sumilla, `formula_legal` y la lectura del modelo local).
+3. Por cada proyecto:
+   - Lee `formula_legal` y decide **qué cambia y en qué dirección**. Si amplía un derecho o deroga una norma
+     restrictiva, las preguntas de riesgo son "no".
+   - Responde **las 14 preguntas** con `si`, `no`, `depende` o `no_aplica`. Ante la duda en una pregunta crítica,
+     `depende` (y explica de qué depende).
+   - `ganan` y `pierden`: quiénes se benefician y quiénes se perjudican, en pocas palabras.
+   - `derechos`: hasta 3, solo de la lista `DERECHOS` de `ai/riesgo.py` (vacío si nada se activa).
+   - `estandares`: instrumentos del cuadro de la rúbrica, con artículo solo si estás seguro.
+   - `cita_textual`: frase copiada EXACTA de `formula_legal` (10 a 40 palabras), nunca un título de sección. Si
+     `formula_legal` viene vacía, ilegible o no es el articulado, deja la cita vacía y dilo en la explicación
+     (basa la revisión en título y sumilla).
+   - `explicacion`: máximo 3 frases; nombra las preguntas que respondiste "sí" o "depende" y por qué.
+   - `resumen`: qué cambia el proyecto, en una frase para cualquier persona.
+4. Guarda cada revisión por la entrada estándar:
    ```bash
    uv run ai/revision.py guardar - --modelo "Claude Sonnet" <<'EOF'
-   {"camara":"diputados","pl_id":"00589-2026-2031-CD","semaforo":"rojo","derechos":["Integridad, libertad personal y uso de la fuerza"],"estandares":["CADH, art. 7.5"],"cita_textual":"...","explicacion":"...","resumen":"..."}
+   {"camara":"diputados","pl_id":"00589-2026-2031-CD",
+    "preguntas":{"vulnerables":"no","restringe":"si","no_proporcional":"si","regresiva":"si","contra_constitucion":"depende","contra_tratado":"si","equilibrio_poderes":"no","reglas_electorales":"no_aplica","rendicion_cuentas":"no","espacio_civico":"no","sin_consulta":"no_aplica","retroactiva":"no","gasto_sin_fondos":"no","impacto_ambiental":"no_aplica"},
+    "ganan":"...","pierden":"...","derechos":["Integridad, libertad personal y uso de la fuerza"],
+    "estandares":["CADH, art. 7.5"],"cita_textual":"...","explicacion":"...","resumen":"..."}
    EOF
    ```
-   El script valida los campos y verifica la cita en el PDF. Si responde `cita verificada: False`, corrige la
-   cita (cópiala exacta de `formula_legal`) y vuelve a guardar: gana la última línea.
-5. Repite hasta que `estado` diga 0 en tu lote. Al final informa: cuántas confirmaste, cuántas cambiaste de color
-   (de qué a qué) y cuáles quedaron en rojo, con una línea de por qué.
+   El script valida, **calcula el semáforo** y verifica la cita en el PDF. Si responde `cita verificada: False`
+   con una cita no vacía, corrígela y vuelve a guardar: gana la última línea.
+5. Repite hasta que `estado` diga 0 en tu lote. Al final informa: cuántos quedaron en rojo, amarillo y verde,
+   qué preguntas críticas se activaron más, y los rojos con una línea de por qué.
 
 ## Reglas
 
-- No inventes contenido que no esté en la fórmula legal ni artículos de instrumentos que no existan.
+- No inventes contenido que no esté en la fórmula legal ni artículos que no existan.
 - No modifiques archivos del repositorio: solo usa `ai/revision.py`.
 - Es una alerta temprana, no una opinión legal.
