@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Primera Lectura — Dirección 2: El hemiciclo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--noche:#0B1626;--panel:#13233A;--linea:#2A3E5C;--texto:#E9EEF5;--tenue:#9FB0C6;--si:#F2E9D8;--no:#E0544A;--ab:#E2B04A;--au:#3A5072;--papel:#FBFAF7;--tinta:#16202E}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.55 "Public Sans",system-ui,sans-serif;background:var(--noche);color:var(--texto)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid #8CB8F0;outline-offset:2px}
+.todo{display:grid;grid-template-columns:minmax(0,46fr) minmax(0,54fr);min-height:100vh}
+.sala{position:sticky;top:0;height:100vh;padding:28px 36px;display:flex;flex-direction:column}
+.marca{font:600 19px "Bricolage Grotesque";display:flex;justify-content:space-between;align-items:center}
+.marca nav a{color:var(--tenue);text-decoration:none;font:400 15px "Public Sans";margin-left:20px;padding:12px 0;display:inline-block}
+.marca nav a[aria-current]{color:var(--texto);border-bottom:2px solid var(--texto)}
+.sala h1{font:600 40px/1.05 "Bricolage Grotesque";margin:auto 0 10px;letter-spacing:-.02em;max-width:13em}
+.sala .sub{color:var(--tenue);margin:0 0 6px;max-width:34em;min-height:3.2em}
+svg#hemi{width:100%;max-height:46vh;display:block;margin:8px 0}
+#hemi circle{transition:opacity .25s,r .25s;cursor:pointer}
+#hemi circle.apagado{opacity:.16}
+.marcador{display:flex;gap:26px;align-items:baseline;flex-wrap:wrap;margin-bottom:auto}
+.marcador b{font:600 34px "Bricolage Grotesque";margin-right:6px}
+.marcador span{color:var(--tenue);font-size:14px}
+.marcador i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px}
+.modo{display:inline-flex;border:1px solid var(--linea);border-radius:22px;padding:3px;margin-top:14px;align-self:flex-start}
+.modo button{background:none;border:0;border-radius:20px;padding:0 16px;min-height:38px;cursor:pointer;font-size:14px;color:var(--tenue)}
+.modo button[aria-pressed=true]{background:var(--texto);color:var(--noche);font-weight:600}
+.reporte{background:var(--papel);color:var(--tinta);padding:44px 52px 80px}
+.reporte header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:26px}
+.reporte h2{font:600 30px/1.1 "Bricolage Grotesque";margin:0;letter-spacing:-.01em}
+.reporte header p{margin:6px 0 0;color:#5B6676}
+.pdf{background:var(--noche);color:#fff;border:0;border-radius:22px;padding:0 18px;min-height:44px;cursor:pointer;font-weight:600;white-space:nowrap}
+.lente{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:30px}
+.lente button{background:#fff;border:1px solid #C9D0DA;border-radius:22px;padding:0 14px;min-height:40px;cursor:pointer;font-size:14px}
+.lente button[aria-pressed=true]{background:var(--tinta);color:#fff;border-color:var(--tinta)}
+.lente button:disabled{color:#5B6676;cursor:default;border-style:dashed}
+h3{font:600 15px "Public Sans";color:#5B6676;margin:0 0 4px}
+.item{border-top:1px solid #D9DEE5;padding:20px 0;cursor:pointer}
+.item:hover .res,.item.activo .res{color:#8A1F1A}
+.item .cab{display:flex;gap:12px;align-items:center;font-size:14px;color:#5B6676;margin-bottom:6px;flex-wrap:wrap}
+.sello{font-weight:700;font-size:14px;padding:2px 9px;border-radius:12px;background:#B3261E;color:#fff}
+.sello.amarillo{background:#F4E2B4;color:#6B4700}
+.res{font:600 21px/1.3 "Bricolage Grotesque";margin:0;transition:color .2s}
+.cuerpo{display:none;margin-top:14px}
+.item.activo .cuerpo{display:block}
+blockquote{margin:0 0 6px;padding:12px 16px;border-left:4px solid #B3261E;background:#F7E7E4;font-style:italic}
+.ok{font-size:14px;font-weight:600;color:#1E6B45;margin:0 0 14px}
+.gp{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:14px 0}
+.gp p{margin:0}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 14px}
+.chips span{font-size:14px;padding:3px 10px;border-radius:12px;background:#E7EBF1}
+.chips span.si{background:#F7D9D5;color:#8A1F1A;font-weight:600}
+.pie{font-size:14px;color:#5B6676;border-top:1px solid #D9DEE5;padding-top:16px;margin-top:10px}
+@media (max-width:960px){.todo{grid-template-columns:1fr}.sala{position:static;height:auto;padding:20px}.sala h1{font-size:30px;margin-top:24px}.reporte{padding:28px 20px 60px}.gp{grid-template-columns:1fr}.marca nav{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="todo">
+  <section class="sala" aria-label="Hemiciclo">
+    <div class="marca">Primera Lectura<nav><a href="#" aria-current="page">Reporte</a><a href="#">Proyectos</a><a href="#">Votaciones</a></nav></div>
+    <h1 id="tit"></h1>
+    <p class="sub" id="sub"></p>
+    <svg id="hemi" viewBox="0 0 600 320" role="img" aria-label="Hemiciclo de la Cámara de Diputados"></svg>
+    <div class="marcador" id="marc"></div>
+    <div class="modo" role="group" aria-label="Qué muestra el hemiciclo"><button id="mV" aria-pressed="true">Cómo votaron</button><button id="mB" aria-pressed="false">Quién presenta las alertas</button></div>
+  </section>
+  <main class="reporte">
+    <header><div><h2>Reporte de la semana</h2><p id="per"></p></div><button class="pdf" onclick="print()">Descargar PDF</button></header>
+    <div class="lente" role="group" aria-label="Lente temático"><button aria-pressed="true">Derechos humanos y gobernanza</button><button disabled>Riesgo regulatorio</button><button disabled>Salud</button><button disabled>Tu lente a medida</button></div>
+    <h3 id="h3r"></h3><div id="lista"></div>
+    <p class="pie">Alerta temprana para priorizar el trabajo. No es una opinión legal. Toda cita se comprueba contra el PDF del proyecto.</p>
+  </main>
+</div>
+<script src="datos.js"></script>
+<script>
+const D=window.D,$=s=>document.querySelector(s),v=D.votacion,B=D.meta.bancadas;
+const f=d=>new Date(d+'T12:00').toLocaleDateString('es-PE',{day:'numeric',month:'long'});
+const COL={SI:'var(--si)',NO:'var(--no)',AB:'var(--ab)',AU:'var(--au)'}, cod=c=>c=='SI'?'SI':c=='NO'?'NO':c.startsWith('Abst')?'AB':'AU';
+// asientos: 6 filas en arco; se ordenan por ángulo y se reparten por bancada para que cada grupo quede junto
+const votos=[...v.votos].sort((a,b)=>a[1].localeCompare(b[1])), n=votos.length, filas=6, r0=110, dr=30;
+const cap=[...Array(filas)].map((_,i)=>r0+i*dr), tot=cap.reduce((a,b)=>a+b,0); let sillas=[];
+cap.forEach((r,i)=>{const k=Math.round(n*r/tot);for(let j=0;j<k;j++){const a=Math.PI*(j+.5)/k;sillas.push({a,x:300-r*Math.cos(a),y:300-r*Math.sin(a)})}});
+sillas=sillas.sort((p,q)=>p.a-q.a).slice(0,n);
+$('#hemi').innerHTML=sillas.map((s,i)=>`<circle cx="${s.x.toFixed(1)}" cy="${s.y.toFixed(1)}" r="8.5" fill="${COL[cod(votos[i][2])]}" data-b="${votos[i][1]}"><title>${votos[i][0]} (${B[votos[i][1]]||votos[i][1]}): ${votos[i][2]}</title></circle>`).join('');
+const cs=[...document.querySelectorAll('#hemi circle')];
+const nombreA=Object.fromEntries(Object.entries(B).map(([k,n])=>[n,k]));
+function modoVoto(){
+  $('#tit').textContent='El Pleno rechazó delegar facultades al Ejecutivo';
+  $('#sub').textContent=`PL ${+v.pls[0].slice(0,5)}, seguridad ciudadana y Fenómeno El Niño. Votación del ${f(v.fecha)} en la Cámara de Diputados. Cada punto es un diputado; pasa el cursor para ver su nombre.`;
+  cs.forEach((c,i)=>{c.setAttribute('fill',COL[cod(votos[i][2])]);c.classList.remove('apagado')});
+  $('#marc').innerHTML=`<div><i style="background:var(--si)"></i><b>${v.si}</b><span>a favor</span></div><div><i style="background:var(--no)"></i><b>${v.no}</b><span>en contra</span></div><div><i style="background:var(--ab)"></i><b>${v.abst||0}</b><span>abstenciones</span></div>`;
+  $('#mV').setAttribute('aria-pressed',true);$('#mB').setAttribute('aria-pressed',false);
+}
+function modoBancada(nombre){
+  const k=nombreA[nombre]; let m=0;
+  cs.forEach(c=>{const on=c.dataset.b==k;m+=on;c.setAttribute('fill',on?'var(--no)':'var(--au)');c.classList.toggle('apagado',!on)});
+  const cuantas=D.rojos.filter(a=>a.bancada==nombre).length;
+  $('#tit').textContent=nombre?`${nombre}: ${cuantas} de las ${D.rojos.length} alertas rojas`:'Quién presenta las alertas';
+  $('#sub').textContent=m?`La bancada ocupa ${m} de los ${n} escaños de Diputados. Elige otra alerta en el reporte para ver a su bancada.`:'Esta alerta viene de una bancada sin escaños en esta cámara o del Ejecutivo.';
+  $('#marc').innerHTML='';
+  $('#mV').setAttribute('aria-pressed',false);$('#mB').setAttribute('aria-pressed',true);
+}
+const PQ=Object.fromEntries(D.meta.preguntas.map(p=>[p.id,p]));
+const corto={no_proporcional:'Falla el test de proporcionalidad',regresiva:'Regresiva',contra_constitucion:'Contra la Constitución',contra_tratado:'Contra un tratado',equilibrio_poderes:'Equilibrio de poderes',reglas_electorales:'Reglas electorales',espacio_civico:'Espacio cívico',sin_consulta:'Sin consulta previa',retroactiva:'Retroactiva',vulnerables:'Grupos vulnerables',restringe:'Restringe un derecho',rendicion_cuentas:'Rendición de cuentas',gasto_sin_fondos:'Gasto sin fondos',impacto_ambiental:'Impacto ambiental'};
+const item=a=>`<article class="item" tabindex="0" data-b="${a.bancada}"><div class="cab"><span class="sello ${a.semaforo}">${a.semaforo=='rojo'?'Alerta roja':'En observación'}</span><span>PL ${a.pl}, ${a.camara=='senado'?'Senado':'Diputados'}</span><span>${a.bancada}</span></div>
+<p class="res">${a.resumen}</p><div class="cuerpo">${a.cita?`<blockquote>«${a.cita}»</blockquote><p class="ok">Cita verificada en el PDF</p>`:''}<p>${a.explicacion}</p>
+<div class="chips">${Object.entries(a.preguntas).filter(([,x])=>x=='si'||x=='depende').map(([k,x])=>`<span class="${x}">${corto[k]}${x=='depende'?': depende':''}</span>`).join('')}</div>
+<div class="gp"><div><h3>Quiénes ganan</h3><p>${a.ganan}</p></div><div><h3>Quiénes pierden</h3><p>${a.pierden}</p></div></div><a href="${a.url}">Ver expediente en el portal del Congreso</a></div></article>`;
+const hasta=D.meta.actualizado,desde=new Date(new Date(hasta+'T12:00')-6*864e5).toISOString().slice(0,10);
+$('#per').textContent=`Del ${f(desde)} al ${f(hasta)} de 2026. ${D.meta.semana} proyectos nuevos, ${D.meta.n} en seguimiento.`;
+$('#h3r').textContent=`${D.rojos.length} alertas rojas abiertas y ${D.amarillos.length} de ${D.conteo.amarillo} en observación`;
+$('#lista').innerHTML=[...D.rojos,...D.amarillos].map(item).join('');
+document.querySelectorAll('.item').forEach(el=>{const abrir=()=>{const ya=el.classList.contains('activo');document.querySelectorAll('.item.activo').forEach(x=>x.classList.remove('activo'));if(!ya){el.classList.add('activo');modoBancada(el.dataset.b)}else modoVoto()};
+  el.onclick=e=>{if(e.target.tagName!='A')abrir()};el.onkeydown=e=>{if(e.key=='Enter')abrir()}});
+$('#mV').onclick=modoVoto;$('#mB').onclick=()=>modoBancada(D.rojos[0].bancada);
+modoVoto();
+</script>
+</body>
+</html>
