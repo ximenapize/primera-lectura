@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 700" font-family="Public Sans, Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Arquitectura de Primera Lectura</title>
+  <desc id="d">Flujo desde las fuentes del Congreso hasta el sitio público: ingesta diaria en GitHub Actions, lectura con IA local, segunda lectura con un agente y publicación en GitHub Pages.</desc>
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#4A5163"/>
+    </marker>
+    <style>
+      .col { font: 700 15px Public Sans, Helvetica, Arial, sans-serif; fill: #4A3C8C; }
+      .sub { font: 400 12px Public Sans, Helvetica, Arial, sans-serif; fill: #4A5163; }
+      .caja { fill: #FFFFFF; stroke: #B9BDB5; stroke-width: 1.2; }
+      .ia { fill: #ECE9F6; stroke: #4A3C8C; stroke-width: 1.4; }
+      .datos { fill: #F4F5F2; stroke: #B9BDB5; stroke-width: 1.2; stroke-dasharray: 4 3; }
+      .sitio { fill: #4A3C8C; }
+      .t { font: 700 14px Public Sans, Helvetica, Arial, sans-serif; fill: #1C2230; }
+      .s { font: 400 12px Public Sans, Helvetica, Arial, sans-serif; fill: #4A5163; }
+      .code { font: 400 11.5px Menlo, Consolas, monospace; fill: #4A3C8C; }
+      .blanco { fill: #FFFFFF; }
+      .linea { stroke: #4A5163; stroke-width: 1.4; fill: none; marker-end: url(#f); }
+      .zona { fill: none; stroke: #D9DCD6; stroke-width: 1; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="700" fill="#F4F5F2"/>
+  <text x="40" y="44" style="font: 600 26px 'Source Serif 4', Georgia, serif; fill: #1C2230">Primera Lectura: del portal del Congreso a una alerta verificable</text>
+
+  <!-- encabezados de columna -->
+  <text x="40" y="96" class="col">Fuentes públicas</text>
+  <text x="40" y="114" class="sub">Congreso de la República</text>
+  <text x="300" y="96" class="col">Ingesta diaria</text>
+  <text x="300" y="114" class="sub">GitHub Actions, 6:00 a. m.</text>
+  <text x="590" y="96" class="col">Lectura con IA</text>
+  <text x="590" y="114" class="sub">modelo abierto en la laptop + agente</text>
+  <text x="900" y="96" class="col">Datos</text>
+  <text x="900" y="114" class="sub">CSV y JSONL en el repositorio</text>
+  <text x="1090" y="96" class="col">Producto</text>
+  <text x="1090" y="114" class="sub">GitHub Pages</text>
+
+  <!-- fuentes -->
+  <rect x="40" y="140" width="210" height="70" rx="6" class="caja"/>
+  <text x="54" y="168" class="t">API de proposiciones</text>
+  <text x="54" y="188" class="s">Diputados y Senado</text>
+  <rect x="40" y="230" width="210" height="70" rx="6" class="caja"/>
+  <text x="54" y="258" class="t">PDF de cada proyecto</text>
+  <text x="54" y="278" class="s">fórmula legal y motivos</text>
+  <rect x="40" y="320" width="210" height="70" rx="6" class="caja"/>
+  <text x="54" y="348" class="t">PDF de votación</text>
+  <text x="54" y="368" class="s">adjuntos al expediente</text>
+  <rect x="40" y="410" width="210" height="70" rx="6" class="caja"/>
+  <text x="54" y="438" class="t">Páginas de congresistas</text>
+  <text x="54" y="458" class="s">nombre, bancada, cámara</text>
+
+  <!-- ingesta -->
+  <rect x="300" y="140" width="240" height="70" rx="6" class="caja"/>
+  <text x="314" y="166" class="t">Scraper unificado</text>
+  <text x="314" y="186" class="code">scripts/scraper.py</text>
+  <text x="314" y="201" class="s">proyectos + recorrido</text>
+  <rect x="300" y="320" width="240" height="70" rx="6" class="caja"/>
+  <text x="314" y="346" class="t">Lector de votaciones</text>
+  <text x="314" y="366" class="code">scripts/votaciones.py</text>
+  <text x="314" y="381" class="s">texto u OCR (RapidOCR) + control</text>
+  <rect x="300" y="410" width="240" height="70" rx="6" class="caja"/>
+  <text x="314" y="436" class="t">Maestro de congresistas</text>
+  <text x="314" y="456" class="code">scripts/maestro.py</text>
+
+  <path d="M250 175H300" class="linea"/>
+  <path d="M250 355H300" class="linea"/>
+  <path d="M250 445H300" class="linea"/>
+  <path d="M420 410V390" class="linea"/>
+
+  <!-- IA -->
+  <rect x="590" y="140" width="260" height="62" rx="6" class="ia"/>
+  <text x="604" y="164" class="t">1. Temática</text>
+  <text x="604" y="184" class="code">ai/temas.py</text>
+  <text x="720" y="184" class="s">qwen2.5 7B</text>
+
+  <rect x="590" y="222" width="260" height="78" rx="6" class="ia"/>
+  <text x="604" y="246" class="t">2. Primera lectura</text>
+  <text x="604" y="266" class="code">ai/riesgo.py</text>
+  <text x="604" y="286" class="s">semáforo, derechos, estándares, cita</text>
+
+  <rect x="590" y="320" width="260" height="62" rx="6" class="ia"/>
+  <text x="604" y="344" class="t">3. Verificador de cita</text>
+  <text x="604" y="364" class="s">¿la cita existe en el PDF?</text>
+
+  <rect x="590" y="402" width="260" height="78" rx="6" class="ia"/>
+  <text x="604" y="426" class="t">4. Segunda lectura</text>
+  <text x="604" y="446" class="code">.claude/skills/revisando-alertas</text>
+  <text x="604" y="466" class="s">agente revisa solo rojos y amarillos</text>
+
+  <path d="M540 165H590" class="linea"/>
+  <path d="M250 265H570V261H590" class="linea"/>
+  <path d="M720 300V320" class="linea"/>
+  <path d="M720 382V402" class="linea"/>
+
+  <!-- datos -->
+  <rect x="900" y="140" width="150" height="52" rx="6" class="datos"/>
+  <text x="914" y="171" class="code">proposiciones.csv</text>
+  <rect x="900" y="204" width="150" height="52" rx="6" class="datos"/>
+  <text x="914" y="235" class="code">temas.csv</text>
+  <rect x="900" y="268" width="150" height="52" rx="6" class="datos"/>
+  <text x="914" y="299" class="code">riesgo.jsonl</text>
+  <rect x="900" y="332" width="150" height="52" rx="6" class="datos"/>
+  <text x="914" y="363" class="code">votaciones.csv</text>
+  <rect x="900" y="402" width="150" height="52" rx="6" class="datos"/>
+  <text x="914" y="433" class="code">revision.jsonl</text>
+
+  <path d="M540 150H560V120H880V160H900" class="linea" opacity=".55"/>
+  <path d="M850 175H875V230H900" class="linea"/>
+  <path d="M850 270H875V294H900" class="linea"/>
+  <path d="M540 355H560V500H880V358H900" class="linea" opacity=".55"/>
+  <path d="M850 441H875V428H900" class="linea"/>
+
+  <!-- producto -->
+  <rect x="1090" y="140" width="160" height="340" rx="8" class="sitio"/>
+  <text x="1106" y="172" class="t blanco" style="fill:#fff">Sitio público</text>
+  <text x="1106" y="194" class="s" style="fill:#E3DFF3">site/ (HTML, CSS, JS)</text>
+  <text x="1106" y="240" class="t" style="fill:#fff">Proyectos</text>
+  <text x="1106" y="258" class="s" style="fill:#E3DFF3">filtros y ficha</text>
+  <text x="1106" y="298" class="t" style="fill:#fff">Alertas</text>
+  <text x="1106" y="316" class="s" style="fill:#E3DFF3">cita resaltada</text>
+  <text x="1106" y="356" class="t" style="fill:#fff">Votaciones</text>
+  <text x="1106" y="374" class="s" style="fill:#E3DFF3">cohesión, coincidencia</text>
+  <text x="1106" y="414" class="t" style="fill:#fff">Panorama</text>
+  <text x="1106" y="432" class="s" style="fill:#E3DFF3">tema × bancada</text>
+  <path d="M1050 300H1090" class="linea"/>
+  <text x="1090" y="505" class="code">scripts/exportar_web.py</text>
+
+  <!-- pie: el embudo de costo -->
+  <rect x="40" y="540" width="1210" height="120" rx="8" fill="#FFFFFF" stroke="#D9DCD6"/>
+  <text x="62" y="572" class="t">El embudo que mantiene el costo cerca de cero</text>
+  <text x="62" y="600" class="s">820 proyectos  →  reglas (comisión y palabras clave): 406 sensibles  →  modelo local lee el articulado: 83 alertas  →  agente revisa solo esas alertas</text>
+  <text x="62" y="626" class="s">Sin claves de API ni servidor: el modelo abierto corre en la laptop, GitHub Actions descarga los datos cada mañana y GitHub Pages publica el sitio.</text>
+  <text x="62" y="646" class="s">La primera lectura es una alerta temprana para priorizar; el criterio final es de las personas.</text>
+</svg>
