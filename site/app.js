@@ -30,6 +30,21 @@ const oracion = (s) => {
   return t.charAt(0).toUpperCase() + t.slice(1);
 };
 
+const fechaLarga = (iso) => new Date(iso + "T12:00").toLocaleDateString("es-PE", { day: "numeric", month: "long" });
+const camaraTxt = (c) => (c === "senado" ? "Senado" : "Cámara de Diputados");
+// La explicación de la IA a veces nombra las preguntas de la rúbrica por su código interno: se cambian por palabras.
+const CODIGOS = { contra_constitucion: "contra la Constitución", contra_tratado: "contra un tratado", no_proporcional: "proporcionalidad",
+  equilibrio_poderes: "equilibrio de poderes", reglas_electorales: "reglas electorales", rendicion_cuentas: "rendición de cuentas",
+  espacio_civico: "espacio cívico", sin_consulta: "consulta previa", gasto_sin_fondos: "gasto sin fondos",
+  impacto_ambiental: "impacto ambiental", formula_legal: "fórmula legal" };
+const limpio = (t) => String(t ?? "").replace(/\b[a-z]+(?:_[a-z]+)+\b/g, (m) => CODIGOS[m] || m.replaceAll("_", " "));
+// Nombre corto de cada pregunta de la rúbrica, para las etiquetas del reporte.
+const CORTO = { vulnerables: "Grupos vulnerables", restringe: "Restringe un derecho", no_proporcional: "Falla el test de proporcionalidad",
+  regresiva: "Regresiva", contra_constitucion: "Contra la Constitución", contra_tratado: "Contra un tratado",
+  equilibrio_poderes: "Equilibrio de poderes", reglas_electorales: "Reglas electorales", rendicion_cuentas: "Rendición de cuentas",
+  espacio_civico: "Espacio cívico", sin_consulta: "Sin consulta previa", retroactiva: "Retroactiva",
+  gasto_sin_fondos: "Gasto sin fondos", impacto_ambiental: "Impacto ambiental" };
+
 // ---------------- carga ----------------
 async function iniciar() {
   try {
@@ -44,56 +59,167 @@ async function iniciar() {
   $("#cargando").hidden = true;
   $("#actualizado").textContent = `Datos al ${fecha(META.actualizado)}.`;
   prepararFiltros();
-  portada();
+  prepararReporte();
   window.addEventListener("hashchange", ruta);
   ruta();
 }
 
 // ---------------- rutas ----------------
+const VISTAS = ["reporte", "proyectos", "votaciones", "panorama", "como-funciona"];
+let vistaActual = "reporte";
+
 function ruta() {
-  const h = location.hash.replace(/^#\/?/, "");
-  const [seccion, id] = h.split("/");
-  const vista = ["votaciones", "panorama", "como-funciona"].includes(seccion) ? seccion : "proyectos";
-  const antes = $$(".vista").find((v) => !v.hidden)?.id;
+  const [seccion, id] = location.hash.replace(/^#\/?/, "").split("/");
+  // la ficha se abre encima de la vista en la que estabas
+  if (seccion === "p" && id) { mostrar(vistaActual); abrirFicha(decodeURIComponent(id)); return; }
+  if ($("#ficha").open) $("#ficha").close();
+  mostrar(VISTAS.includes(seccion) ? seccion : "reporte");
+}
+
+function mostrar(vista) {
+  const cambia = $$(".vista").some((v) => !v.hidden && v.id !== `vista-${vista}`);
+  vistaActual = vista;
   $$(".vista").forEach((v) => (v.hidden = v.id !== `vista-${vista}`));
-  if (antes && antes !== `vista-${vista}`) window.scrollTo(0, 0);
+  if (cambia) window.scrollTo(0, 0);
   $$(".barra nav a").forEach((a) => (a.dataset.ruta === vista ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current")));
   if (vista === "proyectos") pintarLista();
   if (vista === "votaciones") pintarVotaciones();
   if (vista === "panorama") pintarPanorama();
-  if (seccion === "p" && id) abrirFicha(decodeURIComponent(id));
-  else if ($("#ficha").open) $("#ficha").close();
 }
 
-// ---------------- portada: el titular sale de los datos ----------------
-function portada() {
-  const ultima = new Date(META.actualizado + "T00:00:00");
-  const hace7 = new Date(ultima); hace7.setDate(ultima.getDate() - 7);
-  const semana = P.filter((p) => new Date(p.fecha + "T00:00:00") > hace7);
-  const rojosSemana = semana.filter((p) => sem(p) === "rojo").length;
-  const vigentesRojos = P.filter((p) => sem(p) === "rojo" && p.avance > 0);
-  $("#titular").innerHTML = `En los últimos siete días se presentaron <span class="cifra">${semana.length}</span> proyectos de ley. ` +
-    (rojosSemana ? `<span class="marcado"><span class="cifra">${rojosSemana}</span> ${rojosSemana === 1 ? "podría" : "podrían"} afectar derechos.</span>` :
-      `<span class="marcado"><span class="cifra">${vigentesRojos.length}</span> proyectos vigentes podrían afectar derechos.</span>`);
-  $("#bajada").textContent = `Primera Lectura revisa todos los días los ${P.length} proyectos del periodo 2026-2031 en Diputados y Senado. ` +
-    `La IA ya leyó el articulado de ${META.n_lecturas}; cada alerta trae la cita del artículo que la sustenta.`;
+// ---------------- hemiciclo: un punto por congresista, agrupados por bancada ----------------
+const VOTO_TXT = { SI: "Sí", NO: "No", "Abst.": "Abstención", SinRes: "Sin respuesta", AUS: "Ausente", "***": "Presidía (no vota)" };
+const claseVoto = (c) => (c === "SI" ? "SI" : c === "NO" ? "NO" : c.startsWith("Abst") ? "AB" : "AU");
+
+function hemiHTML(v) {
+  const votos = [...v.votos].sort((a, b) => a[1].localeCompare(b[1]) || a[0].localeCompare(b[0]));
+  const n = votos.length;
+  // filas en arco: cada una recibe asientos en proporción a su radio
+  const radios = n > 80 ? [110, 140, 170, 200, 230, 260] : [140, 180, 220, 260];
+  const suma = radios.reduce((a, r) => a + r, 0);
+  let quedan = n, sillas = [];
+  radios.forEach((r, i) => {
+    const k = i === radios.length - 1 ? quedan : Math.round((n * r) / suma);
+    quedan -= k;
+    for (let j = 0; j < k; j++) { const a = (Math.PI * (j + 0.5)) / k; sillas.push({ a, x: 300 - r * Math.cos(a), y: 290 - r * Math.sin(a) }); }
+  });
+  // al ordenar los asientos por ángulo, cada bancada queda junta, como una cuña
+  sillas.sort((p, q) => p.a - q.a);
+  const puntos = sillas.map((s, i) => {
+    const [nombre, b, c] = votos[i];
+    return `<circle cx="${s.x.toFixed(1)}" cy="${s.y.toFixed(1)}" r="${n > 80 ? 8.5 : 11}" class="v-${claseVoto(c)}" data-b="${esc(b)}"><title>${esc(nombre)} (${esc(NOMBRE(b))}): ${esc(VOTO_TXT[c] || "Con licencia")}</title></circle>`;
+  }).join("");
+  return `<svg class="hemi" viewBox="0 0 600 305" role="img" aria-label="Hemiciclo: ${esc(v.si || 0)} a favor, ${esc(v.no || 0)} en contra, ${esc(v.abst || 0)} abstenciones">${puntos}</svg>`;
+}
+
+// ---------------- reporte de la semana (inicio) ----------------
+let votoSala = null, ROJAS = [], OBSERVACION = [];
+const plDe = (v) => P.find((p) => p.camara === v.camara && p.pl === v.pls[0]);
+const numPL = (v) => v.pls.map((x) => x.replace(/^0+/, "").replace(/-2026-2031.*/, "")).join(", ");
+
+function prepararReporte() {
+  const hasta = new Date(META.actualizado + "T12:00");
+  const desde = new Date(hasta); desde.setDate(hasta.getDate() - 6);
+  const semana = P.filter((p) => new Date(p.fecha + "T12:00") >= desde);
+  const cuenta = (lista, color) => lista.filter((p) => sem(p) === color).length;
+  $("#reporte-periodo").textContent = `Del ${fechaLarga(desde.toISOString().slice(0, 10))} al ${fechaLarga(META.actualizado)} de 2026. Diputados y Senado.`;
+  $("#reporte-semana").innerHTML = `Esta semana entraron <b>${semana.length} proyectos de ley</b>: ${cuenta(semana, "rojo")} con alerta roja, ` +
+    `${cuenta(semana, "amarillo")} en observación, ${cuenta(semana, "verde")} sin riesgo relevante y ${cuenta(semana, "sin")} en cola de lectura. ` +
+    `Hay ${P.length} en seguimiento.`;
+  $("#bajada").textContent = `${P.length} proyectos de Diputados y Senado, actualizados cada día. La IA ya leyó el articulado de ${META.n_lecturas}; cada alerta trae la cita del artículo que la sustenta.`;
 
   // primero las alertas con más sustento: revisadas por el agente y con la cita verificada en el PDF
   const sustento = (p) => (p.lectura.por === "agente" ? 2 : 0) + (p.lectura.cita_ok ? 1 : 0);
-  const orden = vigentesRojos.sort((a, b) => sustento(b) - sustento(a) || b.avance - a.avance || b.fecha.localeCompare(a.fecha)).slice(0, 6);
-  $("#lista-alertas").innerHTML = orden.map((p) => `
-    <li class="alerta">
-      <div class="alerta-meta">
-        <span class="semaforo rojo"><i class="punto rojo"></i>${SEMAFORO.rojo}</span>
-        <strong>PL ${esc(codigo(p))}</strong>
-        <span>${esc(AVANCE[p.avance])}</span>
-        <span>${esc(p.bancada)}</span>
-      </div>
-      <div>
-        <h3><button type="button" data-abrir="${esc(p.id)}">${esc(p.lectura.resumen || oracion(p.titulo))}</button></h3>
-        ${citaHTML(p.lectura)}
-      </div>
-    </li>`).join("");
+  const orden = (a, b) => sustento(b) - sustento(a) || b.avance - a.avance || b.fecha.localeCompare(a.fecha);
+  ROJAS = P.filter((p) => sem(p) === "rojo" && p.avance > 0).sort(orden);
+  const amarillas = P.filter((p) => sem(p) === "amarillo" && p.avance > 0);
+  OBSERVACION = amarillas.sort((a, b) => sustento(b) - sustento(a) || b.fecha.localeCompare(a.fecha)).slice(0, 6);
+  $("#t-rojas").textContent = `${ROJAS.length} alertas rojas abiertas`;
+  $("#reporte-rojas").innerHTML = ROJAS.map(itemHTML).join("");
+  $("#t-observacion").textContent = `En observación: las ${OBSERVACION.length} más recientes de ${amarillas.length}`;
+  $("#reporte-observacion").innerHTML = OBSERVACION.map(itemHTML).join("");
+
+  // al abrir una alerta, el hemiciclo muestra a la bancada que la presentó
+  $(".reporte").addEventListener("click", (e) => {
+    const b = e.target.closest(".item-abre");
+    if (!b) return;
+    const item = b.closest(".item"), ya = item.classList.contains("activo");
+    $$(".item.activo").forEach((x) => { x.classList.remove("activo"); $(".item-abre", x).setAttribute("aria-expanded", "false"); });
+    if (ya) { salaVoto(); return; }
+    item.classList.add("activo"); b.setAttribute("aria-expanded", "true");
+    salaBancada(P.find((p) => p.id === item.dataset.id));
+  });
+  $("#reporte-pdf").addEventListener("click", () => window.print());
+
+  // votaciones nominales para el hemiciclo; por defecto, la más dividida entre las rechazadas
+  const nominales = V.filter((v) => v.tipo === "Votación" && v.votos.length).sort((a, b) => b.fecha.localeCompare(a.fecha));
+  const dividida = (v) => Math.min(+v.si || 0, +v.no || 0);
+  const rechazadas = nominales.filter((v) => v.resultado !== "Aprobado" && v.camara === "diputados");
+  votoSala = (rechazadas.length ? rechazadas : nominales).reduce((m, v) => (dividida(v) > dividida(m) ? v : m));
+  $("#elige-voto").innerHTML = nominales.map((v) => `<option value="${esc(v.id)}" ${v === votoSala ? "selected" : ""}>${fechaLarga(v.fecha)}, ${v.camara === "senado" ? "Senado" : "Diputados"}, PL ${esc(numPL(v))}: ${esc(v.resultado)} (${esc(v.si || 0)} a ${esc(v.no || 0)})</option>`).join("");
+  $("#elige-voto").addEventListener("change", (e) => { votoSala = V.find((v) => String(v.id) === e.target.value); salaVoto(); });
+  $("#modo-voto").addEventListener("click", salaVoto);
+  $("#modo-bancada").addEventListener("click", () => salaBancada(null));
+  if (votoSala) salaVoto();
+}
+
+function itemHTML(p) {
+  const l = p.lectura;
+  const activas = Object.entries(l.preguntas || {}).filter(([, r]) => r === "si" || r === "depende");
+  return `<article class="item" data-id="${esc(p.id)}">
+    <div class="item-cab"><span class="etiqueta-riesgo ${esc(l.semaforo)}">${l.semaforo === "rojo" ? "Alerta roja" : "En observación"}</span>
+      <span>PL ${esc(codigo(p))}, ${p.camara === "senado" ? "Senado" : "Diputados"}</span><span>${esc(p.bancada)}</span><span>${esc(AVANCE[p.avance])}</span></div>
+    <h4><button type="button" class="item-abre" aria-expanded="false">${esc(l.resumen || oracion(p.titulo))}</button></h4>
+    <div class="item-cuerpo">
+      ${citaHTML(l)}
+      <p>${esc(limpio(l.explicacion))}</p>
+      ${activas.length ? `<div class="chips">${activas.map(([k, r]) => `<span class="${r}">${esc(CORTO[k] || k)}${r === "depende" ? ": depende" : ""}</span>`).join("")}</div>` : ""}
+      ${l.ganan || l.pierden ? `<div class="gp"><div><h5>Quiénes ganan</h5><p>${esc(l.ganan || "—")}</p></div><div><h5>Quiénes pierden</h5><p>${esc(l.pierden || "—")}</p></div></div>` : ""}
+      <div class="item-acciones"><button type="button" class="boton-sec" data-abrir="${esc(p.id)}">Abrir la ficha completa</button>
+        <a href="${esc(p.url)}" target="_blank" rel="noopener">Expediente en el portal del Congreso</a></div>
+    </div>
+  </article>`;
+}
+
+function salaVoto() {
+  const v = votoSala, p = plDe(v), aprob = v.resultado === "Aprobado";
+  const [mas, menos] = aprob ? [v.si, v.no] : [v.no, v.si];
+  $("#sala-titulo").textContent = `${v.camara === "senado" ? "El Senado" : "Diputados"} ${aprob ? "aprobó" : "rechazó"} el PL ${numPL(v)} por ${mas || 0} votos contra ${menos || 0}`;
+  const mov = oracion(v.movimiento).replace(/\.$/, "");
+  $("#sala-sub").textContent = `${p ? (p.lectura?.resumen || oracion(p.titulo)).replace(/\.$/, "") + ". " : ""}Se votó: ${mov.length > 110 ? mov.slice(0, 110) + "…" : mov}. ` +
+    `${fechaLarga(v.fecha)}, ${camaraTxt(v.camara)}. Cada punto es un congresista; pasa el cursor para ver su nombre.`;
+  $("#sala-hemi").innerHTML = hemiHTML(v);
+  const otros = v.votos.length - (+v.si || 0) - (+v.no || 0) - (+v.abst || 0);
+  $("#sala-marcador").innerHTML = [["si", v.si, "a favor"], ["no", v.no, "en contra"], ["ab", v.abst, "abstenciones"], ["au", otros, "sin voto"]]
+    .map(([c, n, t]) => `<div><i style="background:var(--h-${c})"></i><b>${esc(n || 0)}</b><span>${t}</span></div>`).join("");
+  $("#modo-voto").setAttribute("aria-pressed", "true"); $("#modo-bancada").setAttribute("aria-pressed", "false");
+}
+
+// p = proyecto abierto en el reporte; sin p, se encienden todas las bancadas con alertas rojas
+function salaBancada(p) {
+  const v = votoSala;
+  if (!$("#sala-hemi .hemi")) $("#sala-hemi").innerHTML = hemiHTML(v);
+  const sigla = (nombre) => Object.keys(META.bancadas).find((k) => META.bancadas[k] === nombre);
+  const porBancada = {};
+  ROJAS.forEach((x) => (porBancada[x.bancada] = (porBancada[x.bancada] || 0) + 1));
+  const prendidas = p ? [sigla(p.bancada)] : Object.keys(porBancada).map(sigla);
+  let m = 0;
+  $("#sala-hemi .hemi").classList.add("por-bancada");
+  $$("#sala-hemi circle").forEach((c) => { const on = prendidas.includes(c.dataset.b); m += on; c.classList.toggle("on", on); });
+  const donde = `${v.votos.length} escaños ${v.camara === "senado" ? "del Senado" : "de Diputados"}`;
+  if (p) {
+    const roja = sem(p) === "rojo";
+    const suyas = roja ? porBancada[p.bancada] || 0 : P.filter((x) => sem(x) === "amarillo" && x.avance > 0 && x.bancada === p.bancada).length;
+    $("#sala-titulo").textContent = roja ? `${p.bancada}: ${suyas} de las ${ROJAS.length} alertas rojas abiertas` : `${p.bancada}: ${suyas} proyectos en observación`;
+    $("#sala-sub").textContent = m ? `La bancada ocupa ${m} de los ${donde}. Abre otra alerta del reporte para ver a su bancada.`
+      : "Este proyecto viene de un grupo sin escaños en esta cámara, o lo firman varias bancadas.";
+  } else {
+    const lista = Object.entries(porBancada).sort((a, b) => b[1] - a[1]);
+    $("#sala-titulo").textContent = `Las ${ROJAS.length} alertas rojas vienen de ${lista.length} ${lista.length === 1 ? "bancada" : "bancadas"}`;
+    $("#sala-sub").textContent = `${lista.map(([b, n]) => `${b}: ${n}`).join(". ")}. Juntas ocupan ${m} de los ${donde}. Abre una alerta del reporte para ver solo a su bancada.`;
+  }
+  $("#sala-marcador").innerHTML = "";
+  $("#modo-voto").setAttribute("aria-pressed", "false"); $("#modo-bancada").setAttribute("aria-pressed", "true");
 }
 
 function citaHTML(l) {
@@ -222,7 +348,7 @@ function abrirFicha(id) {
       </div>
       <p class="resumen">${esc(l.resumen)}</p>
       ${citaHTML(l)}
-      <p>${esc(l.explicacion)}</p>
+      <p>${esc(limpio(l.explicacion))}</p>
       ${l.ganan || l.pierden ? `<dl class="ganan"><dt>Ganan</dt><dd>${esc(l.ganan || "—")}</dd><dt>Pierden</dt><dd>${esc(l.pierden || "—")}</dd></dl>` : ""}
       ${checklistHTML(l)}
       ${l.derechos.length ? `<div class="etiquetas">${l.derechos.map((d) => `<span>${esc(d)}</span>`).join("")}</div>` : ""}
@@ -237,28 +363,36 @@ function abrirFicha(id) {
   $("#ficha-contenido").innerHTML = `
     <div class="ficha-cabeza">
       <div><p>PL ${esc(codigo(p))} · ${p.camara === "senado" ? "Senado" : "Cámara de Diputados"} · presentado el ${fecha(p.fecha)}</p></div>
-      <button class="cerrar" type="button" aria-label="Cerrar la ficha" id="cerrar">${ICONO.cerrar}</button>
+      <div class="ficha-botones"><button class="boton-pri" type="button" id="ficha-pdf">Descargar PDF</button>
+        <button class="cerrar" type="button" aria-label="Cerrar la ficha" id="cerrar">${ICONO.cerrar}</button></div>
     </div>
     <h2 class="titulo-ley" id="ficha-titulo">${esc(oracion(p.titulo))}</h2>
+    ${p.avance ? `<ol class="ruta" aria-label="Avance del proyecto">${[1, 2, 3, 4, 5].map((i) => `<li class="${p.avance >= i ? "hecho" : ""} ${p.avance === i ? "actual" : ""}">${AVANCE[i]}</li>`).join("")}</ol>` : `<p class="ruta-archivado">Archivado o retirado.</p>`}
     ${lectura}
+    ${votos.length ? `<section><h3>Cómo se votó en el Pleno</h3>${votos.map(votoHTML).join("")}</section>` : ""}
     <section><h3>Sumilla</h3><p>${esc(oracion(p.sumilla))}</p></section>
     <dl class="datos">${datos.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
     <div class="enlaces">
       <a href="${esc(p.pdf)}" target="_blank" rel="noopener">${ICONO.pdf}PDF del proyecto</a>
       <a href="${esc(p.url)}" target="_blank" rel="noopener">${ICONO.externo}Expediente en el portal del Congreso</a>
     </div>
-    ${votos.length ? `<section><h3>Votaciones en el Pleno</h3>${votos.map(votoHTML).join("")}</section>` : ""}
     <section><h3>Recorrido</h3><ol class="recorrido">${p.recorrido.map(([f, e, d]) =>
       `<li><time>${fecha(f)}</time><b>${esc(e)}</b>${d ? `<br>${esc(d)}` : ""}</li>`).join("")}</ol></section>`;
 
   const dlg = $("#ficha");
   if (!dlg.open) dlg.showModal();
+  dlg.scrollTop = 0;
   $("#cerrar").addEventListener("click", () => dlg.close());
+  $("#ficha-pdf").addEventListener("click", () => {
+    document.body.classList.add("imprime-ficha");
+    window.print();
+  });
 }
 
 $("#ficha").addEventListener("close", () => {
-  if (location.hash.startsWith("#/p/")) history.replaceState(null, "", "#/");
+  if (location.hash.startsWith("#/p/")) history.replaceState(null, "", vistaActual === "reporte" ? "#/" : `#/${vistaActual}`);
 });
+window.addEventListener("afterprint", () => document.body.classList.remove("imprime-ficha"));
 $("#ficha").addEventListener("click", (e) => { if (e.target.id === "ficha") e.target.close(); });
 
 // ---------------- votaciones ----------------
@@ -275,6 +409,7 @@ function votoHTML(v) {
     <div class="voto-cabeza"><span class="resultado ${aprob ? "si" : "no"}">${esc(v.resultado || "Sin resultado")}</span><span class="totales">${fecha(v.fecha)}</span></div>
     <p>${esc(oracion(v.movimiento))}</p>
     <p class="totales">A favor ${esc(v.si || "—")}, en contra ${esc(v.no || "—")}, abstenciones ${esc(v.abst || "—")}</p>
+    ${v.votos?.length ? hemiHTML(v) : ""}
     ${filas ? `<div class="apilada">${filas}</div><div class="leyenda"><span><i class="c-si"></i>Sí</span><span><i class="c-no"></i>No</span><span><i class="c-abst"></i>Abstención</span><span><i class="c-sr"></i>Sin respuesta</span></div>` :
       `<p class="totales">Acta sin votación nominal: solo el resultado.</p>`}
   </div>`;
@@ -313,7 +448,7 @@ function pintarVotaciones() {
     bancadas.forEach((b) => {
       const ids = Object.keys(pos[a] || {}).filter((id) => pos[b]?.[id]);
       const pct = ids.length ? ids.filter((id) => pos[a][id] === pos[b][id]).length / ids.length : 0;
-      const fondo = `rgba(74,60,140,${0.08 + pct * 0.85})`;
+      const fondo = `rgba(31,63,110,${0.08 + pct * 0.85})`;
       m += `<div style="background:${fondo};color:${pct > 0.55 ? "#fff" : "var(--tinta)"}" title="${esc(NOMBRE(a))} y ${esc(NOMBRE(b))}: ${Math.round(pct * 100)}%">${Math.round(pct * 100)}%</div>`;
     });
   });
@@ -338,10 +473,9 @@ function pintarVotaciones() {
   inp.oninput = () => {
     const c = nombres.find((x) => x === inp.value);
     if (!c) { $("#historial").innerHTML = ""; return; }
-    const TXT = { SI: "Sí", NO: "No", "Abst.": "Abstención", SinRes: "Sin respuesta", AUS: "Ausente", "***": "Presidía (no vota)" };
     const filas = vs.map((v) => [v, v.votos.find(([x]) => x === c)]).filter(([, x]) => x);
     $("#historial").innerHTML = `<table><thead><tr><th>Fecha</th><th>Proyecto y votación</th><th>Voto</th></tr></thead><tbody>${filas.map(([v, x]) =>
-      `<tr><td>${fecha(v.fecha)}</td><td>PL ${esc(v.pls.join(", "))}: ${esc(oracion(v.movimiento))}</td><td><b>${esc(TXT[x[2]] || x[2])}</b></td></tr>`).join("")}</tbody></table>`;
+      `<tr><td>${fecha(v.fecha)}</td><td>PL ${esc(v.pls.join(", "))}: ${esc(oracion(v.movimiento))}</td><td><b>${esc(VOTO_TXT[x[2]] || "Con licencia")}</b></td></tr>`).join("")}</tbody></table>`;
   };
 }
 const avg = (a) => a.reduce((x, y) => x + y, 0) / a.length;
@@ -358,12 +492,12 @@ function pintarPanorama() {
     temas.map((t) => `<tr><th scope="row">${esc(t)}</th>${bancadas.map((b) => {
       const n = cuenta[`${t}|${b}`] || 0;
       const a = n ? 0.08 + (n / max) * 0.9 : 0.03;
-      return `<td><button type="button" data-tema="${esc(t)}" data-bancada="${esc(b)}" style="background:rgba(74,60,140,${a});color:${n / max > 0.5 ? "#fff" : "var(--tinta)"}" aria-label="${n} proyectos de ${esc(t)} de ${esc(b)}">${n || ""}</button></td>`;
+      return `<td><button type="button" data-tema="${esc(t)}" data-bancada="${esc(b)}" style="background:rgba(31,63,110,${a});color:${n / max > 0.5 ? "#fff" : "var(--tinta)"}" aria-label="${n} proyectos de ${esc(t)} de ${esc(b)}">${n || ""}</button></td>`;
     }).join("")}</tr>`).join("")}</tbody></table>`;
   $$("#mapa-calor button").forEach((b) => b.addEventListener("click", () => {
     estado.tema = b.dataset.tema; estado.bancada = b.dataset.bancada; estado.visibles = 40;
     $('select[name="tema"]').value = estado.tema; $('select[name="bancada"]').value = estado.bancada;
-    location.hash = "#/";
+    location.hash = "#/proyectos";
     setTimeout(() => $("#t-explorar").scrollIntoView({ behavior: "smooth" }), 50);
   }));
 
