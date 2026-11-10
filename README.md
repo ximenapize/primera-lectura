@@ -66,9 +66,13 @@ Primera Lectura hace el **seguimiento completo** del Congreso, todos los días y
 2. **Clasifica** cada proyecto por temática y bancada, y muestra en qué etapa va.
 3. **Lee el articulado** (la fórmula legal del PDF, no la sumilla) y pone un **semáforo** con los derechos y
    estándares en juego y **la cita textual que lo sustenta**. Python verifica que la cita exista en el PDF.
-4. **Segunda lectura:** un agente revisor relee solo las alertas rojas y amarillas y corrige la dirección del
-   efecto o los estándares citados.
-5. **Votaciones:** lee las votaciones nominales del Pleno (texto u OCR), las contrasta con los totales impresos y
+4. **Segunda lectura:** un agente revisor (Claude Sonnet) relee solo las alertas rojas y amarillas y corrige la
+   dirección del efecto o los estándares citados.
+5. **Criterio explícito:** ambas lecturas siguen una **rúbrica pública**, [`ai/rubrica.md`](ai/rubrica.md): qué
+   cambia el proyecto, en qué dirección, el **test de proporcionalidad** (finalidad legítima, idoneidad, necesidad,
+   proporcionalidad estricta), los instrumentos de referencia por derecho (Constitución, CADH, PIDCP, PIDESC,
+   CDN, CEDAW, Convenio 169, Escazú…) y ejemplos de cada color. El semáforo deja de depender de quién lo lea.
+6. **Votaciones:** lee las votaciones nominales del Pleno (texto u OCR), las contrasta con los totales impresos y
    muestra cómo votó cada bancada, su cohesión y quién vota con quién.
 
 **El insight:** lo que importa de un proyecto de ley está en su articulado, pero leer 800 PDF con una API de pago
@@ -173,7 +177,18 @@ Paga quien necesita anticiparse al Congreso. [[confirmar precios]]
 - Agente revisor: minutos de un plan de Claude Code que ya existe (unos US$ 20 al mes repartidos entre clientes).
 - Configurar un lente nuevo: unas horas de trabajo una sola vez.
 
-Con el plan Equipo, el margen de contribución supera el 90 %.
+**Si se pasa a la API de Claude (Sonnet 5.5)** para operar sin la laptop, con precios de US$ 2 / US$ 10 por
+millón de tokens de entrada / salida, caché de la rúbrica (US$ 0,20) y Batch API (−50 %). Medido sobre nuestros
+datos: ~2.100 tokens de instrucciones y rúbrica (cacheables), ~1.500 de articulado y ~1.200 de salida por proyecto.
+
+| Escenario | Volumen | Normal | Batch + caché |
+|---|---|---|---|
+| Leer el histórico completo, una vez | 820 proyectos | US$ 16 | ~US$ 7 |
+| Operación mensual (~9 proyectos nuevos al día) | ~270 al mes | US$ 5 | ~US$ 2,5 |
+| Segunda lectura solo de alertas (~20 %) | ~55 al mes | US$ 1 | ~US$ 0,5 |
+
+Cada lente adicional suma ~US$ 2,5–5 al mes (S/ 10–20). Con el plan Equipo (S/ 290), el margen de contribución
+sigue por encima del **93 %**. Estimación por caracteres: validar con el contador de tokens antes de producción.
 
 **Qué sigue:**
 1. Selector "Mis temas" en el sitio y alertas por correo.
@@ -203,8 +218,15 @@ con usuarios, sin subir los audios a ningún servicio.
   unos 30 segundos por PDF.
 - **Citas:** el 57 % de las citas del modelo local se verifican en el PDF. Las demás se marcan, y esa es la razón
   de la segunda lectura.
-- **Segunda lectura:** en las primeras alertas revisadas, el agente corrigió 3 de 4. El modelo pequeño lee mal la
-  dirección de las derogaciones: derogar una ley que *restringía* derechos lo marcaba como rojo.
+- **Segunda lectura (Claude Sonnet, con la rúbrica):** revisó las 83 alertas del modelo local.
+  - De 13 rojos, **confirmó 5 y bajó 8 a verde**: el modelo pequeño leía al revés derogaciones que *amplían*
+    derechos (por ejemplo, derogar una ley de amnistía) y marcaba como rojo regulaciones legítimas.
+  - De 70 amarillos, **36 pasaron a verde, 29 se confirmaron y 5 subieron a rojo** (ampliaciones de la detención
+    policial a 15 días y presunción de peligro procesal).
+  - Resultado final: **10 rojos, 29 amarillos y 367 verdes** entre los 406 proyectos leídos.
+  - **Las 51 citas que dio el agente están verificadas en el PDF.** En 32 casos no citó porque el texto extraído
+    no era el articulado (PDF escaneados u oficios anexos) y lo dejó dicho en la explicación.
+- **Lo que hay que mejorar:** la extracción de la fórmula legal en los PDF del Ejecutivo, y OCR para los escaneados.
 - **Votaciones:** 22 votaciones nominales de 16 proyectos. En Diputados todas cuadran con los totales impresos;
   en el Senado (PDF escaneados) el OCR lee entre 54 y 59 de 60 votos por página, y los gráficos por bancada usan el
   cuadro oficial impreso.
@@ -222,7 +244,9 @@ definió los ejes de la lectura de riesgo, revisó los resultados y tomó las de
 - Reescribió el pipeline de votaciones en un solo programa ([`scripts/votaciones.py`](scripts/votaciones.py)) a
   partir de los scripts de Ximena, con OCR por coordenadas, control contra totales impresos y votos orales.
 - Escribió el cliente de Ollama, la clasificación, la lectura de riesgo y el verificador de citas (`ai/`).
-- Creó la skill del agente revisor e hizo las primeras revisiones de alertas.
+- Redactó la rúbrica pública de riesgo a partir del criterio de Ximena (test de proporcionalidad e instrumentos
+  de DDHH) y creó la skill del agente revisor. La segunda lectura de las 83 alertas la hicieron tres subagentes
+  Claude Sonnet en paralelo, siguiendo esa skill.
 - Diseñó y programó el sitio estático (`site/`) y el exportador de datos.
 - Transcribió las entrevistas con Whisper en local y redactó las notas anonimizadas para que Ximena las revisara.
 - Redactó este README a partir de las decisiones de Ximena.

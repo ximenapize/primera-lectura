@@ -62,6 +62,7 @@ function ruta() {
   if (vista === "votaciones") pintarVotaciones();
   if (vista === "panorama") pintarPanorama();
   if (seccion === "p" && id) abrirFicha(decodeURIComponent(id));
+  else if ($("#ficha").open) $("#ficha").close();
 }
 
 // ---------------- portada: el titular sale de los datos ----------------
@@ -77,7 +78,9 @@ function portada() {
   $("#bajada").textContent = `Primera Lectura revisa todos los días los ${P.length} proyectos del periodo 2026-2031 en Diputados y Senado. ` +
     `La IA ya leyó el articulado de ${META.n_lecturas}; cada alerta trae la cita del artículo que la sustenta.`;
 
-  const orden = vigentesRojos.sort((a, b) => b.avance - a.avance || b.fecha.localeCompare(a.fecha)).slice(0, 6);
+  // primero las alertas con más sustento: revisadas por el agente y con la cita verificada en el PDF
+  const sustento = (p) => (p.lectura.por === "agente" ? 2 : 0) + (p.lectura.cita_ok ? 1 : 0);
+  const orden = vigentesRojos.sort((a, b) => sustento(b) - sustento(a) || b.avance - a.avance || b.fecha.localeCompare(a.fecha)).slice(0, 6);
   $("#lista-alertas").innerHTML = orden.map((p) => `
     <li class="alerta">
       <div class="alerta-meta">
