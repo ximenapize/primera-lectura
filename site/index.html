@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400..900;1,6..12,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="estilo.css?v=12">
+  <link rel="stylesheet" href="estilo.css?v=13">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%230B1626'/%3E%3Cg fill='none' stroke='%23F2E9D8' stroke-width='3.4' stroke-linecap='round'%3E%3Cpath d='M6 29a14 14 0 0 1 28 0'/%3E%3Cpath d='M13 29a7 7 0 0 1 14 0'/%3E%3C/g%3E%3Ccircle cx='20' cy='29' r='3' fill='%23E2B04A'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -89,30 +89,14 @@
         </div>
       </section>
 
-      <section class="bloque problema" aria-labelledby="t-problema">
-        <div>
-          <h2 id="t-problema">Hoy el seguimiento se hace leyendo títulos.</h2>
-          <p class="bloque-bajada">Lo que encontramos al conversar con equipos que siguen el Congreso:</p>
-          <ul class="hallazgos">
-            <li>Se turnan un día a la semana para revisar el portal, leyendo solo los títulos.</li>
-            <li>Se pasan los PDF por WhatsApp para decidir si un proyecto merece alerta.</li>
-            <li>Las herramientas con IA leen solo la sumilla, porque procesar el PDF completo cuesta.</li>
-            <li>Nadie vuelve a revisar un proyecto cuando pasa a comisión o se vota.</li>
-          </ul>
-        </div>
-        <blockquote class="testimonio">
-          <p>«Era dolorosamente notoria la falta de automatización.»</p>
-          <footer>Analista de seguimiento legislativo, en una de nuestras entrevistas</footer>
-        </blockquote>
-      </section>
-
       <section class="bloque" aria-labelledby="t-pasos">
-        <h2 id="t-pasos">Cómo funciona</h2>
+        <h2 id="t-pasos">El seguimiento legislativo, sin trabajo manual.</h2>
+        <p class="bloque-bajada">Un flujo automático hace cada mañana lo que a un equipo le toma la semana.</p>
         <ol class="pasos">
-          <li><h3>Descarga todo, cada mañana</h3><p>Proyectos de Diputados y Senado, su recorrido y los PDF de votación.</p></li>
-          <li><h3>Lee el articulado completo</h3><p>Un modelo abierto en nuestra laptop lee la fórmula legal, no solo la sumilla.</p></li>
-          <li><h3>Comprueba la cita</h3><p>Cada alerta trae el artículo textual y verificamos que exista en el PDF.</p></li>
-          <li><h3>Le avisa y le muestra el voto</h3><p>Reporte semanal en PDF y cómo votó cada congresista en el Pleno.</p></li>
+          <li><h3>Descarga todo, cada mañana</h3><p>Todos los proyectos de Diputados y Senado, su recorrido y las actas de votación. Nada se queda sin leer.</p></li>
+          <li><h3>Lee el articulado completo</h3><p>Un modelo abierto lee la fórmula legal, no solo el título o la sumilla.</p></li>
+          <li><h3>Comprueba la cita</h3><p>Cada alerta trae el artículo textual, verificado en el PDF. El color sale de preguntas públicas y una regla fija.</p></li>
+          <li><h3>Le avisa y le muestra el voto</h3><p>Sigue cada proyecto en comisión, dictamen y Pleno, y le muestra cómo votó cada bancada y cada congresista.</p></li>
         </ol>
       </section>
 
@@ -124,17 +108,23 @@
         <div id="muestra-alertas" class="muestra-alertas"></div>
       </section>
 
-      <section class="bloque diferencia" aria-labelledby="t-dif">
-        <h2 id="t-dif">Una consultora le da su opinión. Primera Lectura le da el artículo.</h2>
-        <div class="dos-col">
-          <p>Cada alerta sale de 14 preguntas públicas sobre derechos y gobernanza. El color no lo decide la IA: sale de las respuestas con una regla fija, y usted ve qué pregunta se activó y por qué.</p>
-          <p>Leemos los 820 proyectos, no una muestra, a un costo casi nulo. Su equipo dedica su tiempo a los pocos que importan y llega con el artículo y la votación en la mano.</p>
+      <section class="bloque" aria-labelledby="t-congresistas">
+        <div class="muestra-cabeza">
+          <h2 id="t-congresistas">Seguimiento diario de cada congresista</h2>
+          <a class="boton-pri" href="#/votaciones">Buscar un congresista</a>
+        </div>
+        <p class="bloque-bajada">Qué hace cada diputado y senador día a día: si asiste, cómo vota y en qué trabaja fuera del Pleno.</p>
+        <div class="viene">
+          <article><h3>Votos y asistencia en el Pleno</h3><p class="ya">Disponible</p><p>Cada voto nominal por congresista y por bancada, y quién estuvo presente, ausente o con licencia en cada votación, según las actas.</p></article>
+          <article><h3>Proyectos que presenta</h3><p class="ya">Disponible</p><p>Lo que firma como autor o coautor, con su lectura de riesgo y en qué etapa va.</p></article>
+          <article><h3>Comisiones</h3><p class="pronto">Pronto</p><p>Asistencia y votos en las comisiones que integra, y los dictámenes que firma.</p></article>
+          <article><h3>Semana de representación</h3><p class="pronto">Pronto</p><p>Las actividades que reporta en su región durante la semana de representación.</p></article>
         </div>
       </section>
 
       <section class="bloque" aria-labelledby="t-viene">
         <h2 id="t-viene">Lo que viene: de qué entró a qué hacer</h2>
-        <p class="bloque-bajada">Hoy le decimos qué se presentó, qué riesgo tiene y cómo se votó. Lo siguiente sale de lo que nos pidieron los equipos que entrevistamos.</p>
+        <p class="bloque-bajada">Hoy le decimos qué se presentó, qué riesgo tiene y cómo se votó. Lo siguiente es ayudarle a decidir qué hacer.</p>
         <div class="viene">
           <article><h3>Qué se vota esta semana</h3><p class="ya">Primera versión en el reporte</p><p>Los proyectos que la Junta de Portavoces puso en la agenda del Pleno. Lo siguiente: avisarle cuando entra uno de los suyos, y las agendas de comisión.</p></article>
           <article><h3>Qué cambió en el dictamen</h3><p class="ya">Primera versión en la ficha</p><p>Hoy, cómo se presentó y cómo lo aprobó la comisión. Lo siguiente: los dos textos artículo por artículo.</p></article>
@@ -146,11 +136,9 @@
       <section class="bloque" aria-labelledby="t-planes">
         <h2 id="t-planes">Planes</h2>
         <p class="bloque-bajada">El sitio público es la muestra. Cada cliente entra a su propio espacio: ve solo los proyectos que tocan sus temas, leídos con su lente, y recibe los entregables de su plan.</p>
-        <div class="planes cuatro">
-          <article class="plan"><h3>Abierto</h3><p class="precio">Gratis</p><p>Ciudadanía, prensa y ONG pequeñas.</p><ul><li>Este sitio, con el lente de derechos humanos</li><li>Reporte semanal público</li><li>Proyectos y votaciones en CSV</li></ul></article>
-          <article class="plan destacado"><h3>Equipo</h3><p class="precio">S/ 290 <span>al mes</span></p><p>Consultoras pequeñas, gremios y observatorios.</p><ul><li>Cuenta con un lente hecho con sus preguntas</li><li>Alertas por correo el día que se presenta un proyecto</li><li>Reporte semanal en PDF y Excel</li><li>Aviso cuando sus proyectos entran a agenda <i>(pronto)</i></li></ul></article>
-          <article class="plan"><h3>Institucional</h3><p class="precio">S/ 990 <span>al mes</span></p><p>Consultoras grandes, estudios y empresas reguladas.</p><ul><li>Todo lo del plan Equipo, hasta tres lentes</li><li>Alertas por WhatsApp</li><li>Brief de una página por proyecto, con su marca</li><li>Qué cambió en el dictamen y a quién convencer <i>(pronto)</i></li></ul></article>
-          <article class="plan"><h3>Informe a medida</h3><p class="precio">A cotizar</p><p>Para una decisión puntual.</p><ul><li>Análisis de un proyecto o de un tema</li><li>Mapa de actores y escenarios de votación</li><li>Revisado por una persona antes de entregarse</li></ul></article>
+        <div class="planes dos">
+          <article class="plan"><h3>Abierto</h3><p class="precio">Gratis</p><p>Ciudadanía, prensa y organizaciones pequeñas.</p><ul><li>Este sitio, con el lente de derechos humanos y gobernanza</li><li>Reporte semanal público</li><li>Votaciones del Pleno por congresista</li><li>Proyectos y votaciones en CSV</li></ul></article>
+          <article class="plan destacado"><h3>Para su organización</h3><p class="precio">A cotizar</p><p>Consultoras, gremios, observatorios, estudios y centros académicos. Armamos el alcance según lo que necesite su equipo.</p><ul><li>Espacio propio, con un lente hecho con sus preguntas</li><li>Alertas el día que se presenta un proyecto que le toca</li><li>Reporte semanal en PDF y Excel, con su marca</li><li>Seguimiento diario de los congresistas que le interesan</li><li>Informes a medida: análisis de un proyecto, mapa de actores y escenarios de votación</li></ul><a class="boton-borde" href="mailto:ximena.pinillos.z@pucp.edu.pe?subject=Cotizaci%C3%B3n%20de%20Primera%20Lectura">Pedir una cotización</a></article>
         </div>
       </section>
 
@@ -185,7 +173,7 @@
             <a href="#cl-sala">Bancadas</a>
             <a href="#cl-avisos">Mis avisos</a>
           </nav>
-          <div class="cl-cuenta"><span>Cliente</span><b id="cl-nombre"></b><span>Lente activo</span><b>Derechos humanos y gobernanza</b><span>Plan</span><b>Institucional</b>
+          <div class="cl-cuenta"><span>Cliente</span><b id="cl-nombre"></b><span>Lente activo</span><b>Derechos humanos y gobernanza</b><span>Plan</span><b>A medida</b>
             <button type="button" class="cl-salir" id="cl-salir">Salir</button></div>
         </aside>
         <div class="cl-main">
@@ -424,6 +412,6 @@
     <p>Código abierto en <a href="https://github.com/ximenapize/primera-lectura">GitHub</a>. Proyecto final de la Diplomatura en Ciencia de Datos, Q-Lab PUCP.</p>
   </footer>
 
-  <script src="app.js?v=12" defer></script>
+  <script src="app.js?v=13" defer></script>
 </body>
 </html>

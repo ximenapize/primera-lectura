@@ -651,3 +651,14 @@ body.modo-cliente .barra, body.modo-cliente .pie { display: none; }
 .barra-h { grid-template-columns: 14rem 1fr 3rem; }
 .matriz .rot i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: .35rem; }
 @media (max-width: 640px) { .barra-h { grid-template-columns: 9.5rem 1fr 2.6rem; } .barra-h .chip-b { white-space: normal; } }
+
+/* Portada sin entrevistas: beneficios del flujo, seguimiento de congresistas y dos planes */
+.beneficios { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.beneficios li { border-top: 3px solid var(--tinta); padding-top: .9rem; }
+.beneficios h3 { font: 600 1.15rem/1.25 var(--titulo); }
+.beneficios p { margin-top: .4rem; color: var(--tinta-2); font-size: .97rem; line-height: 1.55; }
+.viene .pronto { font-size: var(--paso-1); font-weight: 700; color: var(--tinta-2); margin-top: .3rem; }
+.planes.dos { grid-template-columns: 1fr 1.5fr; max-width: 62rem; }
+.planes.dos .boton-borde { justify-self: start; margin-top: .6rem; }
+@media (max-width: 900px) { .beneficios { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .beneficios, .planes.dos { grid-template-columns: 1fr; } }

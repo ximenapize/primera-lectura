@@ -445,7 +445,7 @@ function abrirFicha(id) {
     <section class="lectura ${esc(l.semaforo)}" aria-label="Primera lectura de la IA">
       <div class="lectura-cabeza">
         <span class="semaforo ${esc(l.semaforo)}"><i class="punto ${esc(l.semaforo)}"></i>${SEMAFORO[l.semaforo]}</span>
-        <span class="lectura-por">${l.por === "agente" ? (l.preguntas ? "Segunda lectura con la rúbrica (Claude Sonnet)" : "Segunda lectura: revisada por el agente") : `Primera lectura: modelo local ${esc((l.modelo || "qwen2.5:7b").replace(":", " "))}`}</span>
+        <span class="lectura-por">${l.por === "agente" ? (l.preguntas ? `Segunda lectura con la rúbrica (${esc(l.revisor || "Claude")})` : "Segunda lectura: revisada por el agente") : `Primera lectura: modelo local ${esc((l.modelo || "qwen2.5:7b").replace(":", " "))}`}</span>
       </div>
       <p class="resumen">${esc(l.resumen)}</p>
       ${citaHTML(l)}

@@ -2,6 +2,7 @@
 # Convierte las bases de data/ en los JSON que lee el sitio estático (site/, publicado en GitHub Pages).
 # Junta cada proposición con su temática, su lectura de riesgo (la revisión del agente reemplaza a la del modelo
 # local), su recorrido y sus votaciones. Uso: uv run scripts/exportar_web.py
+import re
 import json
 import sys
 from pathlib import Path
@@ -48,7 +49,8 @@ def main():
     for j in leer_jsonl(DATA / "revision.jsonl"):  # la última revisión gana; las de checklist reemplazan a las viejas
         k = (j["camara"], j["pl_id"])
         if "preguntas" in j or lecturas.get(k, {}).get("revisado_por") != "agente" or "preguntas" not in lecturas[k]:
-            lecturas[k] = {**j, "revisado_por": "agente"}
+            lecturas[k] = {**j, "revisado_por": "agente",
+                           "revisor": re.sub(r"^agente revisor \((.*)\)$", r"\1", j.get("revisado_por", "Claude"))}
             if "preguntas" in j:  # el color se recalcula con la regla vigente, por si la rúbrica cambió
                 lecturas[k]["semaforo"] = semaforo(j["preguntas"])
 
@@ -72,7 +74,7 @@ def main():
                 "derechos": lec.get("derechos", []), "estandares": lec.get("estandares", []),
                 "cita": lec.get("cita_textual", ""), "cita_ok": bool(lec.get("cita_verificada")),
                 "por": lec["revisado_por"], "modelo": lec.get("modelo", "qwen2.5:7b"), "revisar": bool(lec.get("revisar")) and lec["revisado_por"] == "modelo",
-                "preguntas": lec.get("preguntas"), "ganan": lec.get("ganan", ""), "pierden": lec.get("pierden", ""),
+                "revisor": lec.get("revisor", ""), "preguntas": lec.get("preguntas"), "ganan": lec.get("ganan", ""), "pierden": lec.get("pierden", ""),
             },
         })
 
