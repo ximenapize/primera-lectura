@@ -237,6 +237,11 @@ con usuarios, sin subir los audios a ningún servicio.
     verdes de abajo y la regla de grupos vulnerables). Los rojos son la
     ampliación de la detención policial a 15 días (4 proyectos), las penas de adulto para adolescentes (2), el
     aislamiento carcelario extremo y el retiro de la Convención Americana.
+  - **Segunda tanda (11 nov):** el modelo local leyó los 319 proyectos vigentes que faltaban (con OCR para los
+    escaneados). Marcó 8 rojos nuevos y **ninguno se confirmó** en la segunda lectura (Claude Opus): 5 bajaron a
+    verde (dos derogaban una ley restrictiva, uno ampliaba protecciones laborales que el escaneo mezcló) y 3 a
+    amarillo. Total en la web: **8 rojos, 96 amarillos y 621 verdes** de 725 leídos; los 35 amarillos nuevos aún no
+    tienen segunda lectura. Los 107 sin leer son archivados o retirados.
   - Las preguntas críticas más activadas: falla del test de proporcionalidad, regresividad y contradicción con un
     tratado. La respuesta "depende" (24 veces en el test de proporcionalidad) explica la mayoría de amarillos.
   - **Las 48 citas que dio el agente están verificadas en el PDF.** En 35 casos no citó porque el texto extraído
