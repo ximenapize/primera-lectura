@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths: ["site/**", "data/**", "scripts/exportar_web.py"]
   workflow_run:
-    workflows: ["Scraper diario de proposiciones"]
+    workflows: ["Scraper diario de proposiciones", "Lectura diaria con IA"]
     types: [completed]
   workflow_dispatch:
 

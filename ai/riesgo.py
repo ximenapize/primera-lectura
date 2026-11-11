@@ -7,6 +7,7 @@
 #      uv run ai/riesgo.py --prefiltro          (solo los que pasan el filtro de reglas)
 #      uv run ai/riesgo.py --vigentes           (todos los vigentes que falten, sin filtro de temas)
 #      uv run ai/riesgo.py --releer-ilegibles   (relee con OCR los que se leyeron con un PDF casi sin texto)
+#      uv run ai/riesgo.py --vigentes --minutos 150   (lo que corre el Action diario: lee hasta que se acaba el tiempo)
 import argparse
 import json
 import sys
@@ -134,6 +135,8 @@ def main():
     ap.add_argument("--releer-ilegibles", action="store_true",
                     help="vuelve a leer, ahora con OCR, los que ya se leyeron con un PDF casi sin texto")
     ap.add_argument("--limite", type=int, default=None)
+    ap.add_argument("--minutos", type=float, default=None,
+                    help="no empieza lecturas nuevas pasado este tiempo; lo que falte queda para la próxima corrida")
     ap.add_argument("--salida", default=str(SALIDA), help="archivo jsonl (para probar otro modelo sin pisar el actual)")
     a = ap.parse_args()
 
@@ -164,6 +167,9 @@ def main():
     t0 = time.time()
     with open(salida, "a", encoding="utf-8") as f:
         for i, fila in enumerate(objetivo.itertuples(), 1):
+            if a.minutos and time.time() - t0 > a.minutos * 60:
+                print(f"Se acabaron los {a.minutos:g} minutos: quedan {len(objetivo) - i + 1} para la próxima corrida")
+                break
             try:
                 r = analizar(fila)
             except Exception as e:

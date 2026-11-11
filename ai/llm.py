@@ -1,5 +1,6 @@
 # llm.py
-# Cliente mínimo para un modelo abierto corriendo en Ollama (por defecto qwen2.5:7b, en la laptop).
+# Cliente mínimo para un modelo abierto corriendo en Ollama (por defecto qwen2.5:7b): en la laptop o en el
+# Action diario de GitHub, que no tiene tarjeta gráfica y por eso espera más cada respuesta (OLLAMA_ESPERA).
 # Pide salidas estructuradas: se le pasa un JSON Schema y Ollama obliga al modelo a respetarlo.
 import json
 import os
@@ -8,10 +9,11 @@ import requests
 
 OLLAMA = os.getenv("OLLAMA_URL", "http://localhost:11434")
 MODELO = os.getenv("OLLAMA_MODELO", "qwen2.5:7b")
+ESPERA = int(os.getenv("OLLAMA_ESPERA", "600"))  # segundos por respuesta
 
 
 def preguntar(sistema: str, usuario: str, esquema: dict, contexto: int = 4096, temperatura: float = 0.0) -> dict:
-    r = requests.post(f"{OLLAMA}/api/chat", timeout=600, json={
+    r = requests.post(f"{OLLAMA}/api/chat", timeout=ESPERA, json={
         "model": MODELO,
         "messages": [{"role": "system", "content": sistema}, {"role": "user", "content": usuario}],
         "format": esquema,

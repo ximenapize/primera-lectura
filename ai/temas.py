@@ -72,8 +72,11 @@ def main():
 
     nuevas, t0 = [], time.time()
     for i, fila in enumerate(pendientes.itertuples(), 1):
-        nuevas.append({"camara": fila.camara, "pl_id": fila.pl_id, **clasificar(fila), "modelo": MODELO})
-        print(f"[{i}/{len(pendientes)}] {fila.pl_id} -> {nuevas[-1]['tema']}  ({(time.time() - t0) / i:.1f} s/u)")
+        try:
+            nuevas.append({"camara": fila.camara, "pl_id": fila.pl_id, **clasificar(fila), "modelo": MODELO})
+            print(f"[{i}/{len(pendientes)}] {fila.pl_id} -> {nuevas[-1]['tema']}  ({(time.time() - t0) / i:.1f} s/u)")
+        except Exception as e:  # un fallo no bota lo ya clasificado; ese proyecto se reintenta en la próxima corrida
+            print(f"[{i}/{len(pendientes)}] {fila.pl_id} ERROR {e}")
         if i % 25 == 0 or i == len(pendientes):  # guarda cada 25 por si se interrumpe
             pd.concat([hechos, pd.DataFrame(nuevas)]).to_csv(SALIDA, index=False)
 

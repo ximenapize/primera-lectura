@@ -1,0 +1,57 @@
+name: Lectura diaria con IA
+
+# Después del scraper de cada mañana, un modelo abierto (qwen2.5 7B en Ollama) corre en la misma máquina gratuita
+# de GitHub: clasifica los proyectos nuevos por temática y hace la primera lectura de riesgo de los que faltan.
+# No usa ninguna API de pago ni claves. Lo que el modelo marque en rojo o amarillo sale en el sitio como
+# "por revisar" hasta la segunda lectura (ver scripts/exportar_web.py).
+
+on:
+  workflow_run:
+    workflows: ["Scraper diario de proposiciones"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      minutos:
+        description: "Minutos máximos de lectura de riesgo (para una prueba corta, 10)"
+        default: "150"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lectura-ia
+  cancel-in-progress: false
+
+env:
+  OLLAMA_MODELO: qwen2.5:7b
+  OLLAMA_ESPERA: "1800"   # sin tarjeta gráfica cada lectura tarda varios minutos
+  MINUTOS: ${{ inputs.minutos || '150' }}
+
+jobs:
+  leer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: astral-sh/setup-uv@v5
+      - name: Instalar Ollama y bajar el modelo
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          for i in $(seq 1 30); do curl -sf http://localhost:11434/api/version && break; sleep 2; done
+          ollama pull "$OLLAMA_MODELO"
+      - name: Clasificar por temática los proyectos nuevos
+        run: uv run ai/temas.py --limite 100
+      - name: Primera lectura de riesgo de los que faltan
+        run: uv run ai/riesgo.py --vigentes --minutos "$MINUTOS"
+      - name: Guardar las lecturas
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/temas.csv data/riesgo.jsonl
+          if git diff --cached --quiet; then echo "Sin lecturas nuevas"; exit 0; fi
+          git commit -m "lecturas: primera lectura automática $(date -u +%F)"
+          git pull --rebase
+          git push
