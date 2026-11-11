@@ -170,10 +170,8 @@ entregables de su plan.
 
 | Plan | Para quién | Entregables | Precio |
 |---|---|---|---|
-| **Abierto** | Ciudadanía, prensa, ONG pequeñas | El sitio con el lente de derechos humanos, reporte semanal público, datos en CSV | Gratis |
-| **Equipo** | Consultoras pequeñas, gremios, observatorios | Cuenta con un lente propio, alertas por correo el día que se presenta un proyecto, reporte semanal en PDF y Excel, aviso cuando sus proyectos entran a agenda (pronto) | S/ 290 al mes |
-| **Institucional** | Consultoras grandes, estudios de abogados, empresas reguladas | Todo lo anterior con hasta tres lentes, alertas por WhatsApp, brief de una página por proyecto con su marca, qué cambió en el dictamen y mapa de actores (pronto) | S/ 990 al mes |
-| **Informe a medida** | Una decisión puntual | Análisis de un proyecto o tema, mapa de actores y escenarios de votación, revisado por una persona | A cotizar |
+| **Abierto** | Ciudadanía, prensa, organizaciones pequeñas | El sitio con el lente de derechos humanos y gobernanza, reporte semanal público, votaciones del Pleno por congresista, datos en CSV | Gratis |
+| **Para su organización** | Consultoras, gremios, observatorios, estudios y centros académicos | Espacio propio con un lente hecho con sus preguntas, alertas el día que se presenta un proyecto, reporte semanal en PDF y Excel con su marca, seguimiento diario de congresistas, informes a medida (análisis de un proyecto, mapa de actores, escenarios de votación) | A cotizar, según el alcance |
 
 **Hoja de ruta** (lo que pidieron los equipos entrevistados): qué se vota esta semana (agenda del Pleno y de
 comisiones), qué cambió entre el proyecto y el dictamen, señales de que un proyecto se acelera (exoneraciones,
@@ -196,13 +194,15 @@ datos: ~2.100 tokens de instrucciones y rúbrica (cacheables), ~1.500 de articul
 | Operación mensual (~9 proyectos nuevos al día) | ~270 al mes | US$ 5 | ~US$ 2,5 |
 | Segunda lectura solo de alertas (~20 %) | ~55 al mes | US$ 1 | ~US$ 0,5 |
 
-Cada lente adicional suma ~US$ 2,5–5 al mes (S/ 10–20). Con el plan Equipo (S/ 290), el margen de contribución
-sigue por encima del **93 %**. Estimación por caracteres: validar con el contador de tokens antes de producción.
+Cada lente adicional suma ~US$ 2,5–5 al mes (S/ 10–20). Como el costo por cliente es de unos pocos soles al mes,
+casi todo lo que se cobre es **margen de contribución**: el costo real es el tiempo de configurar el lente y de
+revisar los informes a medida. Estimación por caracteres: validar con el contador de tokens antes de producción.
 
 **Qué sigue:**
 1. Selector "Mis temas" en el sitio y alertas por correo.
 2. **Alertas de agenda:** avisar cuando un proyecto seguido entra a la agenda de una comisión o del Pleno.
-3. OCR para los PDF de proyectos escaneados (hoy quedan fuera de la primera lectura).
+3. **Seguimiento de congresistas fuera del Pleno:** asistencia y votos en comisiones, y actividades de la semana de
+   representación (hoy: votos y asistencia en el Pleno, y proyectos que presenta).
 4. Otros congresos de la región: los centros académicos ya monitorean varios países a mano.
 
 ## 7. Herramientas del curso
@@ -240,8 +240,11 @@ con usuarios, sin subir los audios a ningún servicio.
   - **Segunda tanda (11 nov):** el modelo local leyó los 319 proyectos vigentes que faltaban (con OCR para los
     escaneados). Marcó 8 rojos nuevos y **ninguno se confirmó** en la segunda lectura (Claude Opus): 5 bajaron a
     verde (dos derogaban una ley restrictiva, uno ampliaba protecciones laborales que el escaneo mezcló) y 3 a
-    amarillo. Total en la web: **8 rojos, 96 amarillos y 621 verdes** de 725 leídos; los 35 amarillos nuevos aún no
-    tienen segunda lectura. Los 107 sin leer son archivados o retirados.
+    amarillo. Después, tres agentes revisaron los 35 amarillos nuevos y los 22 verdes con dictamen o en agenda del
+    Pleno: **24 amarillos bajaron a verde** (falsas alarmas) y **3 verdes subieron a amarillo** (dos sobre la
+    suspensión de la prescripción penal y una prórroga de exoneraciones sin costo fiscal cuantificado). Total en la
+    web: **8 rojos, 74 amarillos y 643 verdes** de 725 leídos. Todo rojo, todo amarillo y todo lo que se vota pronto
+    tiene segunda lectura; los demás verdes son del modelo local. Los 107 sin leer son archivados o retirados.
   - Las preguntas críticas más activadas: falla del test de proporcionalidad, regresividad y contradicción con un
     tratado. La respuesta "depende" (24 veces en el test de proporcionalidad) explica la mayoría de amarillos.
   - **Las 48 citas que dio el agente están verificadas en el PDF.** En 35 casos no citó porque el texto extraído
