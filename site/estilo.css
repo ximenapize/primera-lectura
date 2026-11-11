@@ -468,7 +468,15 @@ main { outline: none; }
 .cierre h2 { font: 700 clamp(1.6rem, 3vw, 2.3rem)/1.1 var(--titulo); font-stretch: 85%; max-width: 20em; }
 .cierre p { color: #D5DEEB; font-size: 1.1rem; margin-bottom: .8rem; }
 
+.viene { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 2rem; }
+.viene article { border-left: 3px solid var(--ab); padding-left: 1rem; }
+.viene h3 { font: 700 1.15rem/1.2 var(--titulo); font-stretch: 88%; }
+.viene p { margin-top: .35rem; color: var(--tinta-2); font-size: .95rem; }
+.planes.cuatro { grid-template-columns: repeat(4, 1fr); }
+.plan li i { font-style: normal; color: var(--ambar); font-weight: 600; }
+
 @media (max-width: 960px) {
+  .viene, .planes.cuatro { grid-template-columns: 1fr 1fr; }
   .heroe, .problema { grid-template-columns: 1fr; gap: 2rem; }
   .heroe { padding: 2.5rem 1.25rem; }
   .cifras, .perfiles, .pasos { grid-template-columns: 1fr 1fr; }
@@ -478,7 +486,7 @@ main { outline: none; }
   .bloque { padding: 3rem 1.25rem 0; }
 }
 @media (max-width: 560px) {
-  .cifras, .perfiles, .pasos { grid-template-columns: 1fr; }
+  .viene, .planes.cuatro, .cifras, .perfiles, .pasos { grid-template-columns: 1fr; }
   .cifras div { border-right: 0; }
 }
 @media print { #vista-inicio { display: none !important; } }

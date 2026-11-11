@@ -164,13 +164,21 @@ No se necesitan claves de API: [`.env.example`](.env.example) queda vacío a pro
 
 ## 6. Modelo de negocio
 
-Paga quien necesita anticiparse al Congreso. [[confirmar precios]]
+Paga quien necesita anticiparse al Congreso. El sitio público es la muestra (plan Abierto); cada cliente de pago
+entra a su propio espacio, donde ve solo los proyectos que tocan sus temas, leídos con su lente, y recibe los
+entregables de su plan.
 
-| Plan | Para quién | Qué incluye | Precio |
+| Plan | Para quién | Entregables | Precio |
 |---|---|---|---|
-| **Abierto** | Ciudadanía, ONG pequeñas, prensa | El sitio público con el lente de derechos humanos | Gratis |
-| **Equipo** | Consultoras pequeñas, gremios, observatorios | Un lente propio (sus temas), alertas por correo, exportación a Excel | S/ 290 al mes |
-| **Institucional** | Consultoras grandes, estudios de abogados, empresas reguladas | Varios lentes, seguimiento de proyectos específicos, reporte semanal | S/ 990 al mes |
+| **Abierto** | Ciudadanía, prensa, ONG pequeñas | El sitio con el lente de derechos humanos, reporte semanal público, datos en CSV | Gratis |
+| **Equipo** | Consultoras pequeñas, gremios, observatorios | Cuenta con un lente propio, alertas por correo el día que se presenta un proyecto, reporte semanal en PDF y Excel, aviso cuando sus proyectos entran a agenda (pronto) | S/ 290 al mes |
+| **Institucional** | Consultoras grandes, estudios de abogados, empresas reguladas | Todo lo anterior con hasta tres lentes, alertas por WhatsApp, brief de una página por proyecto con su marca, qué cambió en el dictamen y mapa de actores (pronto) | S/ 990 al mes |
+| **Informe a medida** | Una decisión puntual | Análisis de un proyecto o tema, mapa de actores y escenarios de votación, revisado por una persona | A cotizar |
+
+**Hoja de ruta** (lo que pidieron los equipos entrevistados): qué se vota esta semana (agenda del Pleno y de
+comisiones), qué cambió entre el proyecto y el dictamen, señales de que un proyecto se acelera (exoneraciones,
+acumulaciones, prioridad en agenda) y a quién convencer (integrantes de la comisión, su historial de votos y los
+votos bisagra).
 
 **Costo por cliente (margen de contribución):**
 - Modelo local: S/ 0 por token. Electricidad de la laptop: menos de S/ 5 al mes.
