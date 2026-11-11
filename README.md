@@ -13,8 +13,8 @@
 
 **Ximena Alejandra Pinillos Zegarra** · [[foto: docs/founder.jpg]]
 
-Trabajo en **EntreLíneas**, un observatorio de proyectos de ley, y en un observatorio que hace seguimiento al
-Congreso, al Ejecutivo, a las políticas públicas y a la participación social. Vivo el problema desde adentro: en el
+Trabajo en un observatorio que hace seguimiento al Congreso, al Ejecutivo, a las políticas públicas y a la participación 
+social. Vivo el problema desde adentro: en el
 seguimiento legislativo cada flujo se hace por separado, nadie integra la ruta completa de un proyecto de ley y no
 hay un criterio claro para clasificarlo como riesgoso sin recurrir a la literatura, a los instrumentos de derechos
 humanos o a la opinión de abogados y politólogos. Construí los scrapers del portal de proposiciones y de las
