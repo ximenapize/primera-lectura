@@ -2,6 +2,8 @@
 # Convierte las bases de data/ en los JSON que lee el sitio estático (site/, publicado en GitHub Pages).
 # Junta cada proposición con su temática, su lectura de riesgo (la revisión del agente reemplaza a la del modelo
 # local), su recorrido y sus votaciones. Uso: uv run scripts/exportar_web.py
+# Regla de publicación: el modelo local solo no enciende alertas. Si propone rojo o amarillo y todavía no hubo
+# segunda lectura, el sitio recibe "revisar" (por revisar), sin el color ni la explicación del modelo.
 import re
 import json
 import sys
@@ -62,6 +64,10 @@ def main():
     for r in df.itertuples():
         k = (r.camara, r.pl_id)
         lec = lecturas.get(k)
+        por_revisar = bool(lec) and lec["revisado_por"] == "modelo" and lec["semaforo"] != "verde"
+        if por_revisar:  # se publica qué cambia el proyecto (resumen), no el juicio de riesgo sin revisar
+            lec = {**lec, "semaforo": "revisar", "explicacion": "", "derechos": [], "estandares": [],
+                   "cita_textual": "", "cita_verificada": False, "revisar": False}
         proyectos.append({
             "id": f"{r.camara[0]}-{r.pl_id}", "camara": r.camara, "pl": r.pl_id, "fecha": r.fecha_presentacion,
             "titulo": r.titulo, "sumilla": r.sumilla, "tema": r.tema, "temas2": r.temas_secundarios,

@@ -582,6 +582,12 @@ main { outline: none; }
 .punto.amarillo { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
 .punto.verde { width: .6rem; height: .6rem; }
 .punto.sin { border-radius: 50%; }
+/* por revisar: el rombo de "en observación", pero vacío y gris, porque todavía no hay veredicto */
+.punto.revisar { width: .55rem; height: .55rem; margin: 0 .1rem; background: transparent; border-color: var(--gris); transform: rotate(45deg); }
+.semaforo.revisar { color: var(--tinta-2); }
+.lectura.revisar { border-top: 5px solid var(--gris); }
+.lectura.revisar .aviso-revisar { color: var(--tinta-2); }
+.fichas button[aria-pressed="true"] .punto.revisar { border-color: #fff; }
 
 /* ---------- espacio del cliente: la misma hoja blanca del sitio, con sus pestañas arriba ---------- */
 body.modo-cliente .barra, body.modo-cliente .pie { display: none; }

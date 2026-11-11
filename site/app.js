@@ -6,7 +6,8 @@ const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const sinTildes = (s) => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
-const SEMAFORO = { rojo: "Alerta roja", amarillo: "En observación", verde: "Sin riesgo relevante", sin: "Sin leer" };
+// "revisar": el modelo local propuso una alerta y falta la segunda lectura; el sitio no muestra ese color
+const SEMAFORO = { rojo: "Alerta roja", amarillo: "En observación", revisar: "Por revisar", verde: "Sin riesgo relevante", sin: "Sin leer" };
 const AVANCE = ["Archivado o retirado", "Presentado", "En comisión", "Con dictamen", "En el Pleno", "Aprobado"];
 const ICONO = {
   check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
@@ -194,10 +195,11 @@ function prepararReporte() {
   const semana = P.filter((p) => new Date(p.fecha + "T12:00") >= desde);
   const cuenta = (lista, color) => lista.filter((p) => sem(p) === color).length;
   $("#reporte-periodo").textContent = `Del ${fechaLarga(desde.toISOString().slice(0, 10))} al ${fechaLarga(META.actualizado)} de 2026. Diputados y Senado.`;
-  const rojasSemana = cuenta(semana, "rojo");
+  const rojasSemana = cuenta(semana, "rojo"), porRevisar = cuenta(semana, "revisar");
   $("#reporte-semana").innerHTML = `Esta semana se presentaron <b>${semana.length} proyectos de ley</b>. ` +
     `${rojasSemana ? `${rojasSemana} ${rojasSemana === 1 ? "encendió" : "encendieron"} una alerta roja` : "Ninguno encendió una alerta roja"}, ` +
-    `${cuenta(semana, "amarillo")} quedaron en observación, ${cuenta(semana, "verde")} no tocan derechos y ${cuenta(semana, "sin")} esperan su lectura. ` +
+    `${cuenta(semana, "amarillo")} quedaron en observación, ${cuenta(semana, "verde")} no tocan derechos` +
+    `${porRevisar ? `, ${porRevisar} ${porRevisar === 1 ? "espera" : "esperan"} la segunda lectura` : ""} y ${cuenta(semana, "sin")} esperan su lectura. ` +
     `Abajo, las alertas que siguen vivas en el Congreso, de esta semana y de las anteriores.`;
   $("#bajada").textContent = `${P.length} proyectos de Diputados y Senado, actualizados cada día. La IA ya leyó el articulado de ${META.n_lecturas}; cada alerta trae la cita del artículo que la sustenta.`;
 
@@ -207,7 +209,7 @@ function prepararReporte() {
   ROJAS = P.filter((p) => sem(p) === "rojo" && p.avance > 0).sort(orden);
   const amarillas = P.filter((p) => sem(p) === "amarillo" && p.avance > 0);
   OBSERVACION = amarillas.sort((a, b) => sustento(b) - sustento(a) || b.fecha.localeCompare(a.fecha)).slice(0, 6);
-  const pesoColor = { rojo: 0, amarillo: 1, sin: 2, verde: 3 };
+  const pesoColor = { rojo: 0, amarillo: 1, revisar: 2, sin: 3, verde: 4 };
   const AGENDA = P.filter((p) => p.avance === 4).sort((a, b) => pesoColor[sem(a)] - pesoColor[sem(b)] || acelera(b) - acelera(a));
   $("#t-agenda").textContent = `En la agenda del Pleno (${AGENDA.length})`;
   $("#reporte-agenda").innerHTML = AGENDA.length ? AGENDA.map((p) => `<li>
@@ -378,7 +380,7 @@ function prepararFiltros() {
 }
 
 function filtrados() {
-  const O = { rojo: 0, amarillo: 1, verde: 2, sin: 3 };
+  const O = { rojo: 0, amarillo: 1, revisar: 2, verde: 3, sin: 4 };
   return P.filter((p) =>
     (!estado.q || sinTildes(`${p.titulo} ${p.sumilla} ${p.pl} ${p.autor}`).includes(estado.q)) &&
     (!estado.semaforo.size || estado.semaforo.has(sem(p))) &&
@@ -455,7 +457,9 @@ function abrirFicha(id) {
       </div>
       <p class="resumen">${esc(l.resumen)}</p>
       ${citaHTML(l)}
-      <p>${esc(limpio(l.explicacion))}</p>
+      ${l.semaforo === "revisar"
+        ? `<p class="aviso-revisar">La primera lectura automática pidió revisar este proyecto. Todavía no lleva alerta: el color se decide en la segunda lectura, con la rúbrica.</p>`
+        : `<p>${esc(limpio(l.explicacion))}</p>`}
       ${l.ganan || l.pierden ? `<dl class="ganan"><dt>Ganan</dt><dd>${esc(l.ganan || "Sin dato")}</dd><dt>Pierden</dt><dd>${esc(l.pierden || "Sin dato")}</dd></dl>` : ""}
       ${checklistHTML(l)}
       ${l.derechos.length ? `<div class="etiquetas">${l.derechos.map((d) => `<span>${esc(d)}</span>`).join("")}</div>` : ""}
@@ -658,7 +662,7 @@ function pintarCliente() {
   $$(".cl-pest").forEach((s) => (s.hidden = s.id !== `cl-${pestana}`));
   $$(".cl-barra nav a").forEach((a) => (a.dataset.pest === pestana ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current")));
 
-  const orden = { rojo: 0, amarillo: 1, sin: 2, verde: 3 };
+  const orden = { rojo: 0, amarillo: 1, revisar: 2, sin: 3, verde: 4 };
   const agenda = P.filter((p) => p.avance === 4).sort((a, b) => orden[sem(a)] - orden[sem(b)]);
   const mios = seguidos().map((id) => P.find((p) => p.id === id)).filter(Boolean);
   const ultimo = (p) => p.recorrido.at(-1) || ["", ""];
