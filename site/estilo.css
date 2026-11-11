@@ -638,7 +638,44 @@ body.modo-cliente .barra, body.modo-cliente .pie { display: none; }
   .cl-grid { grid-template-columns: 1fr; }
   .cl-tabla { display: block; overflow-x: auto; }
 }
+/* pestañas del espacio del cliente: una sección a la vez */
+.cl-pest { display: grid; gap: 1rem; align-content: start; min-width: 0; }
+.cl-pest h1:focus { outline: none; }
+.cl-main > .cl-demo { margin: 0; }
+.cl-lado nav a { display: flex; justify-content: space-between; align-items: center; gap: .5rem; min-height: 44px; }
+.cl-lado nav a[aria-current] { background: #2E3B4B; color: #fff; font-weight: 700; box-shadow: inset 3px 0 0 #6FA8E8; }
+.cl-n { font-size: .75rem; font-weight: 700; background: #3A4A5C; color: #fff; border-radius: 99px; padding: .05rem .5rem; min-width: 1.6rem; text-align: center; }
+.cl-n:empty { display: none; }
+a.cl-kpi { text-decoration: none; color: inherit; transition: border-color .15s; }
+a.cl-kpi:hover { border-color: var(--sello); }
+a.cl-kpi:hover span { color: var(--sello); text-decoration: underline; }
+.cl-mas { display: inline-block; margin-top: .75rem; font-size: .9rem; font-weight: 600; color: var(--sello); }
+.cl-f { white-space: nowrap; color: var(--tinta-2); font-size: .82rem; width: 1%; }
+.cl-mov { display: block; margin-top: .15rem; }
+#cl-agenda td:last-child, #cl-rojas td:last-child, #cl-alertas th:last-child { white-space: nowrap; }
+#cl-seguidos td:nth-child(3), #cl-seguidos .enlace { white-space: nowrap; }
+.cl-botones a.boton-sec { display: inline-flex; align-items: center; text-decoration: none; }
+@media (max-width: 960px) {
+  /* en el teléfono: marca y cuenta en una fila, pestañas en una tira que se desliza */
+  .cl { grid-template-columns: minmax(0, 1fr); }
+  .cl-lado { gap: .6rem 1rem; padding: .8rem 1rem; min-width: 0; }
+  .cl-botones { flex-wrap: wrap; }
+  .cl-marca { flex: 1; padding: 0; }
+  .cl-cuenta { display: flex; align-items: center; gap: .75rem; }
+  .cl-cuenta span, .cl-cuenta b:not(#cl-nombre) { display: none; }
+  .cl-cuenta b { margin: 0; }
+  .cl-salir { margin: 0; padding: 0 .9rem; }
+  .cl-lado nav { order: 3; width: 100%; flex-wrap: nowrap; overflow-x: auto; gap: .25rem; }
+  .cl-lado nav a { white-space: nowrap; flex: none; }
+  .cl-lado nav a[aria-current] { box-shadow: inset 0 -3px 0 #6FA8E8; }
+  .cl-main { padding: 1rem 1rem 2.5rem; }
+  .cl-tabla td > a { display: inline-block; min-width: 13rem; }
+}
 @media print {
+  /* el PDF lleva el reporte entero, no solo la pestaña abierta */
+  body.modo-cliente .cl-pest[hidden] { display: grid !important; margin-top: 1.5rem; }
+  body.modo-cliente .cl-panel { break-inside: avoid; }
+  body.modo-cliente .cl-mas { display: none; }
   body.modo-cliente .cl-lado, body.modo-cliente .cl-botones, body.modo-cliente .cl-demo, body.modo-cliente #vista-reporte { display: none !important; }
   body.modo-cliente .cl { display: block; background: #fff; }
   body.modo-cliente #vista-cliente { display: block !important; }

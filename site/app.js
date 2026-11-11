@@ -80,13 +80,19 @@ async function iniciar() {
 // ---------------- rutas ----------------
 const VISTAS = ["inicio", "reporte", "proyectos", "votaciones", "panorama", "como-funciona", "cliente"];
 let vistaActual = "inicio";
+// pestañas del espacio del cliente: #/cliente/<pestaña>; se muestra una sola a la vez
+const PESTANAS = ["resumen", "alertas", "mios", "bancadas", "avisos"];
+let pestana = "resumen";
 
 function ruta() {
   const [seccion, id] = location.hash.replace(/^#\/?/, "").split("/");
   // la ficha se abre encima de la vista en la que estabas
   if (seccion === "p" && id) { mostrar(vistaActual); abrirFicha(decodeURIComponent(id)); return; }
   if ($("#ficha").open) $("#ficha").close();
+  const antes = pestana;
+  if (seccion === "cliente") pestana = PESTANAS.includes(id) ? id : "resumen";
   mostrar(VISTAS.includes(seccion) ? seccion : "inicio");
+  if (seccion === "cliente" && pestana !== antes) { window.scrollTo(0, 0); $(`#cl-h-${pestana}`)?.focus({ preventScroll: true }); }
 }
 
 function mostrar(vista) {
@@ -501,7 +507,7 @@ function abrirFicha(id) {
 }
 
 $("#ficha").addEventListener("close", () => {
-  if (location.hash.startsWith("#/p/")) history.replaceState(null, "", vistaActual === "inicio" ? "#/" : `#/${vistaActual}`);
+  if (location.hash.startsWith("#/p/")) history.replaceState(null, "", vistaActual === "inicio" ? "#/" : `#/${vistaActual}${vistaActual === "cliente" && pestana !== "resumen" ? `/${pestana}` : ""}`);
 });
 window.addEventListener("afterprint", () => document.body.classList.remove("imprime-ficha"));
 $("#ficha").addEventListener("click", (e) => { if (e.target.id === "ficha") e.target.close(); });
@@ -648,29 +654,52 @@ function pintarCliente() {
   if (!dentro) return;
   $("#cl-nombre").textContent = DEMO.nombre;
   $("#cl-periodo").textContent = $("#reporte-periodo").textContent;
-  const agenda = P.filter((p) => p.avance === 4).sort((a, b) => ({ rojo: 0, amarillo: 1, sin: 2, verde: 3 }[sem(a)] - { rojo: 0, amarillo: 1, sin: 2, verde: 3 }[sem(b)]));
+  // una sola pestaña a la vista; el menú marca cuál
+  $$(".cl-pest").forEach((s) => (s.hidden = s.id !== `cl-${pestana}`));
+  $$(".cl-lado nav a").forEach((a) => (a.dataset.pest === pestana ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current")));
+
+  const orden = { rojo: 0, amarillo: 1, sin: 2, verde: 3 };
+  const agenda = P.filter((p) => p.avance === 4).sort((a, b) => orden[sem(a)] - orden[sem(b)]);
   const mios = seguidos().map((id) => P.find((p) => p.id === id)).filter(Boolean);
-  $("#cl-kpis").innerHTML = [[P.length, "proyectos en seguimiento"], [P.filter((p) => p.lectura).length, "leídos completos por la IA"],
-    [ROJAS.length, "alertas rojas vivas", "al"], [agenda.length, "en la agenda del Pleno"], [mios.length, "proyectos que sigues"]]
-    .map(([n, t, c]) => `<div class="cl-kpi ${c || ""}"><b>${n}</b><span>${t}</span></div>`).join("");
+  const ultimo = (p) => p.recorrido.at(-1) || ["", ""];
+  const etiqueta = (p) => `<span class="cl-tag ${sem(p)}">${{ rojo: "Alerta roja", amarillo: "Observación", verde: "Sin riesgo", sin: "Sin leer" }[sem(p)]}</span>`;
+  const enlace = (p) => `<a href="#/p/${encodeURIComponent(p.id)}"><b>PL ${esc(codigo(p))}</b> ${esc(p.lectura?.resumen || oracion(p.titulo))}</a>`;
+  const vacio = (n, texto) => `<tr><td colspan="${n}">${texto}</td></tr>`;
+  $("#cl-n-alertas").textContent = ROJAS.length || "";
+  $("#cl-n-mios").textContent = mios.length || "";
+
+  // Resumen: las cifras llevan a su pestaña y solo se muestra lo más urgente
+  $("#cl-kpis").innerHTML = [[ROJAS.length, "alertas rojas vivas", "alertas", "al"], [agenda.length, "en la agenda del Pleno", "alertas"],
+    [mios.length, "proyectos que sigues", "mios"], [P.filter((p) => p.lectura).length, "proyectos leídos completos"], [P.length, "proyectos del periodo"]]
+    .map(([n, t, a, c]) => (a ? `<a class="cl-kpi ${c || ""}" href="#/cliente/${a}"><b>${n}</b><span>${t}</span></a>` : `<div class="cl-kpi"><b>${n}</b><span>${t}</span></div>`)).join("");
+  $("#cl-prox").innerHTML = agenda.slice(0, 4).map((p) => `<tr><td>${etiqueta(p)}</td><td>${enlace(p)}</td></tr>`).join("") || vacio(2, "No hay proyectos en la agenda del Pleno.");
+  $("#cl-ultimos").innerHTML = [...mios].sort((a, b) => ultimo(b)[0].localeCompare(ultimo(a)[0])).slice(0, 4)
+    .map((p) => `<tr><td class="cl-f">${fecha(ultimo(p)[0])}</td><td>${enlace(p)}<span class="cl-sub cl-mov">${esc(cap(ultimo(p)[1]))}</span></td></tr>`).join("") || vacio(2, "Todavía no sigues ningún proyecto.");
+
+  // Alertas y agenda
+  $("#cl-h-agenda").textContent = `En la agenda del Pleno (${agenda.length})`;
+  $("#cl-agenda").innerHTML = agenda.map((p) => `<tr><td>${etiqueta(p)}</td><td>${enlace(p)}</td><td>${chipB(p.bancada)}</td><td>${esc(enAgendaDesde(p))}</td></tr>`).join("") || vacio(4, "No hay proyectos en la agenda del Pleno.");
+  $("#cl-h-rojas").textContent = `Alertas rojas vivas (${ROJAS.length})`;
+  $("#cl-rojas").innerHTML = ROJAS.map((p) => `<tr><td>${etiqueta(p)}</td><td>${enlace(p)}</td><td>${chipB(p.bancada)}</td><td>${esc(AVANCE[p.avance])}</td></tr>`).join("") || vacio(4, "No hay alertas rojas vivas.");
+
+  // Mis proyectos
+  $("#cl-seguidos").innerHTML = mios.length ? mios.map((p) => {
+    const [f, e] = ultimo(p);
+    return `<tr><td>${enlace(p)}${senalesHTML(p)}</td><td>${chipB(p.bancada)}</td>
+      <td>${esc(AVANCE[p.avance])}</td><td>${fecha(f)}<br><span class="cl-sub">${esc(cap(e))}</span></td>
+      <td><button type="button" class="enlace" data-dejar="${esc(p.id)}">Dejar de seguir</button></td></tr>`;
+  }).join("") : vacio(5, "Todavía no sigues ningún proyecto. Ábrelo desde el reporte y usa «Seguir este proyecto».");
+
+  // Bancadas
   const v = votoSala;
   if (v) {
     $("#cl-vt").textContent = `PL ${numPL(v)}: ${v.resultado === "Aprobado" ? "aprobado" : "rechazado"} ${v.no > v.si ? `${v.no} a ${v.si}` : `${v.si} a ${v.no}`}, ${fechaLarga(v.fecha)}`;
     $("#cl-hemi").innerHTML = hemiHTML(v) + FORMA_VOTO;
     const esc_ = {}; v.votos.forEach(([, b]) => (esc_[b] = (esc_[b] || 0) + 1));
     const cuenta = (b, c) => P.filter((p) => sem(p) === c && p.avance > 0 && siglaDe(p.bancada) === b).length;
-    $("#cl-bancadas").innerHTML = Object.keys(esc_).sort((a, b) => posB(a) - posB(b)).map((b) =>
+    $("#cl-bancadas-filas").innerHTML = Object.keys(esc_).sort((a, b) => posB(a) - posB(b)).map((b) =>
       `<tr><td>${chipB(NOMBRE(b))}</td><td class="n">${esc_[b]}</td><td class="n">${cuenta(b, "rojo") || "–"}</td><td class="n">${cuenta(b, "amarillo") || "–"}</td></tr>`).join("");
   }
-  const etiqueta = (p) => `<span class="cl-tag ${sem(p)}">${{ rojo: "Alerta roja", amarillo: "Observación", verde: "Sin riesgo", sin: "Sin leer" }[sem(p)]}</span>`;
-  const fila = (p, extra = "") => `<tr><td>${etiqueta(p)}${extra}</td><td><a href="#/p/${encodeURIComponent(p.id)}"><b>PL ${esc(codigo(p))}</b> ${esc(p.lectura?.resumen || oracion(p.titulo))}</a></td><td>${chipB(p.bancada)}</td></tr>`;
-  $("#cl-filas").innerHTML = agenda.slice(0, 4).map((p) => fila(p, `<span class="cl-en-agenda">En agenda</span>`)).join("") + ROJAS.map((p) => fila(p)).join("");
-  $("#cl-seguidos").innerHTML = mios.length ? mios.map((p) => {
-    const [f, e] = p.recorrido.at(-1) || ["", ""];
-    return `<tr><td><a href="#/p/${encodeURIComponent(p.id)}"><b>PL ${esc(codigo(p))}</b> ${esc(p.lectura?.resumen || oracion(p.titulo))}</a>${senalesHTML(p)}</td><td>${chipB(p.bancada)}</td>
-      <td>${esc(AVANCE[p.avance])}</td><td>${fecha(f)}<br><span class="cl-sub">${esc(cap(e))}</span></td>
-      <td><button type="button" class="enlace" data-dejar="${esc(p.id)}">Dejar de seguir</button></td></tr>`;
-  }).join("") : `<tr><td colspan="5">Todavía no sigues ningún proyecto. Ábrelo desde el reporte y usa «Seguir este proyecto».</td></tr>`;
 }
 
 $("#form-acceso").addEventListener("submit", (e) => {
@@ -698,6 +727,4 @@ $("#cl-excel").addEventListener("click", () => {
 $("#panel-cliente").addEventListener("click", (e) => {
   const b = e.target.closest("[data-dejar]");
   if (b) { guardar("pl-seguidos", seguidos().filter((id) => id !== b.dataset.dejar)); pintarCliente(); }
-  const ancla = e.target.closest('.cl-lado nav a');
-  if (ancla) { e.preventDefault(); $(ancla.getAttribute("href")).scrollIntoView({ behavior: "smooth", block: "start" }); }
 });
