@@ -662,3 +662,11 @@ body.modo-cliente .barra, body.modo-cliente .pie { display: none; }
 .planes.dos .boton-borde { justify-self: start; margin-top: .6rem; }
 @media (max-width: 900px) { .beneficios { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 600px) { .beneficios, .planes.dos { grid-template-columns: 1fr; } }
+
+/* Votaciones: cada fila dice qué proyecto es y abre su ficha */
+#historial small, .lista-votaciones .asunto small { display: block; margin-top: .15rem; color: var(--tinta-2); font-weight: 400; font-size: var(--paso-1); }
+#historial tr.abre { cursor: pointer; }
+#historial tr.abre:hover td { background: #F5F6F8; }
+#historial td a { color: var(--tinta); text-decoration: none; }
+#historial tr.abre:hover td a { color: var(--sello); text-decoration: underline; }
+#historial .pista { margin-top: 1rem; color: var(--tinta-2); font-size: var(--paso-1); }

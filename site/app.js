@@ -509,6 +509,12 @@ $("#ficha").addEventListener("click", (e) => { if (e.target.id === "ficha") e.ta
 // ---------------- votaciones ----------------
 const NOMBRE = (s) => META.bancadas?.[s] || s;
 
+// Qué se votó, en palabras: el proyecto (su resumen o título) y qué parte del trámite se votó.
+const proyectoDe = (v) => v.pls.map((pl) => P.find((x) => x.camara === v.camara && x.pl === pl)).find(Boolean);
+const queSeVoto = (v) => /^(PRL|PL)\b|^TEXTO SUSTITUTORIO APROBADO$/i.test(v.movimiento.trim()) ? "Votación del texto final" : oracion(v.movimiento).replace(/\s*\((no )?aprobad[oa]\)\s*$/i, "");
+const tituloVot = (v) => { const p = proyectoDe(v); return p ? (p.lectura?.resumen || oracion(p.titulo)) : oracion(v.asunto || v.movimiento); };
+const plCorto = (v) => v.pls.map((x) => x.replace(/^0+/, "").replace("-2026-2031", "")).join(", ");
+
 function votoHTML(v) {
   const aprob = v.resultado === "Aprobado";
   const filas = v.bancadas ? Object.entries(v.bancadas).map(([b, n]) => {
@@ -569,10 +575,10 @@ function pintarVotaciones() {
 
   $("#lista-votaciones").innerHTML = vs.sort((a, b) => b.fecha.localeCompare(a.fecha)).map((v) => `
     <details>
-      <summary><span class="totales">${fecha(v.fecha)}</span><span class="asunto">PL ${esc(v.pls.map((x) => x.replace(/^0+/, "").replace("-2026-2031", "")).join(", "))}: ${esc(oracion(v.movimiento))}</span>
+      <summary><span class="totales">${fecha(v.fecha)}</span><span class="asunto">PL ${esc(plCorto(v))}: ${esc(tituloVot(v))}<small>${esc(queSeVoto(v))}</small></span>
         <span class="resultado ${v.resultado === "Aprobado" ? "si" : "no"}">${esc(v.resultado)}</span></summary>
       <div class="cuerpo">
-        <p>${esc(oracion(v.asunto))}</p>
+        <p>${esc(oracion(v.asunto))}${proyectoDe(v) ? ` <a href="#/p/${encodeURIComponent(proyectoDe(v).id)}">Abrir la ficha del proyecto</a>` : ""}</p>
         ${votoHTML(v)}
         <p class="totales">Lectura del PDF: ${esc(v.fuente)}. Control contra los totales impresos: ${esc(v.control)}. <a href="${esc(v.url)}" target="_blank" rel="noopener">Ver el PDF de la votación</a></p>
       </div>
@@ -585,8 +591,9 @@ function pintarVotaciones() {
     const c = nombres.find((x) => x === inp.value);
     if (!c) { $("#historial").innerHTML = ""; return; }
     const filas = vs.map((v) => [v, v.votos.find(([x]) => x === c)]).filter(([, x]) => x);
-    $("#historial").innerHTML = `<table><thead><tr><th>Fecha</th><th>Proyecto y votación</th><th>Voto</th></tr></thead><tbody>${filas.map(([v, x]) =>
-      `<tr><td>${fecha(v.fecha)}</td><td>PL ${esc(v.pls.join(", "))}: ${esc(oracion(v.movimiento))}</td><td><b>${esc(VOTO_TXT[x[2]] || "Con licencia")}</b></td></tr>`).join("")}</tbody></table>`;
+    $("#historial").innerHTML = `<p class="pista">Haz clic en un proyecto para ver su ficha y el hemiciclo de esa votación.</p><table><thead><tr><th>Fecha</th><th>Proyecto y votación</th><th>Voto</th></tr></thead><tbody>${filas.map(([v, x]) =>
+      { const p = proyectoDe(v), t = `<b>PL ${esc(plCorto(v))}</b> ${esc(tituloVot(v))}`;
+        return `<tr${p ? ` class="abre" data-abrir="${esc(p.id)}"` : ""}><td>${fecha(v.fecha)}</td><td>${p ? `<a href="#/p/${encodeURIComponent(p.id)}">${t}</a>` : t}<small>${esc(queSeVoto(v))}: ${esc(String(v.resultado).toLowerCase())}</small></td><td><b>${esc(VOTO_TXT[x[2]] || "Con licencia")}</b></td></tr>`; }).join("")}</tbody></table>`;
   };
 }
 const avg = (a) => a.reduce((x, y) => x + y, 0) / a.length;

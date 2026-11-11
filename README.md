@@ -178,11 +178,12 @@ comisiones), qué cambió entre el proyecto y el dictamen, señales de que un pr
 acumulaciones, prioridad en agenda) y a quién convencer (integrantes de la comisión, su historial de votos y los
 votos bisagra).
 
-**Costo por cliente (margen de contribución):**
+**Costo por cliente:**
 - Modelo local: S/ 0 por token. Electricidad de la laptop: menos de S/ 5 al mes.
 - GitHub Actions y Pages: S/ 0 en un repositorio público.
 - Agente revisor: minutos de un plan de Claude Code que ya existe (unos US$ 20 al mes repartidos entre clientes).
 - Configurar un lente nuevo: unas horas de trabajo una sola vez.
+- Atención al cliente: revisar sus alertas, preparar los entregables y responder consultas, cada mes.
 
 **Si se pasa a la API de Claude (Sonnet 5.5)** para operar sin la laptop, con precios de US$ 2 / US$ 10 por
 millón de tokens de entrada / salida, caché de la rúbrica (US$ 0,20) y Batch API (−50 %). Medido sobre nuestros
@@ -194,9 +195,9 @@ datos: ~2.100 tokens de instrucciones y rúbrica (cacheables), ~1.500 de articul
 | Operación mensual (~9 proyectos nuevos al día) | ~270 al mes | US$ 5 | ~US$ 2,5 |
 | Segunda lectura solo de alertas (~20 %) | ~55 al mes | US$ 1 | ~US$ 0,5 |
 
-Cada lente adicional suma ~US$ 2,5–5 al mes (S/ 10–20). Como el costo por cliente es de unos pocos soles al mes,
-casi todo lo que se cobre es **margen de contribución**: el costo real es el tiempo de configurar el lente y de
-revisar los informes a medida. Estimación por caracteres: validar con el contador de tokens antes de producción.
+Cada lente adicional suma ~US$ 2,5–5 al mes (S/ 10–20). La tecnología es lo barato; lo que cuesta es el trabajo
+de atender a cada cliente. Contando ese tiempo, atender a un cliente cuesta **como mínimo unos S/ 300 al mes**, y
+cada cotización parte de ahí. Estimación por caracteres: validar con el contador de tokens antes de producción.
 
 **Qué sigue:**
 1. Selector "Mis temas" en el sitio y alertas por correo.
