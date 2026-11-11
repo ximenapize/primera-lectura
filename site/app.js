@@ -6,7 +6,7 @@ const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const sinTildes = (s) => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
-const SEMAFORO = { rojo: "Alerta roja", amarillo: "Atención", verde: "Sin riesgo relevante", sin: "Sin leer" };
+const SEMAFORO = { rojo: "Alerta roja", amarillo: "En observación", verde: "Sin riesgo relevante", sin: "Sin leer" };
 const AVANCE = ["Archivado o retirado", "Presentado", "En comisión", "Con dictamen", "En el Pleno", "Aprobado"];
 const ICONO = {
   check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
@@ -37,7 +37,20 @@ const CODIGOS = { contra_constitucion: "contra la Constitución", contra_tratado
   equilibrio_poderes: "equilibrio de poderes", reglas_electorales: "reglas electorales", rendicion_cuentas: "rendición de cuentas",
   espacio_civico: "espacio cívico", sin_consulta: "consulta previa", gasto_sin_fondos: "gasto sin fondos",
   impacto_ambiental: "impacto ambiental", formula_legal: "fórmula legal" };
-const limpio = (t) => String(t ?? "").replace(/\b[a-z]+(?:_[a-z]+)+\b/g, (m) => CODIGOS[m] || m.replaceAll("_", " "));
+const codigos = (t) => String(t ?? "").replace(/\b[a-z]+(?:_[a-z]+)+\b/g, (m) => CODIGOS[m] || m.replaceAll("_", " "));
+// La explicación del agente trae la jerga de la rúbrica ("Sí en restringe, regresiva: …"). Las respuestas ya se muestran
+// aparte, así que aquí se quitan esas etiquetas y queda la explicación en prosa.
+const limpio = (t) => {
+  let s = codigos(String(t ?? "").replace(/formula_legal vac/gi, "FORMULA vac"))
+    .replace(/FORMULA vac[ií]a: cita vac[ií]a; revisi[oó]n basada en/gi, "La fórmula legal viene vacía; la lectura se basa en")
+    .replace(/(^|[.;]\s+)(?:S[ií]|Depende|Respuesta '?depende'?) en [^:.]{1,120}:\s*/g, "$1")
+    .replace(/\s*\((?:[a-z_]+(?::\s*(?:s[ií]|no|depende))?(?:,\s*)?)+\)/g, "");
+  s = s.replace(/Depende en contra (?:la )?Constituci[oó]n/g, "Su choque con la Constitución depende")
+    .replace(/Es s[ií] en [^:.]{1,120}:\s*/g, "")
+    .replace(/(^|\.\s+)([a-záéíóúñ])/g, (m, a, b) => a + b.toUpperCase());
+  return s.replace(/FORMULA/g, "fórmula legal");
+};
+const minus = (s) => s[0].toLowerCase() + s.slice(1);
 // Nombre corto de cada pregunta de la rúbrica, para las etiquetas del reporte.
 const CORTO = { vulnerables: "Grupos vulnerables", restringe: "Restringe un derecho", no_proporcional: "Falla el test de proporcionalidad",
   regresiva: "Regresiva", contra_constitucion: "Contra la Constitución", contra_tratado: "Contra un tratado",
@@ -65,15 +78,15 @@ async function iniciar() {
 }
 
 // ---------------- rutas ----------------
-const VISTAS = ["reporte", "proyectos", "votaciones", "panorama", "como-funciona"];
-let vistaActual = "reporte";
+const VISTAS = ["inicio", "reporte", "proyectos", "votaciones", "panorama", "como-funciona"];
+let vistaActual = "inicio";
 
 function ruta() {
   const [seccion, id] = location.hash.replace(/^#\/?/, "").split("/");
   // la ficha se abre encima de la vista en la que estabas
   if (seccion === "p" && id) { mostrar(vistaActual); abrirFicha(decodeURIComponent(id)); return; }
   if ($("#ficha").open) $("#ficha").close();
-  mostrar(VISTAS.includes(seccion) ? seccion : "reporte");
+  mostrar(VISTAS.includes(seccion) ? seccion : "inicio");
 }
 
 function mostrar(vista) {
@@ -123,9 +136,11 @@ function prepararReporte() {
   const semana = P.filter((p) => new Date(p.fecha + "T12:00") >= desde);
   const cuenta = (lista, color) => lista.filter((p) => sem(p) === color).length;
   $("#reporte-periodo").textContent = `Del ${fechaLarga(desde.toISOString().slice(0, 10))} al ${fechaLarga(META.actualizado)} de 2026. Diputados y Senado.`;
-  $("#reporte-semana").innerHTML = `Esta semana entraron <b>${semana.length} proyectos de ley</b>: ${cuenta(semana, "rojo")} con alerta roja, ` +
-    `${cuenta(semana, "amarillo")} en observación, ${cuenta(semana, "verde")} sin riesgo relevante y ${cuenta(semana, "sin")} en cola de lectura. ` +
-    `Hay ${P.length} en seguimiento.`;
+  const rojasSemana = cuenta(semana, "rojo");
+  $("#reporte-semana").innerHTML = `Esta semana se presentaron <b>${semana.length} proyectos de ley</b>. ` +
+    `${rojasSemana ? `${rojasSemana} ${rojasSemana === 1 ? "encendió" : "encendieron"} una alerta roja` : "Ninguno encendió una alerta roja"}, ` +
+    `${cuenta(semana, "amarillo")} quedaron en observación, ${cuenta(semana, "verde")} no tocan derechos y ${cuenta(semana, "sin")} esperan su lectura. ` +
+    `Abajo, las alertas que siguen vivas en el Congreso, de esta semana y de las anteriores.`;
   $("#bajada").textContent = `${P.length} proyectos de Diputados y Senado, actualizados cada día. La IA ya leyó el articulado de ${META.n_lecturas}; cada alerta trae la cita del artículo que la sustenta.`;
 
   // primero las alertas con más sustento: revisadas por el agente y con la cita verificada en el PDF
@@ -134,9 +149,9 @@ function prepararReporte() {
   ROJAS = P.filter((p) => sem(p) === "rojo" && p.avance > 0).sort(orden);
   const amarillas = P.filter((p) => sem(p) === "amarillo" && p.avance > 0);
   OBSERVACION = amarillas.sort((a, b) => sustento(b) - sustento(a) || b.fecha.localeCompare(a.fecha)).slice(0, 6);
-  $("#t-rojas").textContent = `${ROJAS.length} alertas rojas abiertas`;
+  $("#t-rojas").textContent = `Alertas rojas que siguen vivas (${ROJAS.length})`;
   $("#reporte-rojas").innerHTML = ROJAS.map(itemHTML).join("");
-  $("#t-observacion").textContent = `En observación: las ${OBSERVACION.length} más recientes de ${amarillas.length}`;
+  $("#t-observacion").textContent = `En observación: ${OBSERVACION.length} de ${amarillas.length}`;
   $("#reporte-observacion").innerHTML = OBSERVACION.map(itemHTML).join("");
 
   // al abrir una alerta, el hemiciclo muestra a la bancada que la presentó
@@ -161,6 +176,29 @@ function prepararReporte() {
   $("#modo-voto").addEventListener("click", salaVoto);
   $("#modo-bancada").addEventListener("click", () => salaBancada(null));
   if (votoSala) salaVoto();
+  prepararInicio();
+}
+
+// ---------------- portada de empresa ----------------
+function prepararInicio() {
+  if (votoSala) {
+    $("#heroe-hemi").innerHTML = hemiHTML(votoSala);
+    const aprob = votoSala.resultado === "Aprobado";
+    $("#heroe-pie").textContent = `Así votó ${votoSala.camara === "senado" ? "el Senado" : "Diputados"} el PL ${numPL(votoSala)} el ${fechaLarga(votoSala.fecha)}: ` +
+      `${votoSala.si || 0} a favor, ${votoSala.no || 0} en contra. ${aprob ? "Aprobado" : "Rechazado"}. Un punto por congresista.`;
+  }
+  const leidas = P.filter((p) => p.lectura).length;
+  $("#cifras").innerHTML = [
+    [P.length, `proyectos de ley presentados entre el 4 de agosto y el ${fechaLarga(META.actualizado)}`],
+    ["9", "proyectos nuevos al día, cada uno un PDF de 10 a 25 páginas"],
+    [leidas, "proyectos leídos completos por la IA, con la cita verificada"],
+    [ROJAS.length, "alertas rojas que siguen vivas en el Congreso"],
+  ].map(([n, t]) => `<div><b>${esc(n)}</b><span>${esc(t)}</span></div>`).join("");
+  $("#muestra-alertas").innerHTML = ROJAS.slice(0, 3).map((p) => `<article>
+      <p class="etiqueta-riesgo">Alerta roja</p>
+      <h3><a href="#/p/${encodeURIComponent(p.id)}">${esc(p.lectura.resumen || oracion(p.titulo))}</a></h3>
+      <p class="muestra-meta">PL ${esc(codigo(p))}, ${p.camara === "senado" ? "Senado" : "Diputados"}. ${esc(p.bancada)}. ${esc(AVANCE[p.avance])}.</p>
+    </article>`).join("");
 }
 
 function itemHTML(p) {
@@ -173,8 +211,8 @@ function itemHTML(p) {
     <div class="item-cuerpo">
       ${citaHTML(l)}
       <p>${esc(limpio(l.explicacion))}</p>
-      ${activas.length ? `<div class="chips">${activas.map(([k, r]) => `<span class="${r}">${esc(CORTO[k] || k)}${r === "depende" ? ": depende" : ""}</span>`).join("")}</div>` : ""}
-      ${l.ganan || l.pierden ? `<div class="gp"><div><h5>Quiénes ganan</h5><p>${esc(l.ganan || "—")}</p></div><div><h5>Quiénes pierden</h5><p>${esc(l.pierden || "—")}</p></div></div>` : ""}
+      ${activas.length ? `<p class="activa">Lo que marcó la rúbrica: ${activas.map(([k, r]) => r === "si" ? `<b>${esc(minus(CORTO[k] || k))}</b>` : `${esc(minus(CORTO[k] || k))} (depende)`).join(", ")}.</p>` : ""}
+      ${l.ganan || l.pierden ? `<div class="gp"><div><h5>Quiénes ganan</h5><p>${esc(l.ganan || "Sin dato")}</p></div><div><h5>Quiénes pierden</h5><p>${esc(l.pierden || "Sin dato")}</p></div></div>` : ""}
       <div class="item-acciones"><button type="button" class="boton-sec" data-abrir="${esc(p.id)}">Abrir la ficha completa</button>
         <a href="${esc(p.url)}" target="_blank" rel="noopener">Expediente en el portal del Congreso</a></div>
     </div>
@@ -186,8 +224,8 @@ function salaVoto() {
   const [mas, menos] = aprob ? [v.si, v.no] : [v.no, v.si];
   $("#sala-titulo").textContent = `${v.camara === "senado" ? "El Senado" : "Diputados"} ${aprob ? "aprobó" : "rechazó"} el PL ${numPL(v)} por ${mas || 0} votos contra ${menos || 0}`;
   const mov = oracion(v.movimiento).replace(/\.$/, "");
-  $("#sala-sub").textContent = `${p ? (p.lectura?.resumen || oracion(p.titulo)).replace(/\.$/, "") + ". " : ""}Se votó: ${mov.length > 110 ? mov.slice(0, 110) + "…" : mov}. ` +
-    `${fechaLarga(v.fecha)}, ${camaraTxt(v.camara)}. Cada punto es un congresista; pasa el cursor para ver su nombre.`;
+  $("#sala-sub").textContent = `${p ? (p.lectura?.resumen || oracion(p.titulo)).replace(/\.$/, "") + ". " : ""}Votación del ${fechaLarga(v.fecha)}.`;
+  $("#sala-sub").title = mov;
   $("#sala-hemi").innerHTML = hemiHTML(v);
   const otros = v.votos.length - (+v.si || 0) - (+v.no || 0) - (+v.abst || 0);
   $("#sala-marcador").innerHTML = [["si", v.si, "a favor"], ["no", v.no, "en contra"], ["ab", v.abst, "abstenciones"], ["au", otros, "sin voto"]]
@@ -349,7 +387,7 @@ function abrirFicha(id) {
       <p class="resumen">${esc(l.resumen)}</p>
       ${citaHTML(l)}
       <p>${esc(limpio(l.explicacion))}</p>
-      ${l.ganan || l.pierden ? `<dl class="ganan"><dt>Ganan</dt><dd>${esc(l.ganan || "—")}</dd><dt>Pierden</dt><dd>${esc(l.pierden || "—")}</dd></dl>` : ""}
+      ${l.ganan || l.pierden ? `<dl class="ganan"><dt>Ganan</dt><dd>${esc(l.ganan || "Sin dato")}</dd><dt>Pierden</dt><dd>${esc(l.pierden || "Sin dato")}</dd></dl>` : ""}
       ${checklistHTML(l)}
       ${l.derechos.length ? `<div class="etiquetas">${l.derechos.map((d) => `<span>${esc(d)}</span>`).join("")}</div>` : ""}
       ${l.estandares.length ? `<ul class="estandares">${l.estandares.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>` : ""}
@@ -362,7 +400,7 @@ function abrirFicha(id) {
 
   $("#ficha-contenido").innerHTML = `
     <div class="ficha-cabeza">
-      <div><p>PL ${esc(codigo(p))} · ${p.camara === "senado" ? "Senado" : "Cámara de Diputados"} · presentado el ${fecha(p.fecha)}</p></div>
+      <div><p>PL ${esc(codigo(p))}, ${p.camara === "senado" ? "Senado" : "Cámara de Diputados"}, presentado el ${fecha(p.fecha)}</p></div>
       <div class="ficha-botones"><button class="boton-pri" type="button" id="ficha-pdf">Descargar PDF</button>
         <button class="cerrar" type="button" aria-label="Cerrar la ficha" id="cerrar">${ICONO.cerrar}</button></div>
     </div>
@@ -390,7 +428,7 @@ function abrirFicha(id) {
 }
 
 $("#ficha").addEventListener("close", () => {
-  if (location.hash.startsWith("#/p/")) history.replaceState(null, "", vistaActual === "reporte" ? "#/" : `#/${vistaActual}`);
+  if (location.hash.startsWith("#/p/")) history.replaceState(null, "", vistaActual === "inicio" ? "#/" : `#/${vistaActual}`);
 });
 window.addEventListener("afterprint", () => document.body.classList.remove("imprime-ficha"));
 $("#ficha").addEventListener("click", (e) => { if (e.target.id === "ficha") e.target.close(); });
