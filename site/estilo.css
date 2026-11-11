@@ -490,3 +490,13 @@ main { outline: none; }
   .cifras div { border-right: 0; }
 }
 @media print { #vista-inicio { display: none !important; } }
+
+/* ---------- cómo funciona: marco legal ---------- */
+.marco { margin: 3rem 0 2rem; }
+.marco h2 { margin-bottom: .3rem; }
+.marco .nota { max-width: 48rem; }
+.marco-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; border-top: 2px solid var(--tinta); padding-top: 1rem; }
+.marco-grid h3 { font: 700 1.05rem/1.2 var(--titulo); font-stretch: 88%; margin-bottom: .5rem; }
+.marco-grid ul { margin: 0; padding-left: 1rem; display: grid; gap: .45rem; font-size: .95rem; }
+@media (max-width: 960px) { .marco-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .marco-grid { grid-template-columns: 1fr; } }

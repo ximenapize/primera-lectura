@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="estilo.css?v=9">
+  <link rel="stylesheet" href="estilo.css?v=10">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%230B1626'/%3E%3Cg fill='none' stroke='%23F2E9D8' stroke-width='3.4' stroke-linecap='round'%3E%3Cpath d='M6 29a14 14 0 0 1 28 0'/%3E%3Cpath d='M13 29a7 7 0 0 1 14 0'/%3E%3C/g%3E%3Ccircle cx='20' cy='29' r='3' fill='%23E2B04A'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -321,6 +321,38 @@
         <li><h3>Verificación</h3><p>Python busca la cita en el PDF. Si no aparece, la lectura se marca. El modelo no puede inventar el artículo.</p></li>
         <li><h3>Segunda lectura con rúbrica</h3><p>Un agente (Claude Sonnet) relee las alertas y responde 14 preguntas de una rúbrica pública de derechos humanos. El color sale de las respuestas, con una regla fija.</p></li>
       </ol>
+      <section class="marco" aria-labelledby="t-marco">
+        <h2 id="t-marco">Con qué normas se lee cada proyecto</h2>
+        <p class="nota">Cada derecho de la <a href="https://github.com/ximenapize/primera-lectura/blob/main/ai/rubrica.md">rúbrica</a> tiene sus normas de referencia. Hoy la IA recibe esta lista y aplica lo que sabe de cada norma; lo que Python comprueba es la cita del proyecto de ley. Lo siguiente es darle también el texto de cada artículo para verificar la referencia. <a href="https://github.com/ximenapize/primera-lectura/blob/main/docs/marco_legal.md">Ver el marco legal completo</a></p>
+        <div class="marco-grid">
+          <div><h3>Normas peruanas</h3><ul>
+            <li><a href="https://www.gob.pe/institucion/presidencia/informes-publicaciones/196158-constitucion-politica-del-peru">Constitución Política del Perú</a></li>
+            <li><a href="https://leyes.congreso.gob.pe/Documentos/Leyes/29785.pdf">Ley 29785, consulta previa</a></li>
+            <li><a href="https://leyes.congreso.gob.pe/Documentos/DecretosLegislativos/01276.pdf">Decreto Legislativo 1276, regla fiscal</a></li>
+          </ul></div>
+          <div><h3>Tratados ratificados por el Perú</h3><ul>
+            <li><a href="https://www.oas.org/dil/esp/tratados_b-32_convencion_americana_sobre_derechos_humanos.htm">Convención Americana sobre Derechos Humanos</a></li>
+            <li><a href="https://www.ohchr.org/es/instruments-mechanisms/instruments/international-covenant-civil-and-political-rights">Pacto de Derechos Civiles y Políticos</a></li>
+            <li><a href="https://www.ohchr.org/es/instruments-mechanisms/instruments/international-covenant-economic-social-and-cultural-rights">Pacto de Derechos Económicos, Sociales y Culturales</a></li>
+            <li><a href="https://www.ohchr.org/es/instruments-mechanisms/instruments/convention-rights-child">Convención sobre los Derechos del Niño</a></li>
+            <li><a href="https://www.ohchr.org/es/instruments-mechanisms/instruments/convention-elimination-all-forms-discrimination-against-women">CEDAW</a> y <a href="https://www.oas.org/juridico/spanish/tratados/a-61.html">Belém do Pará</a></li>
+            <li><a href="https://normlex.ilo.org/dyn/nrmlx_es/f?p=NORMLEXPUB:12100:0::NO::P12100_ILO_CODE:C169">Convenio 169 de la OIT</a></li>
+            <li><a href="https://www.oas.org/juridico/spanish/tratados/a-52.html">Protocolo de San Salvador</a></li>
+            <li>Convenciones contra la corrupción de la <a href="https://www.unodc.org/unodc/es/corruption/uncac.html">ONU</a> y la <a href="https://www.oas.org/juridico/spanish/tratados/b-58.html">OEA</a></li>
+          </ul></div>
+          <div><h3>Corte Interamericana</h3><ul>
+            <li><a href="https://www.corteidh.or.cr/docs/casos/articulos/Seriec_75_esp.pdf">Barrios Altos</a> y <a href="https://www.corteidh.or.cr/docs/casos/articulos/seriec_162_esp.pdf">La Cantuta</a>, sentencias contra el Perú</li>
+            <li><a href="https://www.corteidh.or.cr/docs/casos/articulos/seriec_151_esp.pdf">Claude Reyes</a>, acceso a la información</li>
+            <li>Opiniones consultivas <a href="https://www.corteidh.or.cr/docs/opiniones/seriea_17_esp.pdf">17/2002</a> (niñez) y <a href="https://www.corteidh.or.cr/docs/opiniones/seriea_23_esp.pdf">23/2017</a> (ambiente)</li>
+          </ul></div>
+          <div><h3>Referencias que no obligan al Perú</h3><ul>
+            <li><a href="https://www.cepal.org/es/acuerdodeescazu">Acuerdo de Escazú</a>: firmado, no ratificado</li>
+            <li><a href="https://www.un.org/esa/socdev/unpfii/documents/DRIPS_es.pdf">Declaración sobre los Derechos de los Pueblos Indígenas</a></li>
+            <li><a href="https://www.unodc.org/documents/justice-and-prison-reform/Nelson_Mandela_Rules-S-ebook.pdf">Reglas Mandela</a>, personas privadas de libertad</li>
+            <li>Principios de la ONU sobre <a href="https://www.ohchr.org/es/instruments-mechanisms/instruments/basic-principles-use-force-and-firearms-law-enforcement-officials">uso de la fuerza</a> e <a href="https://www.ohchr.org/es/instruments-mechanisms/instruments/basic-principles-independence-judiciary">independencia judicial</a></li>
+          </ul></div>
+        </div>
+      </section>
       <p class="aviso">La primera lectura es una alerta temprana para priorizar, no una opinión legal.</p>
     </section>
   </main>
@@ -334,6 +366,6 @@
     <p>Código abierto en <a href="https://github.com/ximenapize/primera-lectura">GitHub</a>. Proyecto final de la Diplomatura en Ciencia de Datos, Q-Lab PUCP.</p>
   </footer>
 
-  <script src="app.js?v=9" defer></script>
+  <script src="app.js?v=10" defer></script>
 </body>
 </html>

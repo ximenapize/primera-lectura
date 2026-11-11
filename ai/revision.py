@@ -5,6 +5,7 @@
 #   uv run ai/revision.py pendientes [--n 5] [--semaforo rojo] [--parte 1/2]  -> alertas sin revisar, con la fórmula legal
 #   uv run ai/revision.py guardar - [--modelo sonnet] < revision.json         -> valida y agrega a data/revision.jsonl
 #   uv run ai/revision.py estado [--semaforo rojo] [--parte 1/2]               -> cuántas faltan
+#   --lista data/verdes_a_revisar.txt  (en pendientes y estado) revisa esos proyectos, aunque sean verdes
 import json
 import sys
 import zlib
@@ -27,11 +28,16 @@ def leer_jsonl(ruta: Path) -> list:
     return [json.loads(l) for l in ruta.read_text(encoding="utf-8").splitlines() if l] if ruta.exists() else []
 
 
-def pendientes(color: str = "", parte: str = "") -> pd.DataFrame:
-    """Alertas rojas y amarillas sin segunda lectura. `parte` = "i/k" reparte el trabajo entre k revisores."""
+def pendientes(color: str = "", parte: str = "", lista: str = "") -> pd.DataFrame:
+    """Alertas rojas y amarillas sin segunda lectura. `parte` = "i/k" reparte el trabajo entre k revisores.
+    `lista` = archivo con "camara,pl_id" por línea (por ejemplo data/verdes_a_revisar.txt): revisa esos, sin importar el color."""
     r = pd.DataFrame(leer_jsonl(RIESGO)).drop_duplicates(["camara", "pl_id"], keep="last")
     hechos = {(j["camara"], j["pl_id"]) for j in leer_jsonl(REVISION) if "preguntas" in j}
-    r = r[r.semaforo.isin([color] if color else ["rojo", "amarillo"])]
+    if lista:
+        pedidos = {tuple(l.split(",")) for l in Path(lista).read_text().split() if "," in l}
+        r = r.loc[[(c, p) in pedidos for c, p in zip(r.camara, r.pl_id)]]
+    else:
+        r = r[r.semaforo.isin([color] if color else ["rojo", "amarillo"])]
     r = r.loc[[(c, p) not in hechos for c, p in zip(r.camara, r.pl_id)]]
     if parte:
         i, k = (int(x) for x in parte.split("/"))
@@ -39,10 +45,10 @@ def pendientes(color: str = "", parte: str = "") -> pd.DataFrame:
     return r.assign(_o=r.semaforo.map({"rojo": 0, "amarillo": 1})).sort_values("_o").drop(columns="_o")
 
 
-def cmd_pendientes(n: int, semaforo: str = "", parte: str = ""):
+def cmd_pendientes(n: int, semaforo: str = "", parte: str = "", lista: str = ""):
     props = pd.read_csv(PROPS, dtype=str).fillna("").set_index(["camara", "pl_id"])
     salida = []
-    for a in pendientes(semaforo, parte).head(n).to_dict("records"):
+    for a in pendientes(semaforo, parte, lista).head(n).to_dict("records"):
         p = props.loc[(a["camara"], a["pl_id"])]
         texto = texto_pdf(p.pdf_proyecto, f"{a['camara']}_{a['pl_id']}")
         salida.append({
@@ -90,8 +96,8 @@ def opcion(nombre: str, defecto: str = "") -> str:
 if __name__ == "__main__":
     accion = sys.argv[1] if len(sys.argv) > 1 else "estado"
     if accion == "pendientes":
-        cmd_pendientes(int(opcion("--n", "5")), opcion("--semaforo"), opcion("--parte"))
+        cmd_pendientes(int(opcion("--n", "5")), opcion("--semaforo"), opcion("--parte"), opcion("--lista"))
     elif accion == "guardar":  # el JSON va como argumento o, con "-", por la entrada estándar
         cmd_guardar(sys.argv[2], opcion("--modelo", "Claude Code"))
     else:
-        print(f"{len(pendientes(opcion('--semaforo'), opcion('--parte')))} alertas sin revisar")
+        print(f"{len(pendientes(opcion('--semaforo'), opcion('--parte'), opcion('--lista')))} alertas sin revisar")

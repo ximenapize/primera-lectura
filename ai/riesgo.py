@@ -118,6 +118,7 @@ def main():
     ap.add_argument("--ids", default="", help="pl_id separados por coma")
     ap.add_argument("--prefiltro", action="store_true")
     ap.add_argument("--limite", type=int, default=None)
+    ap.add_argument("--salida", default=str(SALIDA), help="archivo jsonl (para probar otro modelo sin pisar el actual)")
     a = ap.parse_args()
 
     props = pd.read_csv(PROPS, dtype=str).fillna("")
@@ -127,16 +128,17 @@ def main():
         objetivo = prefiltro(props)
     else:
         objetivo = props
+    salida = Path(a.salida)
     hechos = set()
-    if SALIDA.exists():
-        hechos = {(j["camara"], j["pl_id"]) for j in map(json.loads, SALIDA.read_text().splitlines())}
+    if salida.exists():
+        hechos = {(j["camara"], j["pl_id"]) for j in map(json.loads, salida.read_text().splitlines())}
     objetivo = objetivo[[(c, p) not in hechos for c, p in zip(objetivo.camara, objetivo.pl_id)]]
     if a.limite:
         objetivo = objetivo.head(a.limite)
     print(f"{len(objetivo)} proposiciones por analizar con {MODELO}")
 
     t0 = time.time()
-    with open(SALIDA, "a", encoding="utf-8") as f:
+    with open(salida, "a", encoding="utf-8") as f:
         for i, fila in enumerate(objetivo.itertuples(), 1):
             try:
                 r = analizar(fila)

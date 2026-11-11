@@ -91,6 +91,10 @@ amarillo y no rojo.
 | Sostenibilidad fiscal | Constitución art. 79 (iniciativa de gasto); Decreto Legislativo 1276 (regla fiscal) |
 | Amnistías y graves violaciones | CADH arts. 1.1, 8 y 25; Corte IDH, casos Barrios Altos (2001) y La Cantuta (2006) |
 
+El Acuerdo de Escazú está firmado pero **no ratificado** por el Perú: sirve como referencia y no cuenta como
+"tratado ratificado" en la pregunta de estándares. Situación y fuente oficial de cada instrumento:
+[`docs/marco_legal.md`](../docs/marco_legal.md).
+
 **Citar solo artículos que existan.** Si no hay certeza del número de artículo, citar solo el instrumento.
 
 ## Ejemplos
