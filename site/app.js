@@ -656,37 +656,48 @@ function pintarCliente() {
   $("#cl-periodo").textContent = $("#reporte-periodo").textContent;
   // una sola pestaña a la vista; el menú marca cuál
   $$(".cl-pest").forEach((s) => (s.hidden = s.id !== `cl-${pestana}`));
-  $$(".cl-lado nav a").forEach((a) => (a.dataset.pest === pestana ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current")));
+  $$(".cl-barra nav a").forEach((a) => (a.dataset.pest === pestana ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current")));
 
   const orden = { rojo: 0, amarillo: 1, sin: 2, verde: 3 };
   const agenda = P.filter((p) => p.avance === 4).sort((a, b) => orden[sem(a)] - orden[sem(b)]);
   const mios = seguidos().map((id) => P.find((p) => p.id === id)).filter(Boolean);
   const ultimo = (p) => p.recorrido.at(-1) || ["", ""];
-  const etiqueta = (p) => `<span class="cl-tag ${sem(p)}">${{ rojo: "Alerta roja", amarillo: "Observación", verde: "Sin riesgo", sin: "Sin leer" }[sem(p)]}</span>`;
-  const enlace = (p) => `<a href="#/p/${encodeURIComponent(p.id)}"><b>PL ${esc(codigo(p))}</b> ${esc(p.lectura?.resumen || oracion(p.titulo))}</a>`;
-  const vacio = (n, texto) => `<tr><td colspan="${n}">${texto}</td></tr>`;
+  // las mismas marcas del reporte público: la forma y el color dicen el riesgo
+  const estado = (p) => `<span class="semaforo ${sem(p)}"><i class="punto ${sem(p)}"></i>${SEMAFORO[sem(p)]}</span>`;
+  const enlace = (p) => `<a href="#/p/${encodeURIComponent(p.id)}">${esc(p.lectura?.resumen || oracion(p.titulo))}</a>`;
+  const proyecto = (p) => `${enlace(p)}<span class="cl-sub">PL ${esc(codigo(p))}</span>`;
+  const vacio = (n, texto) => `<tr><td colspan="${n}" class="cl-vacio">${texto}</td></tr>`;
   $("#cl-n-alertas").textContent = ROJAS.length || "";
   $("#cl-n-mios").textContent = mios.length || "";
 
-  // Resumen: las cifras llevan a su pestaña y solo se muestra lo más urgente
-  $("#cl-kpis").innerHTML = [[ROJAS.length, "alertas rojas vivas", "alertas", "al"], [agenda.length, "en la agenda del Pleno", "alertas"],
-    [mios.length, "proyectos que sigues", "mios"], [P.filter((p) => p.lectura).length, "proyectos leídos completos"], [P.length, "proyectos del periodo"]]
-    .map(([n, t, a, c]) => (a ? `<a class="cl-kpi ${c || ""}" href="#/cliente/${a}"><b>${n}</b><span>${t}</span></a>` : `<div class="cl-kpi"><b>${n}</b><span>${t}</span></div>`)).join("");
-  $("#cl-prox").innerHTML = agenda.slice(0, 4).map((p) => `<tr><td>${etiqueta(p)}</td><td>${enlace(p)}</td></tr>`).join("") || vacio(2, "No hay proyectos en la agenda del Pleno.");
+  // Resumen: el titular dice qué se movió en lo que sigue el cliente; las cifras llevan a su pestaña
+  const inicio = new Date(META.actualizado + "T12:00"); inicio.setDate(inicio.getDate() - 6);
+  const desde = inicio.toISOString().slice(0, 10);
+  const movidos = mios.filter((p) => ultimo(p)[0] >= desde).length;
+  $("#cl-h-resumen").textContent = !mios.length ? "Todavía no sigues ningún proyecto"
+    : movidos === 0 ? `Ninguno de tus ${mios.length} proyectos se movió esta semana`
+    : movidos === 1 ? `1 de tus ${mios.length} proyectos se movió esta semana`
+    : `${movidos} de tus ${mios.length} proyectos se movieron esta semana`;
+  $("#cl-cifras").innerHTML = [[ROJAS.length, "alertas rojas vivas", "alertas", "al"], [agenda.length, "en la agenda del Pleno", "alertas"],
+    [mios.length, "proyectos que sigues", "mios"], [P.filter((p) => p.lectura).length, `leídos completos de ${P.length} del periodo`]]
+    .map(([n, t, a, c]) => (a ? `<a class="cl-cifra ${c || ""}" href="#/cliente/${a}"><b>${n}</b><span>${t}</span></a>` : `<div class="cl-cifra"><b>${n}</b><span>${t}</span></div>`)).join("");
+  $("#cl-prox").innerHTML = agenda.slice(0, 4).map((p) => `<li>${estado(p)}${enlace(p)}
+      <span class="agenda-meta">${chipB(p.bancada)} PL ${esc(codigo(p))}. En agenda desde el ${enAgendaDesde(p)}.</span></li>`).join("") || "<li>No hay proyectos en la agenda del Pleno.</li>";
   $("#cl-ultimos").innerHTML = [...mios].sort((a, b) => ultimo(b)[0].localeCompare(ultimo(a)[0])).slice(0, 4)
-    .map((p) => `<tr><td class="cl-f">${fecha(ultimo(p)[0])}</td><td>${enlace(p)}<span class="cl-sub cl-mov">${esc(cap(ultimo(p)[1]))}</span></td></tr>`).join("") || vacio(2, "Todavía no sigues ningún proyecto.");
+    .map((p) => `<li><span class="cl-mov"><b>${ultimo(p)[0] ? fechaLarga(ultimo(p)[0]) : "Sin fecha"}</b> ${esc(cap(ultimo(p)[1]))}</span>${enlace(p)}
+      <span class="agenda-meta">${chipB(p.bancada)} PL ${esc(codigo(p))}</span></li>`).join("") || "<li>Todavía no sigues ningún proyecto.</li>";
 
   // Alertas y agenda
   $("#cl-h-agenda").textContent = `En la agenda del Pleno (${agenda.length})`;
-  $("#cl-agenda").innerHTML = agenda.map((p) => `<tr><td>${etiqueta(p)}</td><td>${enlace(p)}</td><td>${chipB(p.bancada)}</td><td>${esc(enAgendaDesde(p))}</td></tr>`).join("") || vacio(4, "No hay proyectos en la agenda del Pleno.");
+  $("#cl-agenda").innerHTML = agenda.map((p) => `<tr><td>${estado(p)}</td><td>${proyecto(p)}</td><td>${chipB(p.bancada)}</td><td data-t="En agenda desde">${esc(enAgendaDesde(p))}</td></tr>`).join("") || vacio(4, "No hay proyectos en la agenda del Pleno.");
   $("#cl-h-rojas").textContent = `Alertas rojas vivas (${ROJAS.length})`;
-  $("#cl-rojas").innerHTML = ROJAS.map((p) => `<tr><td>${etiqueta(p)}</td><td>${enlace(p)}</td><td>${chipB(p.bancada)}</td><td>${esc(AVANCE[p.avance])}</td></tr>`).join("") || vacio(4, "No hay alertas rojas vivas.");
+  $("#cl-rojas").innerHTML = ROJAS.map((p) => `<tr><td>${estado(p)}</td><td>${proyecto(p)}</td><td>${chipB(p.bancada)}</td><td data-t="Etapa">${esc(AVANCE[p.avance])}</td></tr>`).join("") || vacio(4, "No hay alertas rojas vivas.");
 
   // Mis proyectos
   $("#cl-seguidos").innerHTML = mios.length ? mios.map((p) => {
     const [f, e] = ultimo(p);
-    return `<tr><td>${enlace(p)}${senalesHTML(p)}</td><td>${chipB(p.bancada)}</td>
-      <td>${esc(AVANCE[p.avance])}</td><td>${fecha(f)}<br><span class="cl-sub">${esc(cap(e))}</span></td>
+    return `<tr><td>${estado(p)}${proyecto(p)}${senalesHTML(p)}</td><td>${chipB(p.bancada)}</td>
+      <td data-t="Etapa">${esc(AVANCE[p.avance])}</td><td data-t="Último movimiento">${f ? fechaLarga(f) : ""}<span class="cl-sub">${esc(cap(e))}</span></td>
       <td><button type="button" class="enlace" data-dejar="${esc(p.id)}">Dejar de seguir</button></td></tr>`;
   }).join("") : vacio(5, "Todavía no sigues ningún proyecto. Ábrelo desde el reporte y usa «Seguir este proyecto».");
 

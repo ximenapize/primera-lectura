@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400..900;1,6..12,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="estilo.css?v=15">
+  <link rel="stylesheet" href="estilo.css?v=16">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%230B1626'/%3E%3Cg fill='none' stroke='%23F2E9D8' stroke-width='3.4' stroke-linecap='round'%3E%3Cpath d='M6 29a14 14 0 0 1 28 0'/%3E%3Cpath d='M13 29a7 7 0 0 1 14 0'/%3E%3C/g%3E%3Ccircle cx='20' cy='29' r='3' fill='%23E2B04A'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -164,8 +164,8 @@
       </div>
 
       <div class="cl" id="panel-cliente" hidden>
-        <aside class="cl-lado">
-          <a class="cl-marca" href="#/"><svg class="logo" viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M5 29a15 15 0 0 1 30 0"/><path d="M12.5 29a7.5 7.5 0 0 1 15 0"/></g><circle cx="20" cy="29" r="3.2" fill="#6FA8E8"/></svg>Primera Lectura</a>
+        <header class="cl-barra">
+          <a class="cl-marca" href="#/"><svg class="logo" viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M5 29a15 15 0 0 1 30 0"/><path d="M12.5 29a7.5 7.5 0 0 1 15 0"/></g><circle cx="20" cy="29" r="3.2" fill="var(--ab)"/></svg>Primera Lectura</a>
           <nav aria-label="Tu espacio">
             <a href="#/cliente" data-pest="resumen">Resumen</a>
             <a href="#/cliente/alertas" data-pest="alertas">Alertas y agenda<span class="cl-n" id="cl-n-alertas"></span></a>
@@ -173,24 +173,22 @@
             <a href="#/cliente/bancadas" data-pest="bancadas">Bancadas</a>
             <a href="#/cliente/avisos" data-pest="avisos">Mis avisos</a>
           </nav>
-          <div class="cl-cuenta"><span>Cliente</span><b id="cl-nombre"></b><span>Lente activo</span><b>Derechos humanos y gobernanza</b><span>Plan</span><b>A medida</b>
-            <button type="button" class="cl-salir" id="cl-salir">Salir</button></div>
-        </aside>
+          <div class="cl-cuenta"><b id="cl-nombre"></b><button type="button" class="cl-salir" id="cl-salir">Salir</button></div>
+        </header>
         <div class="cl-main">
-          <p class="cl-demo">Cuenta de demostración: el acceso es simulado en el navegador y los datos son los públicos del Congreso.</p>
-
           <section class="cl-pest" id="cl-resumen" aria-labelledby="cl-h-resumen">
-            <div class="cl-cab"><div><h1 id="cl-h-resumen" tabindex="-1">Resumen de la semana</h1><p id="cl-periodo"></p></div>
+            <div class="cl-cab"><div><h1 id="cl-h-resumen" tabindex="-1"></h1><p id="cl-periodo"></p></div>
               <div class="cl-botones"><button type="button" class="boton-sec" id="cl-excel">Exportar a Excel</button><button type="button" class="boton-pri" id="cl-pdf">Descargar el reporte en PDF</button></div></div>
-            <div class="cl-kpis" id="cl-kpis"></div>
+            <div class="cl-cifras" id="cl-cifras"></div>
             <div class="cl-grid">
-              <section class="cl-panel"><h2>Lo próximo en el Pleno</h2><p class="cl-sub">Proyectos en agenda, primero los que tienen alerta.</p>
-                <table class="cl-tabla"><tbody id="cl-prox"></tbody></table>
+              <section class="cl-panel"><h2>Lo próximo en el Pleno</h2>
+                <ul class="agenda" id="cl-prox"></ul>
                 <a class="cl-mas" href="#/cliente/alertas">Ver todas las alertas y la agenda</a></section>
-              <section class="cl-panel"><h2>Lo último en tus proyectos</h2><p class="cl-sub">El movimiento más reciente de cada proyecto que sigues.</p>
-                <table class="cl-tabla"><tbody id="cl-ultimos"></tbody></table>
+              <section class="cl-panel"><h2>Lo último en tus proyectos</h2>
+                <ul class="agenda" id="cl-ultimos"></ul>
                 <a class="cl-mas" href="#/cliente/mios">Ver mis proyectos</a></section>
             </div>
+            <p class="lente">Leído con el lente de <b>derechos humanos y gobernanza</b>. Plan a medida.</p>
           </section>
 
           <section class="cl-pest" id="cl-alertas" aria-labelledby="cl-h-alertas" hidden>
@@ -205,7 +203,7 @@
             <div class="cl-cab"><div><h1 id="cl-h-mios" tabindex="-1">Mis proyectos</h1><p>Te avisamos cuando cualquiera de estos se mueve. Agrega más desde la ficha de cada proyecto.</p></div>
               <div class="cl-botones"><a class="boton-sec" href="#/proyectos">Buscar proyectos para seguir</a></div></div>
             <section class="cl-panel">
-              <table class="cl-tabla"><thead><tr><th>Proyecto</th><th>Bancada</th><th>Etapa</th><th>Último movimiento</th><th></th></tr></thead><tbody id="cl-seguidos"></tbody></table></section>
+              <table class="cl-tabla cl-tope"><thead><tr><th>Proyecto</th><th>Bancada</th><th>Etapa</th><th>Último movimiento</th><th></th></tr></thead><tbody id="cl-seguidos"></tbody></table></section>
           </section>
 
           <section class="cl-pest" id="cl-bancadas" aria-labelledby="cl-h-bancadas" hidden>
@@ -215,19 +213,21 @@
               <section class="cl-panel"><h2 id="cl-vt"></h2><p class="cl-sub">El color es la bancada; la forma, el voto.</p>
                 <div id="cl-hemi"></div></section>
               <section class="cl-panel"><h2>Alertas por bancada</h2><p class="cl-sub">Proyectos vigentes de autores de cada grupo.</p>
-                <table class="cl-tabla"><thead><tr><th>Bancada</th><th class="n">Escaños</th><th class="n">Alertas rojas</th><th class="n">En observación</th></tr></thead><tbody id="cl-bancadas-filas"></tbody></table></section>
+                <table class="cl-tabla cl-num"><thead><tr><th>Bancada</th><th class="n">Escaños</th><th class="n">Alertas rojas</th><th class="n">En observación</th></tr></thead><tbody id="cl-bancadas-filas"></tbody></table></section>
             </div>
           </section>
 
           <section class="cl-pest" id="cl-avisos" aria-labelledby="cl-h-avisos" hidden>
             <div class="cl-cab"><div><h1 id="cl-h-avisos" tabindex="-1">Mis avisos</h1><p>Lo que recibe tu equipo sin entrar a la plataforma.</p></div></div>
-            <section class="cl-panel">
-              <ul class="cl-avisos">
-                <li><b>Correo diario, 8:00 a. m.</b> Proyectos nuevos que tocan tu lente, con su alerta y la cita del artículo.</li>
-                <li><b>WhatsApp, al momento.</b> Cuando un proyecto que sigues entra a la agenda del Pleno o recibe dictamen.</li>
-                <li><b>Reporte semanal, lunes.</b> El resumen en PDF y Excel, con tu marca.</li>
-              </ul></section>
+            <ul class="cl-avisos">
+              <li><b>Correo diario</b><span>8:00 a. m.</span><p>Proyectos nuevos que tocan tu lente, con su alerta y la cita del artículo.</p></li>
+              <li><b>WhatsApp</b><span>Al momento</span><p>Cuando un proyecto que sigues entra a la agenda del Pleno o recibe dictamen.</p></li>
+              <li><b>Reporte semanal</b><span>Los lunes</span><p>El resumen en PDF y Excel, con tu marca.</p></li>
+            </ul>
+            <p class="cl-sub">Así llegan los avisos en una cuenta contratada. La cuenta de demostración no envía mensajes.</p>
           </section>
+
+          <p class="cl-demo">Cuenta de demostración: el acceso es simulado en el navegador y los datos son los públicos del Congreso.</p>
         </div>
       </div>
     </section>
@@ -444,6 +444,6 @@
     <p>Código abierto en <a href="https://github.com/ximenapize/primera-lectura">GitHub</a>. Proyecto final de la Diplomatura en Ciencia de Datos, Q-Lab PUCP.</p>
   </footer>
 
-  <script src="app.js?v=15" defer></script>
+  <script src="app.js?v=16" defer></script>
 </body>
 </html>
