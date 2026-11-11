@@ -61,8 +61,12 @@ def esquema_preguntas() -> dict:
 
 def semaforo(respuestas: dict) -> str:
     """Regla fija: un "si" crítico es rojo; un "si" de contexto o un "depende" es amarillo; si no, verde.
-    "no_proporcional" solo cuenta si además el proyecto restringe un derecho."""
+    "no_proporcional" solo cuenta si además el proyecto restringe un derecho.
+    "vulnerables" solo cuenta si además restringe un derecho o es regresivo: un proyecto que protege a la niñez o a
+    las mujeres las "afecta", pero para bien, y eso es verde."""
     r = {i: respuestas.get(i, "no_aplica") for i in IDS}
+    if r["restringe"] not in ("si", "depende") and r["regresiva"] not in ("si", "depende"):
+        r["vulnerables"] = "no_aplica"
     if r["restringe"] not in ("si", "depende") and r["no_proporcional"] == "si":
         r["no_proporcional"] = "no_aplica"  # sin restricción no hay test que fallar
     if any(r[i] == "si" for i in CRITICAS):
@@ -81,7 +85,9 @@ def activadas(respuestas: dict) -> list:
 if __name__ == "__main__":
     print(f"{len(PREGUNTAS)} preguntas, {len(CRITICAS)} críticas: {sorted(CRITICAS)}")
     assert semaforo({i: "no" for i in IDS}) == "verde"
-    assert semaforo({**{i: "no" for i in IDS}, "vulnerables": "si"}) == "amarillo"
+    assert semaforo({**{i: "no" for i in IDS}, "vulnerables": "si"}) == "verde"  # protege a un grupo: verde
+    assert semaforo({**{i: "no" for i in IDS}, "vulnerables": "si", "restringe": "si"}) == "amarillo"
+    assert semaforo({**{i: "no" for i in IDS}, "vulnerables": "si", "regresiva": "depende"}) == "amarillo"
     assert semaforo({**{i: "no" for i in IDS}, "restringe": "si", "no_proporcional": "si"}) == "rojo"
     assert semaforo({**{i: "no" for i in IDS}, "restringe": "no", "no_proporcional": "si"}) == "verde"
     assert semaforo({**{i: "no" for i in IDS}, "restringe": "si"}) == "verde"

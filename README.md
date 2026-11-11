@@ -105,8 +105,8 @@ mismo pipeline lee con otros lentes cambiando el prompt y el prefiltro:
 
 | | |
 |---|---|
-| ![Portada con alertas](docs/capturas/1_portada.png) | ![Ficha de un proyecto](docs/capturas/2_ficha.png) |
-| **Portada:** el titular se arma con los datos del día y las alertas rojas muestran la cita resaltada | **Ficha:** primera lectura, cita verificada, estándares, recorrido y votaciones por bancada |
+| ![Portada: hemiciclo con los colores de cada bancada](docs/capturas/1_portada.png) | ![Espacio del cliente (cuenta de demostración)](docs/capturas/2_cliente.png) |
+| **Portada:** el hemiciclo usa el color de cada bancada y la forma del punto muestra el voto | **Espacio del cliente:** su reporte, alertas, agenda del Pleno y proyectos que sigue (acceso simulado) |
 | ![Votaciones](docs/capturas/3_votaciones.png) | |
 | **Votaciones:** cohesión de cada bancada y matriz de quién vota con quién | |
 
@@ -233,13 +233,20 @@ con usuarios, sin subir los audios a ningún servicio.
     al revés derogaciones que *amplían* derechos (por ejemplo, derogar una ley de amnistía) y marcaba como rojo
     regulaciones legítimas.
   - De 70 amarillos, **22 pasaron a verde, 44 se confirmaron y 4 subieron a rojo**.
-  - Resultado final: **8 rojos, 48 amarillos y 350 verdes** entre los 406 proyectos leídos. Los rojos son la
+  - Resultado final: **8 rojos, 58 amarillos y 340 verdes** entre los 406 proyectos leídos (incluye la auditoría de
+    verdes de abajo y la regla de grupos vulnerables). Los rojos son la
     ampliación de la detención policial a 15 días (4 proyectos), las penas de adulto para adolescentes (2), el
     aislamiento carcelario extremo y el retiro de la Convención Americana.
   - Las preguntas críticas más activadas: falla del test de proporcionalidad, regresividad y contradicción con un
     tratado. La respuesta "depende" (24 veces en el test de proporcionalidad) explica la mayoría de amarillos.
   - **Las 48 citas que dio el agente están verificadas en el PDF.** En 35 casos no citó porque el texto extraído
     no era el articulado (PDF escaneados u oficios anexos) y lo dejó dicho en la explicación.
+- **Auditoría de verdes:** Sonnet releyó con la rúbrica **30 verdes del modelo local elegidos al azar**. Ningún rojo
+  se había escapado; 12 pasaron a amarillo, y unos 6 de ellos son alertas de fondo (ampliar la definición de
+  organización criminal, alargar la internación de adolescentes, congelar fondos sin juez, entre otros). Es decir,
+  **1 de cada 5 verdes merecía observación**: por eso el modelo local solo filtra y la rúbrica decide.
+- **Ajuste a la rúbrica:** "afecta a grupos vulnerables" ya no vuelve amarillo un proyecto que los **protege**; solo
+  cuenta si además restringe un derecho o es regresivo. Los colores se recalculan con la regla vigente al exportar.
 - **Por qué dos niveles:** probamos el checklist en el modelo local de 7B y no alcanzó (unos 160 segundos por
   proyecto y errores de dirección en derogaciones). El modelo local filtra; Sonnet aplica la rúbrica.
 - **Lo que hay que mejorar:** la extracción de la fórmula legal en los PDF del Ejecutivo, y OCR para los escaneados.

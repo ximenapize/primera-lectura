@@ -9,7 +9,7 @@ from pathlib import Path
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "ai"))
-from preguntas import PREGUNTAS  # noqa: E402
+from preguntas import PREGUNTAS, semaforo  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parents[1]
 DATA = RAIZ / "data"
@@ -49,6 +49,8 @@ def main():
         k = (j["camara"], j["pl_id"])
         if "preguntas" in j or lecturas.get(k, {}).get("revisado_por") != "agente" or "preguntas" not in lecturas[k]:
             lecturas[k] = {**j, "revisado_por": "agente"}
+            if "preguntas" in j:  # el color se recalcula con la regla vigente, por si la rúbrica cambió
+                lecturas[k]["semaforo"] = semaforo(j["preguntas"])
 
     movs = pd.read_csv(DATA / "movimientos.csv", dtype=str).fillna("")
     recorrido = {k: g[["seg_fecha", "seg_estado", "seg_detalle"]].values.tolist()
@@ -69,7 +71,7 @@ def main():
                 "semaforo": lec["semaforo"], "resumen": lec.get("resumen", ""), "explicacion": lec.get("explicacion", ""),
                 "derechos": lec.get("derechos", []), "estandares": lec.get("estandares", []),
                 "cita": lec.get("cita_textual", ""), "cita_ok": bool(lec.get("cita_verificada")),
-                "por": lec["revisado_por"], "revisar": bool(lec.get("revisar")) and lec["revisado_por"] == "modelo",
+                "por": lec["revisado_por"], "modelo": lec.get("modelo", "qwen2.5:7b"), "revisar": bool(lec.get("revisar")) and lec["revisado_por"] == "modelo",
                 "preguntas": lec.get("preguntas"), "ganan": lec.get("ganan", ""), "pierden": lec.get("pierden", ""),
             },
         })

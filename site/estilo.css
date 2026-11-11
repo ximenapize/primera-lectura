@@ -94,12 +94,6 @@ main { outline: none; }
 .sala :focus-visible { outline-color: #8CB8F0; }
 .hemi { width: 100%; max-height: 44vh; display: block; }
 .hemi circle { transition: opacity .25s; }
-.hemi .v-SI { fill: var(--h-si); }
-.hemi .v-NO { fill: var(--h-no); }
-.hemi .v-AB { fill: var(--h-ab); }
-.hemi .v-AU { fill: var(--h-au); }
-.hemi.por-bancada circle { fill: var(--h-au); opacity: .4; }
-.hemi.por-bancada circle.on { fill: var(--h-no); opacity: 1; }
 .marcador { display: flex; gap: .4rem 1.6rem; align-items: baseline; flex-wrap: wrap; min-height: 2.6rem; }
 .marcador b { font: 700 2rem/1 var(--titulo); font-stretch: 85%; margin-right: .35rem; font-variant-numeric: tabular-nums; }
 .marcador span { color: var(--tenue-noche); font-size: var(--paso-1); }
@@ -500,3 +494,160 @@ main { outline: none; }
 .marco-grid ul { margin: 0; padding-left: 1rem; display: grid; gap: .45rem; font-size: .95rem; }
 @media (max-width: 960px) { .marco-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .marco-grid { grid-template-columns: 1fr; } }
+
+/* ---------- agenda del Pleno y señales del recorrido ---------- */
+#t-agenda { margin-bottom: 0; }
+.agenda-nota { margin: .5rem 0 0; }
+.agenda { list-style: none; margin: 0 0 2.2rem; padding: 0; }
+.agenda li { border-bottom: 1px solid var(--regla); padding: .8rem 0; display: grid; gap: .25rem; }
+.agenda li > a { font: 600 1.08rem/1.3 var(--titulo); color: var(--tinta); text-decoration: none; }
+.agenda li > a:hover { text-decoration: underline; }
+.agenda-meta { font-size: var(--paso-1); color: var(--tinta-2); }
+.senales { list-style: none; margin: .2rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .3rem 1rem; font-size: var(--paso-1); }
+.senales li { display: inline-flex; align-items: center; gap: .35rem; }
+.senales li::before { content: ""; width: .55rem; height: .55rem; background: var(--tinta-2); }
+.senales li.acelera { color: var(--rojo); font-weight: 600; }
+.senales li.acelera::before { background: var(--rojo); clip-path: polygon(0 100%, 50% 0, 100% 100%); }
+.senales li.frena::before { background: var(--verde); }
+.avanza { display: grid; gap: .6rem; }
+.cambio { border-left: 3px solid var(--sello); padding-left: .9rem; display: grid; gap: .4rem; }
+.cambio dl { display: grid; grid-template-columns: 11rem 1fr; gap: .3rem 1rem; margin: 0; font-size: .95rem; }
+.cambio dt { color: var(--tinta-2); }
+.cambio dd { margin: 0; font-family: var(--lee); }
+.viene .ya { font-size: var(--paso-1); font-weight: 700; color: var(--verde); margin-top: .3rem; }
+@media (max-width: 640px) { .cambio dl { grid-template-columns: 1fr; } }
+
+/* =====================================================================================
+   v3 "mesa de datos": fondo blanco, una sola familia (Avenir, con Nunito Sans de respaldo),
+   y el color reservado a las bancadas. El voto se lee por la forma; el riesgo, por la etiqueta.
+   ===================================================================================== */
+:root {
+  --papel: #FFFFFF; --hoja: #FFFFFF; --suave: #F5F6F8;
+  --tinta: #1A1D23; --tinta-2: #5B6270; --regla: #E4E6EA;
+  --sello: #1D4E89; --sello-claro: #EAF0F7;
+  --rojo: #B4001E; --ambar: #8A5A00; --verde: #1D6B3A;
+  --texto-noche: #1A1D23; --tenue-noche: #5B6270; --linea-noche: #E4E6EA; --ab: #1D4E89;
+  /* Avenir viene instalada en Mac y iPhone; en Windows y Android se usa Nunito Sans, su pariente más cercana en Google Fonts */
+  --titulo: "Avenir Next", Avenir, "Nunito Sans", system-ui, sans-serif; --sans: "Avenir Next", Avenir, "Nunito Sans", system-ui, sans-serif; --lee: "Avenir Next", Avenir, "Nunito Sans", system-ui, sans-serif;
+  --h-si: #1A1D23; --h-no: #9AA3AE; --h-ab: #D5DAE0; --h-au: #EEF0F3;
+}
+.barra { background: #fff; color: var(--tinta); border-bottom: 1px solid var(--regla); }
+.marca { color: var(--tinta); font-weight: 700; font-stretch: normal; letter-spacing: -.01em; }
+.barra nav a { color: var(--tinta-2); font-weight: 500; }
+.barra nav a:hover { color: var(--tinta); }
+.barra nav a[aria-current="page"] { color: var(--tinta); box-shadow: inset 0 -3px 0 var(--tinta); }
+.barra nav a.acceso-link { color: #fff; background: var(--tinta); border-radius: 4px; margin-left: .6rem; padding: 0 1rem; min-height: 38px; align-self: center; }
+.barra nav a.acceso-link[aria-current="page"] { box-shadow: none; }
+.barra :focus-visible, .sala :focus-visible, .heroe :focus-visible { outline-color: var(--sello); }
+.sala { background: #fff; color: var(--tinta); border-right: 1px solid var(--regla); }
+.sala h1, .heroe h1, .titular, .reporte h2, .bloque > h2, .muestra-cabeza h2, .problema h2, .cierre h2 { font-weight: 700; font-stretch: normal; letter-spacing: -.015em; }
+.elige-voto select { background: #fff; color: var(--tinta); border-color: #C9CED6; }
+.heroe { background: #fff; color: var(--tinta); border-bottom: 1px solid var(--regla); }
+.heroe-texto > p { color: var(--tinta-2); font-family: var(--sans); }
+.boton-ab { background: var(--tinta); color: #fff; }
+.boton-ab:hover { background: #000; }
+.boton-borde { border: 1px solid var(--tinta); color: var(--tinta); }
+.boton-pri { background: var(--tinta); }
+.testimonio { background: var(--tinta); color: #fff; }
+.testimonio footer { color: #C5CAD3; }
+.cierre { background: var(--suave); color: var(--tinta); }
+.cierre p { color: var(--tinta-2); }
+.perfil { border-top-color: var(--tinta); }
+.perfil svg { stroke: var(--tinta); }
+.pasos li::before { background: var(--tinta); }
+.viene article { border-left-color: var(--tinta); }
+
+/* hemiciclo: el color es la bancada (se pinta en línea), la forma es el voto */
+.hemi circle { transition: opacity .2s; }
+.hemi.por-bancada circle:not(.on) { opacity: .12; }
+.forma-voto { display: flex; gap: .4rem 1.2rem; flex-wrap: wrap; font-size: var(--paso-1); color: var(--tinta-2); }
+.forma-voto span { display: inline-flex; align-items: center; gap: .4rem; }
+.f-si, .f-no, .f-ab, .f-au { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--tinta); flex: none; }
+.f-no { background: #fff; border: 3px solid var(--tinta); }
+.f-ab { opacity: .3; }
+.f-au { width: 6px; height: 6px; background: #A3A9B3; }
+.marcador div { display: flex; align-items: baseline; gap: .35rem; }
+.marcador i { margin-right: 0; align-self: center; }
+.composicion { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .6rem; margin-top: .4rem; }
+.composicion div { border-top: 5px solid; padding-top: .35rem; font-size: .8rem; line-height: 1.25; color: var(--tinta-2); }
+.composicion b { display: block; font-size: 1.35rem; color: var(--tinta); font-weight: 700; }
+.chip-b { display: inline-flex; align-items: center; gap: .4rem; font-weight: 600; color: var(--tinta); white-space: nowrap; }
+.chip-b i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; flex: none; }
+
+/* riesgo: formas distintas del círculo de las bancadas */
+.etiqueta-riesgo::before { width: .75rem; height: .65rem; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.etiqueta-riesgo.amarillo::before { width: .6rem; height: .6rem; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.punto { border-radius: 0; }
+.punto.rojo { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.punto.amarillo { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.punto.verde { width: .6rem; height: .6rem; }
+.punto.sin { border-radius: 50%; }
+
+/* ---------- espacio del cliente: tablero gris con paneles blancos ---------- */
+body.modo-cliente .barra, body.modo-cliente .pie { display: none; }
+#vista-cliente { max-width: none !important; padding: 0 !important; }
+.acceso { min-height: calc(100vh - var(--barra)); display: grid; place-items: center; background: var(--suave); padding: 2rem 1rem; }
+.acceso-caja { background: #fff; border: 1px solid var(--regla); border-radius: 6px; padding: 2rem; width: min(26rem, 100%); display: grid; gap: 1rem; }
+.acceso-caja h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -.02em; }
+.acceso-caja > p { color: var(--tinta-2); font-size: .95rem; }
+.acceso-caja .boton-pri { min-height: 48px; }
+.acceso-error { color: var(--rojo); font-size: var(--paso-1); min-height: 1.2em; margin: -.4rem 0; }
+.acceso-demo { font-size: var(--paso-1); color: var(--tinta-2); background: var(--suave); padding: .7rem .8rem; border-radius: 4px; }
+.cl { display: grid; grid-template-columns: 236px minmax(0, 1fr); min-height: 100vh; background: #EEF1F4; font-variant-numeric: tabular-nums; }
+.cl-lado { background: #1D2733; color: #C9D2DD; padding: 1.25rem 1rem; display: flex; flex-direction: column; gap: 1.25rem; position: sticky; top: 0; height: 100vh; }
+.cl-marca { display: flex; align-items: center; gap: .6rem; color: #fff; font-weight: 700; font-size: 1.1rem; text-decoration: none; padding: 0 .5rem; }
+.cl-marca .logo { width: 28px; height: 28px; }
+.cl-lado nav { display: grid; gap: 2px; }
+.cl-lado nav a { color: inherit; text-decoration: none; padding: .65rem .75rem; border-radius: 5px; font-weight: 500; }
+.cl-lado nav a:hover { background: #2E3B4B; color: #fff; }
+.cl-cuenta { margin-top: auto; border-top: 1px solid #33414F; padding: 1rem .5rem 0; display: grid; gap: .15rem; font-size: .8rem; }
+.cl-cuenta b { color: #fff; font-size: .92rem; margin-bottom: .45rem; }
+.cl-salir { margin-top: .4rem; background: none; border: 1px solid #4A5868; color: #fff; border-radius: 4px; min-height: 40px; }
+.cl-main { padding: 1.5rem 1.75rem 3rem; display: grid; gap: 1rem; align-content: start; min-width: 0; }
+.cl-cab { display: flex; justify-content: space-between; align-items: end; gap: 1rem; flex-wrap: wrap; scroll-margin-top: 1rem; }
+.cl-cab h1 { font-size: 1.7rem; font-weight: 700; letter-spacing: -.02em; }
+.cl-cab p { color: var(--tinta-2); }
+.cl-botones { display: flex; gap: .5rem; }
+.cl-demo { font-size: var(--paso-1); color: var(--tinta-2); margin-top: -.5rem; }
+.cl-kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .75rem; }
+.cl-kpi { background: #fff; border: 1px solid #DCE1E7; border-radius: 6px; padding: .85rem 1rem; }
+.cl-kpi b { display: block; font-size: 1.8rem; font-weight: 700; line-height: 1.1; }
+.cl-kpi span { color: var(--tinta-2); font-size: .82rem; }
+.cl-kpi.al b { color: var(--rojo); }
+.cl-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 1rem; align-items: start; }
+.cl-panel { background: #fff; border: 1px solid #DCE1E7; border-radius: 6px; padding: 1rem 1.15rem; scroll-margin-top: 1rem; min-width: 0; }
+.cl-panel h2 { font-size: 1.05rem; font-weight: 700; }
+.cl-sub { color: var(--tinta-2); font-size: .82rem; }
+.cl-panel .hemi { max-height: none; margin-top: .5rem; }
+.cl-tabla { width: 100%; border-collapse: collapse; font-size: .9rem; margin-top: .6rem; }
+.cl-tabla th { text-align: left; color: var(--tinta-2); font-weight: 600; font-size: .78rem; padding: .4rem .5rem; border-bottom: 1px solid #DCE1E7; }
+.cl-tabla td { padding: .6rem .5rem; border-bottom: 1px solid #EEF1F4; vertical-align: top; }
+.cl-tabla .n { text-align: right; }
+.cl-tabla a { color: var(--tinta); text-decoration: none; }
+.cl-tabla a:hover { text-decoration: underline; }
+.cl-tag { display: inline-block; font-size: .75rem; font-weight: 700; padding: .1rem .45rem; border-radius: 3px; background: #FBE5E8; color: var(--rojo); white-space: nowrap; }
+.cl-tag.amarillo { background: #FBF0D6; color: #6F4A00; } .cl-tag.sin { background: #EEF1F4; color: var(--tinta-2); } .cl-tag.verde { background: #E3F2E9; color: #1D6B3A; }
+.cl-en-agenda { display: block; font-size: .72rem; font-weight: 700; color: var(--sello); margin-top: .25rem; }
+.cl-avisos { margin: .6rem 0 0; padding-left: 1.1rem; display: grid; gap: .4rem; font-size: .92rem; }
+@media (max-width: 960px) {
+  .cl { grid-template-columns: 1fr; }
+  .cl-lado { position: static; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .cl-lado nav { display: flex; flex-wrap: wrap; }
+  .cl-cuenta { margin-top: 0; border: 0; padding: 0; }
+  .cl-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cl-grid { grid-template-columns: 1fr; }
+  .cl-tabla { display: block; overflow-x: auto; }
+}
+@media print {
+  body.modo-cliente .cl-lado, body.modo-cliente .cl-botones, body.modo-cliente .cl-demo, body.modo-cliente #vista-reporte { display: none !important; }
+  body.modo-cliente .cl { display: block; background: #fff; }
+  body.modo-cliente #vista-cliente { display: block !important; }
+}
+
+/* Avenir Bold ya es pesada: 700 en titulares, 600 en subtítulos */
+.item-abre, .agenda li > a, .muestra-alertas h3, .perfil h3, .pasos h3, .viene h3, .plan h3 { font-weight: 600; }
+.senales li.acelera { color: var(--sello); }
+.senales li.acelera::before { background: var(--sello); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.barra-h { grid-template-columns: 14rem 1fr 3rem; }
+.matriz .rot i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: .35rem; }
+@media (max-width: 640px) { .barra-h { grid-template-columns: 9.5rem 1fr 2.6rem; } .barra-h .chip-b { white-space: normal; } }

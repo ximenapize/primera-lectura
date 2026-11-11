@@ -7,8 +7,8 @@
   <meta name="description" content="Cada proyecto de ley del Congreso del Perú, leído por IA el día que se presenta: temática, avance, alertas de derechos humanos con la cita del artículo y cómo votó cada bancada.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="estilo.css?v=10">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400..900;1,6..12,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="estilo.css?v=12">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%230B1626'/%3E%3Cg fill='none' stroke='%23F2E9D8' stroke-width='3.4' stroke-linecap='round'%3E%3Cpath d='M6 29a14 14 0 0 1 28 0'/%3E%3Cpath d='M13 29a7 7 0 0 1 14 0'/%3E%3C/g%3E%3Ccircle cx='20' cy='29' r='3' fill='%23E2B04A'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -33,6 +33,7 @@
         <a href="#/votaciones" data-ruta="votaciones">Votaciones</a>
         <a href="#/panorama" data-ruta="panorama">Panorama</a>
         <a href="#/como-funciona" data-ruta="como-funciona">Cómo funciona</a>
+        <a href="#/cliente" data-ruta="cliente" class="acceso-link">Acceso clientes</a>
       </nav>
     </div>
   </header>
@@ -53,6 +54,8 @@
         </div>
         <figure class="heroe-sala">
           <div id="heroe-hemi"></div>
+          <div class="composicion" id="heroe-comp"></div>
+          <div id="heroe-forma"></div>
           <figcaption id="heroe-pie"></figcaption>
         </figure>
       </div>
@@ -133,9 +136,9 @@
         <h2 id="t-viene">Lo que viene: de qué entró a qué hacer</h2>
         <p class="bloque-bajada">Hoy le decimos qué se presentó, qué riesgo tiene y cómo se votó. Lo siguiente sale de lo que nos pidieron los equipos que entrevistamos.</p>
         <div class="viene">
-          <article><h3>Qué se vota esta semana</h3><p>Aviso cuando un proyecto que usted sigue entra a la agenda del Pleno o de una comisión, con días para actuar.</p></article>
-          <article><h3>Qué cambió en el dictamen</h3><p>El proyecto original y el texto sustitutorio lado a lado, con lo que se agregó y lo que se quitó.</p></article>
-          <article><h3>Señales de que un proyecto se acelera</h3><p>Exoneraciones de dictamen o de segunda votación, acumulaciones y prioridad en agenda, convertidas en una probabilidad de avance.</p></article>
+          <article><h3>Qué se vota esta semana</h3><p class="ya">Primera versión en el reporte</p><p>Los proyectos que la Junta de Portavoces puso en la agenda del Pleno. Lo siguiente: avisarle cuando entra uno de los suyos, y las agendas de comisión.</p></article>
+          <article><h3>Qué cambió en el dictamen</h3><p class="ya">Primera versión en la ficha</p><p>Hoy, cómo se presentó y cómo lo aprobó la comisión. Lo siguiente: los dos textos artículo por artículo.</p></article>
+          <article><h3>Señales de que un proyecto se acelera</h3><p class="ya">Primera versión en la ficha</p><p>Carácter de urgente, exoneraciones, ampliación de agenda y dictámenes por unanimidad. Lo siguiente: una probabilidad de avance.</p></article>
           <article><h3>A quién convencer</h3><p>Quién preside y quién integra la comisión, cómo votó cada uno en temas parecidos y quiénes son los votos bisagra.</p></article>
         </div>
       </section>
@@ -158,6 +161,57 @@
       </section>
     </section>
 
+    <!-- ============ Espacio del cliente (demo, acceso simulado) ============ -->
+    <section id="vista-cliente" class="vista" hidden>
+      <div class="acceso" id="acceso">
+        <form class="acceso-caja" id="form-acceso" novalidate>
+          <h1>Entra a tu espacio</h1>
+          <p>Cada cliente ve solo los proyectos que tocan sus temas, leídos con su lente, y recibe los entregables de su plan.</p>
+          <label class="campo"><span>Usuario</span><input name="usuario" autocomplete="username" required></label>
+          <label class="campo"><span>Contraseña</span><input name="clave" type="password" autocomplete="current-password" required></label>
+          <p class="acceso-error" id="acceso-error" role="alert"></p>
+          <button class="boton-pri" type="submit">Entrar</button>
+          <p class="acceso-demo" id="acceso-demo"></p>
+        </form>
+      </div>
+
+      <div class="cl" id="panel-cliente" hidden>
+        <aside class="cl-lado">
+          <a class="cl-marca" href="#/"><svg class="logo" viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M5 29a15 15 0 0 1 30 0"/><path d="M12.5 29a7.5 7.5 0 0 1 15 0"/></g><circle cx="20" cy="29" r="3.2" fill="#6FA8E8"/></svg>Primera Lectura</a>
+          <nav aria-label="Tu espacio">
+            <a href="#cl-resumen">Reporte semanal</a>
+            <a href="#cl-alertas">Alertas y agenda</a>
+            <a href="#cl-mios">Mis proyectos</a>
+            <a href="#cl-sala">Bancadas</a>
+            <a href="#cl-avisos">Mis avisos</a>
+          </nav>
+          <div class="cl-cuenta"><span>Cliente</span><b id="cl-nombre"></b><span>Lente activo</span><b>Derechos humanos y gobernanza</b><span>Plan</span><b>Institucional</b>
+            <button type="button" class="cl-salir" id="cl-salir">Salir</button></div>
+        </aside>
+        <div class="cl-main">
+          <div class="cl-cab" id="cl-resumen"><div><h1>Reporte de la semana</h1><p id="cl-periodo"></p></div>
+            <div class="cl-botones"><button type="button" class="boton-sec" id="cl-excel">Exportar a Excel</button><button type="button" class="boton-pri" id="cl-pdf">Descargar PDF</button></div></div>
+          <p class="cl-demo">Cuenta de demostración: el acceso es simulado en el navegador y los datos son los públicos del Congreso.</p>
+          <div class="cl-kpis" id="cl-kpis"></div>
+          <div class="cl-grid">
+            <section class="cl-panel" id="cl-sala"><h2 id="cl-vt"></h2><p class="cl-sub">El color es la bancada; la forma, el voto.</p>
+              <div id="cl-hemi"></div>
+              <table class="cl-tabla"><thead><tr><th>Bancada</th><th class="n">Escaños</th><th class="n">Alertas rojas</th><th class="n">En observación</th></tr></thead><tbody id="cl-bancadas"></tbody></table></section>
+            <section class="cl-panel" id="cl-alertas"><h2>Alertas y agenda</h2><p class="cl-sub">Primero lo que ya tiene fecha en el Pleno; luego las alertas rojas vivas.</p>
+              <table class="cl-tabla"><thead><tr><th>Estado</th><th>Proyecto</th><th>Bancada</th></tr></thead><tbody id="cl-filas"></tbody></table></section>
+          </div>
+          <section class="cl-panel" id="cl-mios"><h2>Mis proyectos en seguimiento</h2><p class="cl-sub">Te avisamos cuando cualquiera de estos se mueve. Agrega más desde la ficha de cada proyecto.</p>
+            <table class="cl-tabla"><thead><tr><th>Proyecto</th><th>Bancada</th><th>Etapa</th><th>Último movimiento</th><th></th></tr></thead><tbody id="cl-seguidos"></tbody></table></section>
+          <section class="cl-panel" id="cl-avisos"><h2>Mis avisos</h2>
+            <ul class="cl-avisos">
+              <li><b>Correo diario, 8:00 a. m.</b> Proyectos nuevos que tocan tu lente, con su alerta y la cita del artículo.</li>
+              <li><b>WhatsApp, al momento.</b> Cuando un proyecto que sigues entra a la agenda del Pleno o recibe dictamen.</li>
+              <li><b>Reporte semanal, lunes.</b> Este reporte en PDF y Excel, con tu marca.</li>
+            </ul></section>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ Reporte ============ -->
     <section id="vista-reporte" class="vista" hidden>
       <div class="todo">
@@ -165,6 +219,7 @@
           <h1 id="sala-titulo"></h1>
           <p class="sala-sub" id="sala-sub"></p>
           <div id="sala-hemi"></div>
+          <div class="composicion" id="sala-comp"></div>
           <p class="sala-pie">Un punto por congresista. Pasa el cursor sobre un punto para ver su nombre, bancada y voto.</p>
           <div class="marcador" id="sala-marcador"></div>
           <div class="sala-controles">
@@ -183,6 +238,9 @@
           </header>
           <p class="lente">Leído con el lente de <b>derechos humanos y gobernanza</b>: 14 preguntas que cada proyecto debe pasar. Para tu organización armamos el lente con tus preguntas, por ejemplo riesgo regulatorio o salud.</p>
           <p class="semana" id="reporte-semana"></p>
+          <h3 id="t-agenda"></h3>
+          <p class="nota agenda-nota">Lo que la Junta de Portavoces ya puso para votar: aquí todavía hay tiempo para actuar.</p>
+          <ul id="reporte-agenda" class="agenda"></ul>
           <h3 id="t-rojas"></h3>
           <div id="reporte-rojas"></div>
           <h3 id="t-observacion"></h3>
@@ -366,6 +424,6 @@
     <p>Código abierto en <a href="https://github.com/ximenapize/primera-lectura">GitHub</a>. Proyecto final de la Diplomatura en Ciencia de Datos, Q-Lab PUCP.</p>
   </footer>
 
-  <script src="app.js?v=10" defer></script>
+  <script src="app.js?v=12" defer></script>
 </body>
 </html>

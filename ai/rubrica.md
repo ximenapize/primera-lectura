@@ -64,7 +64,9 @@ La lista vive en [`ai/preguntas.py`](preguntas.py), que también aplica la regla
 | **Amarillo** | Ninguna crítica en "sí", pero alguna pregunta de contexto en "sí" o alguna respuesta "depende" |
 | **Verde** | Todo "no" o "no aplica" (incluye los proyectos que **amplían** derechos) |
 
-"Falla el test de proporcionalidad" solo cuenta si el proyecto además restringe un derecho. Ante la duda entre
+"Falla el test de proporcionalidad" solo cuenta si el proyecto además restringe un derecho. "Afecta a grupos en
+situación de vulnerabilidad" solo cuenta si el proyecto además restringe un derecho o es regresivo: un proyecto que
+protege a la niñez o a las mujeres las afecta, pero para bien, y es verde. Ante la duda entre
 "sí" y "no" en una pregunta crítica, responder **"depende"** y explicar de qué depende: así el proyecto queda
 amarillo y no rojo.
 

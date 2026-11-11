@@ -5,6 +5,8 @@
 # Guarda en data/riesgo.jsonl (una línea por proposición) y es incremental.
 # Uso: uv run ai/riesgo.py --ids 00761-2026-2031-CD,00757-2026-2031-CD
 #      uv run ai/riesgo.py --prefiltro          (solo los que pasan el filtro de reglas)
+#      uv run ai/riesgo.py --vigentes           (todos los vigentes que falten, sin filtro de temas)
+#      uv run ai/riesgo.py --releer-ilegibles   (relee con OCR los que se leyeron con un PDF casi sin texto)
 import argparse
 import json
 import sys
@@ -113,10 +115,24 @@ def prefiltro(props: pd.DataFrame) -> pd.DataFrame:
     return df.sort_values(["_prioridad", "fecha_presentacion"], ascending=[True, False]).drop(columns="_prioridad")
 
 
+def sin_filtro(props: pd.DataFrame) -> pd.DataFrame:
+    """Todos los proyectos vigentes, sin el filtro de temas: para leer también los que el prefiltro dejó fuera
+    (educación, trabajo, salud…). Mismo orden de prioridad: primero los que avanzan, luego los más recientes."""
+    temas = pd.read_csv(TEMAS, dtype=str).fillna("")
+    df = props.merge(temas[["camara", "pl_id", "tema"]], on=["camara", "pl_id"], how="left")
+    df = df[~df.ultimo_estado.str.contains("Archivad|Retirad", regex=True) & (df.tema != "Declaraciones y homenajes")].copy()
+    avanza = df.ultimo_estado.str.contains("DICTAMEN|AGENDA|APROBADO|Autógrafa", case=False, regex=True)
+    df["_prioridad"] = (~avanza).astype(int)
+    return df.sort_values(["_prioridad", "fecha_presentacion"], ascending=[True, False]).drop(columns="_prioridad")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ids", default="", help="pl_id separados por coma")
     ap.add_argument("--prefiltro", action="store_true")
+    ap.add_argument("--vigentes", action="store_true", help="todos los vigentes, sin filtro de temas")
+    ap.add_argument("--releer-ilegibles", action="store_true",
+                    help="vuelve a leer, ahora con OCR, los que ya se leyeron con un PDF casi sin texto")
     ap.add_argument("--limite", type=int, default=None)
     ap.add_argument("--salida", default=str(SALIDA), help="archivo jsonl (para probar otro modelo sin pisar el actual)")
     a = ap.parse_args()
@@ -126,13 +142,21 @@ def main():
         objetivo = props[props.pl_id.isin(a.ids.split(","))]
     elif a.prefiltro:
         objetivo = prefiltro(props)
+    elif a.vigentes:
+        objetivo = sin_filtro(props)
     else:
         objetivo = props
     salida = Path(a.salida)
     hechos = set()
     if salida.exists():
         hechos = {(j["camara"], j["pl_id"]) for j in map(json.loads, salida.read_text().splitlines())}
-    objetivo = objetivo[[(c, p) not in hechos for c, p in zip(objetivo.camara, objetivo.pl_id)]]
+    if a.releer_ilegibles:
+        # los que se leyeron con poco texto: la nueva lectura se agrega al final y reemplaza a la anterior
+        previas = [json.loads(l) for l in salida.read_text().splitlines()] if salida.exists() else []
+        malos = {(j["camara"], j["pl_id"]) for j in previas if j.get("pdf_legible", 1) < 0.5}
+        objetivo = props[[(c, p) in malos for c, p in zip(props.camara, props.pl_id)]]
+    else:
+        objetivo = objetivo[[(c, p) not in hechos for c, p in zip(objetivo.camara, objetivo.pl_id)]]
     if a.limite:
         objetivo = objetivo.head(a.limite)
     print(f"{len(objetivo)} proposiciones por analizar con {MODELO}")

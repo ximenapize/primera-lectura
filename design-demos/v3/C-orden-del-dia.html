@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C. Orden del día</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+:root{--fondo:#E9ECEF;--tinta:#16191D;--gris:#5C636D;--linea:#D5DAE0;--alerta:#B4001E}
+*{box-sizing:border-box}body{margin:0;background:var(--fondo);color:var(--tinta);font:16px/1.5 "Libre Franklin",system-ui,sans-serif}
+header{background:#fff;border-bottom:1px solid var(--linea);display:flex;justify-content:space-between;align-items:center;padding:0 36px;height:60px}
+.marca{display:flex;gap:10px;align-items:center;font-weight:800;font-size:19px}.marca svg{width:28px}
+nav{display:flex;gap:24px;font-size:15px;color:var(--gris)}nav b{color:var(--tinta)}
+.hoja{max-width:1180px;margin:28px auto;background:#fff;border:1px solid var(--linea);display:grid;grid-template-columns:1fr 360px}
+.izq{padding:32px 40px;border-right:1px solid var(--linea)}
+.der{padding:28px 26px;background:#FAFBFC}
+.fecha{font-size:14px;color:var(--gris);font-weight:500}
+h1{font-size:38px;line-height:1.05;font-weight:800;letter-spacing:-.02em;margin:6px 0 14px;max-width:16em}
+.lead{font:400 19px/1.55 Newsreader,Georgia,serif;margin:0 0 26px;max-width:36em}
+h2{font-size:15px;font-weight:700;margin:0 0 10px;padding-bottom:8px;border-bottom:2px solid var(--tinta)}
+ol{list-style:none;counter-reset:o;margin:0 0 30px;padding:0}
+ol li{counter-increment:o;display:grid;grid-template-columns:34px 1fr;gap:4px 10px;padding:12px 0;border-bottom:1px solid var(--linea)}
+ol li::before{content:counter(o);font-weight:800;font-size:18px;color:var(--gris)}
+li h3{margin:0;font-size:16px;font-weight:600;line-height:1.35}
+.meta{grid-column:2;font-size:13px;color:var(--gris);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.sem{font-weight:700}.sem.rojo{color:var(--alerta)}.sem.amarillo{color:#8A5A00}
+.alerta{padding:14px 0;border-bottom:1px solid var(--linea)}
+.alerta h3{margin:4px 0 6px;font-size:17px;line-height:1.3;font-weight:700}
+.alerta q{font:italic 400 15.5px/1.5 Newsreader,Georgia,serif;color:#333;display:block;border-left:3px solid var(--alerta);padding-left:10px;quotes:"«" "»"}
+.chip{display:inline-flex;gap:6px;align-items:center;font-weight:600;color:var(--tinta)}
+.chip i{width:10px;height:10px;display:inline-block}
+.barra{display:flex;height:22px;margin:8px 0 6px}.barra span{display:block;height:100%}
+.ley{display:grid;gap:5px;font-size:13px}.ley div{display:flex;justify-content:space-between}
+.hemi{width:100%;display:block;margin-top:8px}
+.nota{font-size:13px;color:var(--gris)}
+.btn{display:block;text-align:center;background:var(--tinta);color:#fff;padding:12px;font-weight:700;text-decoration:none;margin-top:18px}
+</style></head><body>
+<header><div class="marca"><svg viewBox="0 0 40 40"><g fill="none" stroke="#16191D" stroke-width="3.4" stroke-linecap="round"><path d="M5 29a15 15 0 0 1 30 0"/><path d="M12.5 29a7.5 7.5 0 0 1 15 0"/></g><circle cx="20" cy="29" r="3.2" fill="#B4001E"/></svg>Primera Lectura</div>
+<nav><span>Inicio</span><b>Reporte</b><span>Proyectos</span><span>Votaciones</span><span>Cómo funciona</span></nav></header>
+<div class="hoja">
+ <div class="izq">
+  <div class="fecha">Reporte semanal, del 3 al 9 de noviembre de 2026</div>
+  <h1 id="t"></h1>
+  <p class="lead" id="l"></p>
+  <h2>Orden del día del Pleno</h2><ol id="a"></ol>
+  <h2>Alertas rojas que siguen vivas</h2><div id="r"></div>
+ </div>
+ <aside class="der">
+  <h2>Composición de Diputados</h2>
+  <div class="barra" id="b"></div><div class="ley" id="ley"></div>
+  <h2 style="margin-top:26px">Última votación dividida</h2>
+  <div id="h"></div>
+  <p class="nota" id="hv"></p>
+  <p class="nota">Punto lleno: a favor. Anillo: en contra.</p>
+  <a class="btn" href="#">Descargar PDF</a>
+ </aside>
+</div>
+<script src="datos.js"></script><script src="hemi.js"></script>
+<script>
+const v=D.voto,S={rojo:"Alerta roja",amarillo:"En observación",verde:"Sin riesgo",sin:"Sin leer"};
+t.textContent=`${D.n_agenda} proyectos esperan voto en el Pleno; ${D.rojas.length} alertas rojas siguen abiertas.`;
+l.textContent=`Esta semana entraron 68 proyectos. Ninguno encendió una alerta roja nueva; las ocho vivas vienen de Renovación Popular (6) y Fuerza Popular (2).`;
+a.innerHTML=D.agenda.slice(0,5).map(p=>`<li><h3>${p.resumen}</h3><div class="meta"><span class="sem ${p.sem}">${S[p.sem]}</span>${chip(p.bancada)}<span>PL ${p.pl}</span></div></li>`).join("");
+r.innerHTML=D.rojas.slice(0,3).map(p=>`<div class="alerta"><div class="meta">${chip(p.bancada)}<span>PL ${p.pl}</span></div><h3>${p.resumen}</h3>${p.cita?`<q>${p.cita}</q>`:""}</div>`).join("");
+const e=escanos(),tot=e.reduce((s,[,n])=>s+n,0);
+b.innerHTML=e.map(([s,n])=>`<span style="width:${n/tot*100}%;background:${COLOR[s]}" title="${D.bancadas[s]}"></span>`).join("");
+ley.innerHTML=e.map(([s,n])=>`<div>${chip(D.bancadas[s])}<b>${n}</b></div>`).join("");
+h.innerHTML=hemi(v,{fondo:"#FAFBFC"});hv.textContent=`PL 98, ${fechaL(v.fecha)}: rechazado ${v.no} a ${v.si}.`;
+</script></body></html>
