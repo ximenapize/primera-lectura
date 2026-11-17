@@ -864,3 +864,16 @@ diputados,00834-2026-2031-CD,Medio ambiente,Justicia y derechos humanos,qwen2.5:
 diputados,00833-2026-2031-CD,Economía y finanzas,Salud; Tecnología y digital,qwen2.5:7b
 diputados,00832-2026-2031-CD,Tecnología y digital,,qwen2.5:7b
 diputados,00831-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+senado,00026-2026-2031-S,Economía y finanzas,,qwen2.5:7b
+senado,00025-2026-2031-S,Trabajo y pensiones,,qwen2.5:7b
+senado,00024-2026-2031-S,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+senado,00023-2026-2031-S,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00852-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00851-2026-2031-CD,Educación y cultura,Infraestructura y transporte,qwen2.5:7b
+diputados,00850-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00849-2026-2031-CD,Infraestructura y transporte,Estado y reforma política,qwen2.5:7b
+diputados,00848-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00847-2026-2031-CD,Justicia y derechos humanos,Estado y reforma política,qwen2.5:7b
+diputados,00846-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00845-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00844-2026-2031-CD,Justicia y derechos humanos,Seguridad y defensa,qwen2.5:7b
