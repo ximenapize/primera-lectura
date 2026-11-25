@@ -938,3 +938,16 @@ diputados,00907-2026-2031-CD,Estado y reforma política,,qwen2.5:7b
 diputados,00906-2026-2031-CD,Trabajo y pensiones,Consumidor y servicios públicos,qwen2.5:7b
 diputados,00905-2026-2031-CD,Medio ambiente,Estado y reforma política,qwen2.5:7b
 diputados,00904-2026-2031-CD,Economía y finanzas,Estado y reforma política,qwen2.5:7b
+diputados,00922-2026-2031-CD,Seguridad y defensa,,qwen2.5:7b
+diputados,00921-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00920-2026-2031-CD,Justicia y derechos humanos,Seguridad y defensa,qwen2.5:7b
+diputados,00919-2026-2031-CD,Justicia y derechos humanos,"Inclusión social, mujer y pueblos indígenas",qwen2.5:7b
+diputados,00918-2026-2031-CD,Justicia y derechos humanos,Seguridad y defensa,qwen2.5:7b
+diputados,00917-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00916-2026-2031-CD,Educación y cultura,,qwen2.5:7b
+diputados,00915-2026-2031-CD,Seguridad y defensa,Estado y reforma política; Infraestructura y transporte,qwen2.5:7b
+diputados,00914-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00913-2026-2031-CD,Salud,,qwen2.5:7b
+diputados,00912-2026-2031-CD,Justicia y derechos humanos,,qwen2.5:7b
+diputados,00911-2026-2031-CD,Educación y cultura,Justicia y derechos humanos,qwen2.5:7b
+diputados,00910-2026-2031-CD,Minería y energía,Economía y finanzas,qwen2.5:7b
